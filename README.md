@@ -1,0 +1,134 @@
+# CANDOR.md
+
+[![CANDOR: copilot](https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2)](https://candor.md)
+
+## Summary
+AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured `CANDOR.md` file like they include other files in a repository to make the AI-usage crystal clear _and_, more importantly, to make it a widespread convention to do so.
+
+This is not to discourage usage of LLM- and other code-generation in the future. On the contrary, it is an enabler. When you declare what parts of the code were, in fact, generated, a skeptic can immediately look into just those parts to satisfy their urge to re-verify and double-check. And, it lets the creator showcase their skillset with code and their skillset with planning and other soft skills simultaneously and with clarity.
+
+The name is intentional. Candor is a noun meaning:
+
+> The quality of being open and honest; frankness.
+
+### Specification
+
+A `CANDOR.md` file uses YAML frontmatter for structured fields, followed by a required `## Notes` section in the markdown body for human context. At minimum, it requires `version`, `level`, and a `## Notes` section.
+
+Optionally, you can declare `processes`, each with their own level. The global `level` must be the highest level present. Any process not listed is assumed to be `none` implicitly. You can also list `components` (file paths or directories) with individual levels.
+
+The specification formally defines `version`, `level`, `processes`, and `components`.
+
+#### Levels
+
+- `none`: No AI tools were used at any point.
+- `hint`: AI autocomplete or inline suggestions only. The human writes all code. AI occasionally completes a line or block.
+- `assist`: Human-led. AI is used on demand for specific tasks (generating a function, explaining code, drafting a test) but does not drive the work.
+- `pair`: Active human-AI collaboration throughout. Contribution is roughly equal.
+- `copilot`: AI implements while the human plans and reviews. The human defines what to build and validates the output, but the AI does most of the writing.
+- `auto`: AI acts autonomously with minimal human direction. The human may steer at a high level or approve outcomes, but does not write or closely direct the code.
+
+#### Processes
+
+- `design`: Architecture, system design, and decision-making.
+- `implementation`: Writing production code.
+- `testing`: Writing tests, test plans, and quality assurance.
+- `documentation`: Writing docs, comments, READMEs, and changelogs.
+- `review`: Code review and pull request feedback.
+- `deployment`: CI/CD configuration, infrastructure, and release scripts.
+
+### Examples
+
+Below, you will find some examples of different scenarios.
+
+#### Simple
+
+The simplest `CANDOR.md` requires `version`, `level`, and a `## Notes` section.
+
+```markdown
+---
+version: "0.1.0"
+level: none
+---
+
+## Notes
+
+- No AI tools were used.
+```
+
+```markdown
+---
+version: "0.1.0"
+level: auto
+---
+
+## Notes
+
+- Claude Code was used to create the whole application.
+```
+
+#### With Processes
+
+Use `processes` to granularly declare AI involvement per development phase. The global `level` must be the highest level present. Any process not listed is assumed to be `none` implicitly.
+
+```markdown
+---
+version: "0.1.0"
+level: auto
+processes:
+  design: auto
+  testing: copilot
+---
+
+## Notes
+
+- AI drove architecture decisions and test generation. All output was reviewed by a human.
+```
+
+#### With Components
+
+Use `components` to declare AI involvement for specific files or directories.
+
+```markdown
+---
+version: "0.1.0"
+level: auto
+components:
+  src/helpers: auto
+---
+
+## Notes
+
+- The helpers directory was fully generated. All other code is human-written.
+```
+
+## Badges
+
+Add a badge to your `README` to declare your `CANDOR` level at a glance. Please note, this is just for convenience and to comply with the specification, you _must_ include a `CANDOR.md` file.
+
+- [![CANDOR: none](https://img.shields.io/badge/䷼%20CANDOR-none-dcfce7?labelColor=dcfce7)](https://candor.md)
+- [![CANDOR: hint](https://img.shields.io/badge/䷼%20CANDOR-hint-ecfccb?labelColor=ecfccb)](https://candor.md)
+- [![CANDOR: assist](https://img.shields.io/badge/䷼%20CANDOR-assist-fef9c3?labelColor=fef9c3)](https://candor.md)
+- [![CANDOR: pair](https://img.shields.io/badge/䷼%20CANDOR-pair-ffedd5?labelColor=ffedd5)](https://candor.md)
+- [![CANDOR: copilot](https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2)](https://candor.md)
+- [![CANDOR: auto](https://img.shields.io/badge/䷼%20CANDOR-auto-ede9fe?labelColor=ede9fe)](https://candor.md)
+
+## FAQ
+
+### What if I lie?
+Well, that defeats the purpose entirely, doesn't it? The idea is for all of us to have a social contract that we can trust. If you see a repo with a `CANDOR.md` in it, you can use it as a single source of truth.
+
+### Can I build tooling to generate this automatically?
+Be my guest. I envision tooling to build it automatically as well as parse it. While I will do it at some point, I appreciate any or all contributions.
+
+### Can I contribute a translation?
+Absolutely! Please. Just fork the repository and add a `README_<locale>.md` e.g. `README_es.md`. Then, raise a PR. I'll take it from there.
+
+### I want to suggest a change to the specification?
+Well, good thing it is open-source then. I see the specification evolving naturally with feedback and PRs. So, let us all discuss.
+
+### Do I need to include the file if I added a badge to my README?
+Yes, the recommendation is to include a `CANDOR.md` as the primary source of truth. The badge in the `README` is just a glanceable way for someone to check that A, the `CANDOR.md` would be available and B, the level.
+
+### What is the logo?
+䷼ Hexagram 61 or Hexagram For Inner Truth (Unicode: `U+4DFC`) is one of 64 hexagrams in the Yi (I) Ching to illustrate principles where each line is either Yin (broken) or Yang (solid). ([source](https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61))

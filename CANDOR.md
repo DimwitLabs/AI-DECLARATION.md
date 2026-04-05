@@ -1,0 +1,14 @@
+---
+version: "0.1.0"
+level: copilot
+processes:
+  design: copilot
+components:
+  spec: none
+  site: pair
+---
+
+## Notes
+
+- The specification and README are 100% human-written (**intentionally!**).
+- The site was built with AI design and generation tools.
