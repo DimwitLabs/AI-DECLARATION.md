@@ -91,16 +91,14 @@ nav {
 #hero { padding: 5rem 0 4rem; }
 
 .hero-hex {
-  font-size: 3.5rem;
+  font-size: 3rem;
   line-height: 1;
-  display: inline;
-  vertical-align: baseline;
-  margin-right: 0.3rem;
+  display: inline-block;
 }
 
 h1 {
   font-family: 'Inter', sans-serif;
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -109,7 +107,9 @@ h1 {
 }
 
 #hero .hero-title {
-  display: block;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
   margin-bottom: 1.25rem;
 }
 
@@ -374,7 +374,7 @@ footer a { color: var(--on-surface-muted); border-bottom: none; }
 footer a:hover { color: var(--on-surface); opacity: 1; }
 
 @media (max-width: 600px) {
-  h1, .hero-hex { font-size: 2.2rem; }
+  h1, .hero-hex { font-size: 2rem; }
   nav { padding: 1rem 1.25rem; }
   .wrap { padding: 0 1.25rem; }
   .nav-right .nav-version { display: none; }

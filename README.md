@@ -1,19 +1,15 @@
-# CANDOR.md
+# AI-DECLARATION.md
 
-[![CANDOR: copilot](https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2)](https://candor.md)
+[![AI-DECLARATION: copilot](https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2)](https://ai-declaration.md)
 
 ## Summary
-AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured `CANDOR.md` file like they include other files in a repository to make the AI-usage crystal clear _and_, more importantly, to make it a widespread convention to do so.
+AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured `AI-DECLARATION.md` file like they include other files in a repository to make the AI-usage crystal clear _and_, more importantly, to make it a widespread convention to do so.
 
 This is not to discourage usage of LLM- and other code-generation in the future. On the contrary, it is an enabler. When you declare what parts of the code were, in fact, generated, a skeptic can immediately look into just those parts to satisfy their urge to re-verify and double-check. And, it lets the creator showcase their skillset with code and their skillset with planning and other soft skills simultaneously and with clarity.
 
-The name is intentional. Candor is a noun meaning:
-
-> The quality of being open and honest; frankness.
-
 ### Specification
 
-A `CANDOR.md` file uses YAML frontmatter for structured fields, followed by a required `## Notes` section in the markdown body for human context. At minimum, it requires `version`, `level`, and a `## Notes` section.
+An `AI-DECLARATION.md` file uses YAML frontmatter for structured fields, followed by a required `## Notes` section in the markdown body for human context. At minimum, it requires `version`, `level`, and a `## Notes` section.
 
 Optionally, you can declare `processes`, each with their own level. The global `level` must be the highest level present. Any process not listed is assumed to be `none` implicitly. You can also list `components` (file paths or directories) with individual levels.
 
@@ -43,11 +39,11 @@ Below, you will find some examples of different scenarios.
 
 #### Simple
 
-The simplest `CANDOR.md` requires `version`, `level`, and a `## Notes` section.
+The simplest `AI-DECLARATION.md` requires `version`, `level`, and a `## Notes` section.
 
 ```markdown
 ---
-version: "0.1.0"
+version: "0.1.1"
 level: none
 ---
 
@@ -58,7 +54,7 @@ level: none
 
 ```markdown
 ---
-version: "0.1.0"
+version: "0.1.1"
 level: auto
 ---
 
@@ -73,7 +69,7 @@ Use `processes` to granularly declare AI involvement per development phase. The 
 
 ```markdown
 ---
-version: "0.1.0"
+version: "0.1.1"
 level: auto
 processes:
   design: auto
@@ -91,7 +87,7 @@ Use `components` to declare AI involvement for specific files or directories.
 
 ```markdown
 ---
-version: "0.1.0"
+version: "0.1.1"
 level: auto
 components:
   src/helpers: auto
@@ -104,19 +100,19 @@ components:
 
 ## Badges
 
-Add a badge to your `README` to declare your `CANDOR` level at a glance. Please note, this is just for convenience and to comply with the specification, you _must_ include a `CANDOR.md` file.
+Add a badge to your `README` to declare your `AI-DECLARATION` level at a glance. Please note, this is just for convenience and to comply with the specification, you _must_ include an `AI-DECLARATION.md` file.
 
-- [![CANDOR: none](https://img.shields.io/badge/䷼%20CANDOR-none-dcfce7?labelColor=dcfce7)](https://candor.md)
-- [![CANDOR: hint](https://img.shields.io/badge/䷼%20CANDOR-hint-ecfccb?labelColor=ecfccb)](https://candor.md)
-- [![CANDOR: assist](https://img.shields.io/badge/䷼%20CANDOR-assist-fef9c3?labelColor=fef9c3)](https://candor.md)
-- [![CANDOR: pair](https://img.shields.io/badge/䷼%20CANDOR-pair-ffedd5?labelColor=ffedd5)](https://candor.md)
-- [![CANDOR: copilot](https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2)](https://candor.md)
-- [![CANDOR: auto](https://img.shields.io/badge/䷼%20CANDOR-auto-ede9fe?labelColor=ede9fe)](https://candor.md)
+- [![AI-DECLARATION: none](https://img.shields.io/badge/䷼%20AI--DECLARATION-none-dcfce7?labelColor=dcfce7)](https://ai-declaration.md)
+- [![AI-DECLARATION: hint](https://img.shields.io/badge/䷼%20AI--DECLARATION-hint-ecfccb?labelColor=ecfccb)](https://ai-declaration.md)
+- [![AI-DECLARATION: assist](https://img.shields.io/badge/䷼%20AI--DECLARATION-assist-fef9c3?labelColor=fef9c3)](https://ai-declaration.md)
+- [![AI-DECLARATION: pair](https://img.shields.io/badge/䷼%20AI--DECLARATION-pair-ffedd5?labelColor=ffedd5)](https://ai-declaration.md)
+- [![AI-DECLARATION: copilot](https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2)](https://ai-declaration.md)
+- [![AI-DECLARATION: auto](https://img.shields.io/badge/䷼%20AI--DECLARATION-auto-ede9fe?labelColor=ede9fe)](https://ai-declaration.md)
 
 ## FAQ
 
 ### What if I lie?
-Well, that defeats the purpose entirely, doesn't it? The idea is for all of us to have a social contract that we can trust. If you see a repo with a `CANDOR.md` in it, you can use it as a single source of truth.
+Well, that defeats the purpose entirely, doesn't it? The idea is for all of us to have a social contract that we can trust. If you see a repo with an `AI-DECLARATION.md` in it, you can use it as a single source of truth.
 
 ### Can I build tooling to generate this automatically?
 Be my guest. I envision tooling to build it automatically as well as parse it. While I will do it at some point, I appreciate any or all contributions.
@@ -128,7 +124,7 @@ Absolutely! Please. Just fork the repository and add a `README_<locale>.md` e.g.
 Well, good thing it is open-source then. I see the specification evolving naturally with feedback and PRs. So, let us all discuss.
 
 ### Do I need to include the file if I added a badge to my README?
-Yes, the recommendation is to include a `CANDOR.md` as the primary source of truth. The badge in the `README` is just a glanceable way for someone to check that A, the `CANDOR.md` would be available and B, the level.
+Yes, the recommendation is to include an `AI-DECLARATION.md` as the primary source of truth. The badge in the `README` is just a glanceable way for someone to check that A, the `AI-DECLARATION.md` would be available and B, the level.
 
 ### What is the logo?
 ䷼ Hexagram 61 or Hexagram For Inner Truth (Unicode: `U+4DFC`) is one of 64 hexagrams in the Yi (I) Ching to illustrate principles where each line is either Yin (broken) or Yang (solid). ([source](https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61))
