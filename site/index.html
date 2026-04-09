@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CANDOR.md | Open Standard for AI Usage Transparency</title>
-  <meta name="description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, CANDOR.md makes AI involvement transparent and consistent.">
+  <title>AI-DECLARATION.md | Open Standard for AI Usage Transparency</title>
+  <meta name="description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="CANDOR.md | Open Standard for AI Usage Transparency">
-  <meta property="og:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, CANDOR.md makes AI involvement transparent and consistent.">
-  <meta property="og:image" content="https://candor.md/www/og-image.png">
-  <meta property="og:url" content="https://candor.md">
-  <meta property="og:site_name" content="CANDOR.md">
+  <meta property="og:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
+  <meta property="og:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
+  <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
+  <meta property="og:url" content="https://ai-declaration.md">
+  <meta property="og:site_name" content="AI-DECLARATION.md">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CANDOR.md | Open Standard for AI Usage Transparency">
-  <meta name="twitter:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, CANDOR.md makes AI involvement transparent and consistent.">
-  <meta name="twitter:image" content="https://candor.md/www/og-image.png">
+  <meta name="twitter:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
+  <meta name="twitter:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
+  <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
   <link rel="icon" href="www/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,18 +25,18 @@
 
 <nav>
   <a class="nav-mark" href="#">
-    <span class="hex">䷼</span> CANDOR.md
+    <span class="hex">䷼</span> AI-DECLARATION.md
   </a>
   <div class="nav-right">
     <span class="nav-version">v0.1.0</span>
-    <a href="https://github.com/DimwitLabs/CANDOR.md">GitHub</a>
+    <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
   </div>
 </nav>
 
 <div class="wrap">
 
   <section id="hero">
-    <div class="hero-title"><span class="hero-hex">䷼</span><h1>CANDOR.md</h1></div>
+    <div class="hero-title"><span class="hero-hex">䷼</span><h1>AI-DECLARATION.md</h1></div>
     <div class="hero-nav">
       <a href="#summary">Summary</a>
       <span class="hero-nav-sep">·</span>
@@ -53,15 +53,14 @@
 
   <section class="doc-section" id="summary">
     <h2>Summary</h2>
-    <p>AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured <code>CANDOR.md</code> file like they include other files in a repository to make the AI-usage crystal clear <em>and</em>, more importantly, to make it a widespread convention to do so.</p>
+    <p>AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured <code>AI-DECLARATION.md</code> file like they include other files in a repository to make the AI-usage crystal clear <em>and</em>, more importantly, to make it a widespread convention to do so.</p>
     <p>This is not to discourage usage of LLM- and other code-generation in the future. On the contrary, it is an enabler. When you declare what parts of the code were, in fact, generated, a skeptic can immediately look into just those parts to satisfy their urge to re-verify and double-check. And, it lets the creator showcase their skillset with code and their skillset with planning and other soft skills simultaneously and with clarity.</p>
-    <p>The name is intentional. Candor is a noun meaning:</p>
     <blockquote>The quality of being open and honest; frankness.</blockquote>
   </section>
 
   <section class="doc-section" id="specification">
     <h2>Specification</h2>
-    <p>A <code>CANDOR.md</code> file uses YAML frontmatter for structured fields, followed by a required <code>## Notes</code> section in the markdown body for human context. At minimum, it requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
+    <p>An <code>AI-DECLARATION.md</code> file uses YAML frontmatter for structured fields, followed by a required <code>## Notes</code> section in the markdown body for human context. At minimum, it requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
     <p>Optionally, you can declare <code>processes</code>, each with their own level. The global <code>level</code> must be the highest level present. Any process not listed is assumed to be <code>none</code> implicitly. You can also list <code>components</code> (file paths or directories) with individual levels.</p>
     <p>The specification formally defines <code>version</code>, <code>level</code>, <code>processes</code>, and <code>components</code>.</p>
 
@@ -92,7 +91,7 @@
 
     <div class="example-group">
       <p class="example-hed">Simple</p>
-      <p>The simplest <code>CANDOR.md</code> requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
+      <p>The simplest <code>AI-DECLARATION.md</code> requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
       <pre>---
 version: "0.1.0"
 level: none
@@ -145,31 +144,31 @@ components:
 
   <section class="doc-section" id="badges">
     <h2>Badges</h2>
-    <p>Add a badge to your <code>README</code> to declare your <code>CANDOR</code> level at a glance. Please note, this is just for convenience and to comply with the specification, you <em>must</em> include a <code>CANDOR.md</code> file.</p>
+    <p>Add a badge to your <code>README</code> to declare your <code>AI-DECLARATION</code> level at a glance. Please note, this is just for convenience and to comply with the specification, you <em>must</em> include an <code>AI-DECLARATION.md</code> file.</p>
     <ul class="badge-list">
       <li>
-        <img src="https://img.shields.io/badge/䷼%20CANDOR-none-dcfce7?labelColor=dcfce7" alt="CANDOR: none">
-        <button class="copy-btn" data-copy="[![CANDOR: none](https://img.shields.io/badge/䷼%20CANDOR-none-dcfce7?labelColor=dcfce7)](https://candor.md)">Copy</button>
+        <img src="https://img.shields.io/badge/䷼%20AI--DECLARATION-none-dcfce7?labelColor=dcfce7" alt="AI-DECLARATION: none">
+        <button class="copy-btn" data-copy="[![AI-DECLARATION: none](https://img.shields.io/badge/䷼%20AI--DECLARATION-none-dcfce7?labelColor=dcfce7)](https://ai-declaration.md)">Copy</button>
       </li>
       <li>
-        <img src="https://img.shields.io/badge/䷼%20CANDOR-hint-ecfccb?labelColor=ecfccb" alt="CANDOR: hint">
-        <button class="copy-btn" data-copy="[![CANDOR: hint](https://img.shields.io/badge/䷼%20CANDOR-hint-ecfccb?labelColor=ecfccb)](https://candor.md)">Copy</button>
+        <img src="https://img.shields.io/badge/䷼%20AI--DECLARATION-hint-ecfccb?labelColor=ecfccb" alt="AI-DECLARATION: hint">
+        <button class="copy-btn" data-copy="[![AI-DECLARATION: hint](https://img.shields.io/badge/䷼%20AI--DECLARATION-hint-ecfccb?labelColor=ecfccb)](https://ai-declaration.md)">Copy</button>
       </li>
       <li>
-        <img src="https://img.shields.io/badge/䷼%20CANDOR-assist-fef9c3?labelColor=fef9c3" alt="CANDOR: assist">
-        <button class="copy-btn" data-copy="[![CANDOR: assist](https://img.shields.io/badge/䷼%20CANDOR-assist-fef9c3?labelColor=fef9c3)](https://candor.md)">Copy</button>
+        <img src="https://img.shields.io/badge/䷼%20AI--DECLARATION-assist-fef9c3?labelColor=fef9c3" alt="AI-DECLARATION: assist">
+        <button class="copy-btn" data-copy="[![AI-DECLARATION: assist](https://img.shields.io/badge/䷼%20AI--DECLARATION-assist-fef9c3?labelColor=fef9c3)](https://ai-declaration.md)">Copy</button>
       </li>
       <li>
-        <img src="https://img.shields.io/badge/䷼%20CANDOR-pair-ffedd5?labelColor=ffedd5" alt="CANDOR: pair">
-        <button class="copy-btn" data-copy="[![CANDOR: pair](https://img.shields.io/badge/䷼%20CANDOR-pair-ffedd5?labelColor=ffedd5)](https://candor.md)">Copy</button>
+        <img src="https://img.shields.io/badge/䷼%20AI--DECLARATION-pair-ffedd5?labelColor=ffedd5" alt="AI-DECLARATION: pair">
+        <button class="copy-btn" data-copy="[![AI-DECLARATION: pair](https://img.shields.io/badge/䷼%20AI--DECLARATION-pair-ffedd5?labelColor=ffedd5)](https://ai-declaration.md)">Copy</button>
       </li>
       <li>
-        <img src="https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2" alt="CANDOR: copilot">
-        <button class="copy-btn" data-copy="[![CANDOR: copilot](https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2)](https://candor.md)">Copy</button>
+        <img src="https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2" alt="AI-DECLARATION: copilot">
+        <button class="copy-btn" data-copy="[![AI-DECLARATION: copilot](https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2)](https://ai-declaration.md)">Copy</button>
       </li>
       <li>
-        <img src="https://img.shields.io/badge/䷼%20CANDOR-auto-ede9fe?labelColor=ede9fe" alt="CANDOR: auto">
-        <button class="copy-btn" data-copy="[![CANDOR: auto](https://img.shields.io/badge/䷼%20CANDOR-auto-ede9fe?labelColor=ede9fe)](https://candor.md)">Copy</button>
+        <img src="https://img.shields.io/badge/䷼%20AI--DECLARATION-auto-ede9fe?labelColor=ede9fe" alt="AI-DECLARATION: auto">
+        <button class="copy-btn" data-copy="[![AI-DECLARATION: auto](https://img.shields.io/badge/䷼%20AI--DECLARATION-auto-ede9fe?labelColor=ede9fe)](https://ai-declaration.md)">Copy</button>
       </li>
     </ul>
   </section>
@@ -179,7 +178,7 @@ components:
     <div class="faq-list">
       <details open>
         <summary>What if I lie?</summary>
-        <div class="faq-answer">Well, that defeats the purpose entirely, doesn't it? The idea is for all of us to have a social contract that we can trust. If you see a repo with a <code>CANDOR.md</code> in it, you can use it as a single source of truth.</div>
+        <div class="faq-answer">Well, that defeats the purpose entirely, doesn't it? The idea is for all of us to have a social contract that we can trust. If you see a repo with an <code>AI-DECLARATION.md</code> in it, you can use it as a single source of truth.</div>
       </details>
       <details open>
         <summary>Can I build tooling to generate this automatically?</summary>
@@ -195,7 +194,7 @@ components:
       </details>
       <details open>
         <summary>Do I need to include the file if I added a badge to my README?</summary>
-        <div class="faq-answer">Yes, the recommendation is to include a <code>CANDOR.md</code> as the primary source of truth. The badge in the <code>README</code> is just a glanceable way for someone to check that A, the <code>CANDOR.md</code> would be available and B, the level.</div>
+        <div class="faq-answer">Yes, the recommendation is to include an <code>AI-DECLARATION.md</code> as the primary source of truth. The badge in the <code>README</code> is just a glanceable way for someone to check that A, the <code>AI-DECLARATION.md</code> would be available and B, the level.</div>
       </details>
       <details open>
         <summary>What is the logo?</summary>
@@ -209,7 +208,7 @@ components:
 
 <footer>
   <div class="footer-inner">
-    <p><span>䷼ CANDOR.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/CANDOR.md">GitHub</a></span></p>
+    <p><span>䷼ AI-DECLARATION.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a></span></p>
   </div>
 </footer>
 

@@ -1,1 +1,49 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 1200 630" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;"><rect x="0" y="0" width="1200" height="630" style="fill:#0c335a;"/><g><text x="228.621px" y="411.699px" style="font-family:'AppleSymbols', 'Apple Symbols';font-size:289.956px;fill:#d3e4ff;">䷼</text></g><path d="M520,200l0,230" style="fill:none;fill-rule:nonzero;stroke:#d3e4ff;stroke-opacity:0.4;stroke-width:1.5px;"/><g><g><g><text x="580px" y="253.443px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:13px;fill:#94b4e2;">O</text><text x="590.762px" y="253.443px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:13px;fill:#94b4e2;">P<tspan x="600.083px 609.404px 619.442px 623.704px 633.025px 641.615px 651.653px 661.691px 671.729px 681.768px 691.806px " y="253.443px 253.443px 253.443px 253.443px 253.443px 253.443px 253.443px 253.443px 253.443px 253.443px 253.443px ">EN STANDARD</tspan></text></g></g><g><g><text x="576.868px" y="338.818px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:84px;fill:#f8f9ff;">C</text><text x="635.01px" y="338.818px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:84px;fill:#f8f9ff;">A<tspan x="693.152px 751.294px 809.436px 872.254px 930.396px 951.214px 1023.384px " y="338.818px 338.818px 338.818px 338.818px 338.818px 338.818px 338.818px ">NDOR.md</tspan></text></g></g><g><g><text x="578.869px" y="381.333px" style="font-family:'Helvetica';font-size:22px;fill:#94b4e2;">Declare</text><text x="659.586px" y="381.333px" style="font-family:'Helvetica';font-size:22px;fill:#94b4e2;">AI usage in your projects.</text></g></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1200 630" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
+    <rect x="0" y="0" width="1200" height="630" style="fill:rgb(12,51,90);"/>
+    <g>
+        <g transform="matrix(1,0,0,1,14.60342,411.699)">
+            <text x="0px" y="0px" style="font-family:'AppleSymbols', 'Apple Symbols';font-size:289.956px;fill:rgb(211,228,255);">䷼</text>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,-214.01758,0)">
+        <path d="M520,200L520,430" style="fill:none;fill-rule:nonzero;stroke:rgb(211,228,255);stroke-opacity:0.4;stroke-width:1.5px;"/>
+    </g>
+    <g>
+        <g transform="matrix(1,0,0,1,-214.01758,0)">
+            <g>
+                <g transform="matrix(1,0,0,1,580,253.443)">
+                    <text x="0px" y="0px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:13px;fill:rgb(148,180,226);">O</text>
+                </g>
+                <g>
+                    <g transform="matrix(1,0,0,1,590.762,253.443)">
+                        <text x="0px" y="0px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:13px;fill:rgb(148,180,226);">P</text>
+                    </g>
+                    <g transform="matrix(1,0,0,1,600.083,253.443)">
+                        <text x="0px" y="0px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:13px;fill:rgb(148,180,226);">E<tspan x="9.321px 19.359px 23.621px 32.942px 42.49px 52.528px 62.566px 72.604px 82.643px 92.681px " y="0px 0px 0px 0px 0px 0px 0px 0px 0px 0px ">N STANDARD</tspan></text>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,-214.01758,0)">
+            <g>
+                <g transform="matrix(1,0,0,1,576.868,338.818)">
+                    <g transform="matrix(76,0,0,76,783.898438,0)">
+                    </g>
+                    <text x="0px" y="0px" style="font-family:'Helvetica-Bold', 'Helvetica';font-weight:700;font-size:76px;fill:rgb(248,249,255);">AI-DECLARA<tspan x="467.244px 513.668px " y="0px 0px ">TI</tspan>ON.md</text>
+                </g>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,-214.01758,0)">
+            <g>
+                <g transform="matrix(1,0,0,1,578.869,381.333)">
+                    <text x="0px" y="0px" style="font-family:'Helvetica';font-size:22px;fill:rgb(148,180,226);">Declare</text>
+                </g>
+                <g transform="matrix(1,0,0,1,659.586,381.333)">
+                    <text x="0px" y="0px" style="font-family:'Helvetica';font-size:22px;fill:rgb(148,180,226);">AI usage in your projects.</text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
