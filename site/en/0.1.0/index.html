@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-version="0.1.0" data-latest="false">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CANDOR.md | Open Standard for AI Usage Transparency (v0.1.0)</title>
+  <meta name="description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, CANDOR.md makes AI involvement transparent and consistent.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CANDOR.md | Open Standard for AI Usage Transparency">
+  <meta property="og:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, CANDOR.md makes AI involvement transparent and consistent.">
+  <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
+  <meta property="og:url" content="https://ai-declaration.md/en/0.1.0">
+  <meta property="og:site_name" content="CANDOR.md">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CANDOR.md | Open Standard for AI Usage Transparency">
+  <meta name="twitter:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, CANDOR.md makes AI involvement transparent and consistent.">
+  <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
+  <link rel="icon" href="../../www/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style/main.css">
+</head>
+<body class="old-version">
+
+<nav>
+  <a class="nav-mark" href="/">
+    <span class="hex">䷼</span> CANDOR.md
+  </a>
+  <div class="nav-right">
+    <div class="dropdown">
+      <button class="dropdown-toggle">EN <span class="arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="/en/0.1.0/" class="dropdown-item active">EN</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-toggle">v0.1.0 <span class="arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="/en/0.1.1/" class="dropdown-item">v0.1.1 <span class="badge">latest</span></a>
+        <a href="/en/0.1.0/" class="dropdown-item active">v0.1.0</a>
+      </div>
+    </div>
+    <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+  </div>
+</nav>
+
+<div class="old-version-banner">
+  <span class="stale-version">v0.1.0</span> is outdated; the latest specification is at <a href="/en/0.1.1/">v0.1.1</a>
+</div>
+
+<div class="wrap">
+
+  <section id="hero">
+    <div class="hero-title"><span class="hero-hex">䷼</span><h1>CANDOR.md</h1></div>
+    <div class="hero-nav">
+      <a href="#summary">Summary</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#specification">Specification</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#examples">Examples</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#badges">Badges</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#faq">FAQ</a>
+    </div>
+  </section>
+
+  <section class="doc-section" id="summary">
+    <h2>Summary</h2>
+    <p>AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured <code>CANDOR.md</code> file like they include other files in a repository to make the AI-usage crystal clear <em>and</em>, more importantly, to make it a widespread convention to do so.</p>
+    <p>This is not to discourage usage of LLM- and other code-generation in the future. On the contrary, it is an enabler. When you declare what parts of the code were, in fact, generated, a skeptic can immediately look into just those parts to satisfy their urge to re-verify and double-check. And, it lets the creator showcase their skillset with code and their skillset with planning and other soft skills simultaneously and with clarity.</p>
+    <p>The name is intentional. Candor is a noun meaning:</p>
+    <blockquote>The quality of being open and honest; frankness.</blockquote>
+  </section>
+
+  <section class="doc-section" id="specification">
+    <h2>Specification</h2>
+    <p>The contents of a <code>CANDOR.md</code> are simple. The file is split into brief headings and lists. There are 6 (six) Levels that mark the usage. At the top, you can include a global Levels section. This is enough.</p>
+    <p>Optionally, you can mark Processes and Components, each with their individual levels. The highest level in that case must be the global level. You can also add a final Notes section with specific notes as a simple list with no hierarchy.</p>
+    <p>The specification only formally defines Levels and Processes.</p>
+
+    <h4>Levels</h4>
+    <ul class="level-list">
+      <li><span class="ltag ltag-none">none</span><span class="level-desc">No AI tools were used at any point.</span></li>
+      <li><span class="ltag ltag-hint">hint</span><span class="level-desc">AI autocomplete or inline suggestions only. The human writes all code. AI occasionally completes a line or block.</span></li>
+      <li><span class="ltag ltag-assist">assist</span><span class="level-desc">Human-led. AI is used on demand for specific tasks (generating a function, explaining code, drafting a test) but does not drive the work.</span></li>
+      <li><span class="ltag ltag-pair">pair</span><span class="level-desc">Active human-AI collaboration throughout. Contribution is roughly equal.</span></li>
+      <li><span class="ltag ltag-copilot">copilot</span><span class="level-desc">AI implements while the human plans and reviews. The human defines what to build and validates the output, but the AI does most of the writing.</span></li>
+      <li><span class="ltag ltag-auto">auto</span><span class="level-desc">AI acts autonomously with minimal human direction. The human may steer at a high level or approve outcomes, but does not write or closely direct the code.</span></li>
+    </ul>
+
+    <h4>Processes</h4>
+    <ul class="proc-list">
+      <li><span class="ptag">design</span><span class="proc-desc">Architecture, system design, technical planning, and decision-making.</span></li>
+      <li><span class="ptag">implementation</span><span class="proc-desc">Writing production code.</span></li>
+      <li><span class="ptag">testing</span><span class="proc-desc">Writing tests, test plans, and quality assurance.</span></li>
+      <li><span class="ptag">documentation</span><span class="proc-desc">Writing docs, comments, READMEs, and changelogs.</span></li>
+      <li><span class="ptag">review</span><span class="proc-desc">Code review and pull request feedback.</span></li>
+      <li><span class="ptag">deployment</span><span class="proc-desc">CI/CD configuration, infrastructure, and release scripts.</span></li>
+    </ul>
+  </section>
+
+  <section class="doc-section" id="examples">
+    <h2>Examples</h2>
+    <p>Below, you will find some examples of different scenarios.</p>
+
+    <div class="example-group">
+      <p class="example-hed">Simple</p>
+      <p>The simplest <code>CANDOR.md</code> will only have one tag.</p>
+      <pre># CANDOR
+
+level: none</pre>
+      <pre># CANDOR
+
+level: auto
+
+## Notes
+
+- Claude Code was used to create the whole application.</pre>
+    </div>
+
+    <div class="example-group">
+      <p class="example-hed">With Processes</p>
+      <p>You can include a Process heading with tags for the different processes of the development flow. Note that the highest level will also be applied to the global level but this allows you to granularly define which components had what LLM-involvement. If a process is not provided, its assumed to be <code>none</code> implicitly.</p>
+      <pre># CANDOR
+
+level: auto
+
+## Process
+
+- design: auto
+- testing: copilot</pre>
+    </div>
+
+    <div class="example-group">
+      <p class="example-hed">With Components</p>
+      <p>You can also mention specific files, directories, components, modules (only filepaths but be as global or local as you want) with their level similar to Processes above.</p>
+      <pre># CANDOR
+
+level: auto
+
+## Components
+
+- src/helpers: auto</pre>
+    </div>
+
+    <div class="example-group">
+      <p class="example-hed">With Notes</p>
+      <p>Optionally, you can also add a notes section to provide more context. For example, you can discuss which tools were used and how.</p>
+      <pre># CANDOR
+
+level: assist
+
+## Notes
+
+- Mostly no AI involvement except some copied code from ChatGPT.</pre>
+    </div>
+  </section>
+
+  <section class="doc-section" id="badges">
+    <h2>Badges</h2>
+    <p>Add a badge to your <code>README</code> to declare your <code>CANDOR</code> level at a glance.</p>
+    <ul class="badge-list">
+      <li>
+        <img src="https://img.shields.io/badge/䷼%20CANDOR-none-dcfce7?labelColor=dcfce7" alt="CANDOR: none">
+        <button class="copy-btn" data-copy="![CANDOR: none](https://img.shields.io/badge/䷼%20CANDOR-none-dcfce7?labelColor=dcfce7)">Copy</button>
+      </li>
+      <li>
+        <img src="https://img.shields.io/badge/䷼%20CANDOR-hint-ecfccb?labelColor=ecfccb" alt="CANDOR: hint">
+        <button class="copy-btn" data-copy="![CANDOR: hint](https://img.shields.io/badge/䷼%20CANDOR-hint-ecfccb?labelColor=ecfccb)">Copy</button>
+      </li>
+      <li>
+        <img src="https://img.shields.io/badge/䷼%20CANDOR-assist-fef9c3?labelColor=fef9c3" alt="CANDOR: assist">
+        <button class="copy-btn" data-copy="![CANDOR: assist](https://img.shields.io/badge/䷼%20CANDOR-assist-fef9c3?labelColor=fef9c3)">Copy</button>
+      </li>
+      <li>
+        <img src="https://img.shields.io/badge/䷼%20CANDOR-pair-ffedd5?labelColor=ffedd5" alt="CANDOR: pair">
+        <button class="copy-btn" data-copy="![CANDOR: pair](https://img.shields.io/badge/䷼%20CANDOR-pair-ffedd5?labelColor=ffedd5)">Copy</button>
+      </li>
+      <li>
+        <img src="https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2" alt="CANDOR: copilot">
+        <button class="copy-btn" data-copy="![CANDOR: copilot](https://img.shields.io/badge/䷼%20CANDOR-copilot-fee2e2?labelColor=fee2e2)">Copy</button>
+      </li>
+      <li>
+        <img src="https://img.shields.io/badge/䷼%20CANDOR-auto-ede9fe?labelColor=ede9fe" alt="CANDOR: auto">
+        <button class="copy-btn" data-copy="![CANDOR: auto](https://img.shields.io/badge/䷼%20CANDOR-auto-ede9fe?labelColor=ede9fe)">Copy</button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="doc-section" id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>What if I lie?</summary>
+        <div class="faq-answer">Well, that defeats the purpose entirely, doesn't it? The idea is for all of us to have a social contract that we can trust. If you see a repo with a <code>CANDOR.md</code> in it, you can use it as a single source of truth.</div>
+      </details>
+      <details open>
+        <summary>Can I build tooling to generate this automatically?</summary>
+        <div class="faq-answer">Be my guest. I envision tooling to build it automatically as well as parse it. While I will do it at some point, I appreciate any or all contributions.</div>
+      </details>
+      <details open>
+        <summary>Can I contribute to a translation?</summary>
+        <div class="faq-answer">Absolutely! Please. Just fork the repository and add a <code>README_&lt;two_letter_locale&gt;.md</code> e.g. <code>README_es.md</code>. Then, raise a PR. I'll take it from there.</div>
+      </details>
+      <details open>
+        <summary>I want to suggest a change to the specification?</summary>
+        <div class="faq-answer">Well, good thing it is open-source then. I see the specification evolving naturally with feedback and PRs. So, let us all discuss.</div>
+      </details>
+      <details open>
+        <summary>What is this logo?</summary>
+        <div class="faq-answer">䷼ Hexagram 61 or Hexagram For Inner Truth (Unicode: <code>U+4DFC</code>) is one of 64 hexagrams in the Yi (I) Ching to illustrate principles where each line is either Yin (broken) or Yang (solid). (<a href="https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61">source</a>)</div>
+      </details>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><span>䷼ CANDOR.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a></span></p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    });
+  });
+
+  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = toggle.parentElement;
+      document.querySelectorAll('.dropdown.open').forEach(d => {
+        if (d !== dropdown) d.classList.remove('open');
+      });
+      dropdown.classList.toggle('open');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>

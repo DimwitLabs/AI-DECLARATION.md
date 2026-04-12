@@ -374,10 +374,13 @@ footer a { color: var(--on-surface-muted); border-bottom: none; }
 footer a:hover { color: var(--on-surface); opacity: 1; }
 
 @media (max-width: 600px) {
-  h1, .hero-hex { font-size: 2rem; }
+  h1 { font-size: 1.5rem; }
+  .hero-hex { font-size: 1.75rem; }
   nav { padding: 1rem 1.25rem; }
   .wrap { padding: 0 1.25rem; }
   .nav-right .nav-version { display: none; }
+  .nav-mark { font-size: 0; }
+  .nav-mark .hex { font-size: 1.1rem; }
   .level-list { grid-template-columns: 1fr; }
   .proc-list { display: grid; grid-template-columns: 1fr; gap: 2px; background: rgba(148, 180, 226, 0.2); }
   .proc-list li { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; margin-bottom: 0; background: var(--surface-low); align-items: flex-start; }
@@ -386,4 +389,159 @@ footer a:hover { color: var(--on-surface); opacity: 1; }
   .footer-inner { padding: 2rem 1.25rem; }
   .footer-sep { display: none; }
   .footer-item { display: block; margin-top: 0.35rem; }
+  #hero { padding: 3rem 0 2.5rem; }
+}
+
+.version-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.version-dropdown select {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  color: var(--on-surface-muted);
+  background: var(--surface-highest);
+  padding: 0.2rem 0.6rem;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  padding-right: 1.5rem;
+}
+
+.version-dropdown::after {
+  content: '▾';
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.6rem;
+  color: var(--on-surface-muted);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--on-surface-muted);
+  background: var(--surface-highest);
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--outline-variant);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  min-width: 4.5rem;
+  justify-content: space-between;
+}
+
+.dropdown-toggle:hover {
+  background-color: var(--surface-mid);
+  border-color: var(--outline);
+}
+
+.dropdown-toggle .arrow {
+  font-size: 0.5rem;
+  transition: transform 0.15s ease;
+}
+
+.dropdown.open .dropdown-toggle .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 100%;
+  background: var(--surface-lowest);
+  border: 1px solid var(--outline-variant);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  z-index: 100;
+}
+
+.dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  color: var(--on-surface-muted);
+  border-bottom: none;
+  white-space: nowrap;
+  transition: background-color 0.1s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--surface-low);
+  opacity: 1;
+}
+
+.dropdown-item.active {
+  color: var(--on-surface);
+  font-weight: 700;
+}
+
+.dropdown-item .badge {
+  font-size: 0.6rem;
+  color: var(--outline);
+  margin-left: 0.3rem;
+}
+
+body.old-version {
+  background: #f0f1f8;
+}
+
+body.old-version nav {
+  background: rgba(240, 241, 248, 0.9);
+}
+
+.old-version-banner {
+  background: var(--surface-highest);
+  color: var(--on-surface-muted);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--outline-variant);
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.old-version-banner .stale-version {
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.old-version-banner a {
+  color: var(--on-surface);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .nav-dropdown {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.5rem;
+    padding-right: 1.2rem;
+  }
+  
+  .old-version-banner {
+    font-size: 0.68rem;
+    padding: 0.5rem 0.75rem;
+  }
 }
