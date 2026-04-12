@@ -55,6 +55,8 @@
       <span class="hero-nav-sep">·</span>
       <a href="#specification">Specification</a>
       <span class="hero-nav-sep">·</span>
+      <a href="#schema">Schema</a>
+      <span class="hero-nav-sep">·</span>
       <a href="#examples">Examples</a>
       <span class="hero-nav-break"></span>
       <span class="hero-nav-sep">·</span>
@@ -95,6 +97,32 @@
       <li><span class="ptag">review</span><span class="proc-desc">Code review and pull request feedback.</span></li>
       <li><span class="ptag">deployment</span><span class="proc-desc">CI/CD configuration, infrastructure, and release scripts.</span></li>
     </ul>
+  </section>
+
+  <section class="doc-section" id="schema">
+    <h2>Schema</h2>
+    <p>The following YAML schema formally defines the structure of an <code>AI-DECLARATION.md</code> file. Use this to validate declarations or build tooling.</p>
+    <pre>type: object
+required: [version, level]
+definitions:
+  level:
+    type: string
+    enum: [none, hint, assist, pair, copilot, auto]
+properties:
+  version:
+    type: string
+    pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+  level:
+    $ref: "#/definitions/level"
+  processes:
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/level"
+  components:
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/level"
+additionalProperties: false</pre>
   </section>
 
   <section class="doc-section" id="examples">

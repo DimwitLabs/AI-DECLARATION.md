@@ -33,6 +33,34 @@ The specification formally defines `version`, `level`, `processes`, and `compone
 - `review`: Code review and pull request feedback.
 - `deployment`: CI/CD configuration, infrastructure, and release scripts.
 
+#### Schema
+
+The following YAML schema formally defines the structure of an `AI-DECLARATION.md` file. Use this to validate declarations or build tooling.
+
+```yaml
+type: object
+required: [version, level]
+definitions:
+  level:
+    type: string
+    enum: [none, hint, assist, pair, copilot, auto]
+properties:
+  version:
+    type: string
+    pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+  level:
+    $ref: "#/definitions/level"
+  processes:
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/level"
+  components:
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/level"
+additionalProperties: false
+```
+
 ### Examples
 
 Below, you will find some examples of different scenarios.
