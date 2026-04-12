@@ -47,6 +47,8 @@ version: "0.1.1"
 level: none
 ---
 
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
+
 ## Notes
 
 - No AI tools were used.
@@ -57,6 +59,8 @@ level: none
 version: "0.1.1"
 level: auto
 ---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
 
 ## Notes
 
@@ -76,6 +80,8 @@ processes:
   testing: copilot
 ---
 
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
+
 ## Notes
 
 - AI drove architecture decisions and test generation. All output was reviewed by a human.
@@ -92,6 +98,8 @@ level: auto
 components:
   src/helpers: auto
 ---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
 
 ## Notes
 

@@ -8,6 +8,8 @@ components:
   site: pair
 ---
 
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
+
 ## Notes
 
 - The specification and README are 100% human-written (**intentionally!**).
