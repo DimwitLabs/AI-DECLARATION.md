@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-version="0.1.1" data-latest="true">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,26 +9,38 @@
   <meta property="og:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
   <meta property="og:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
   <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
-  <meta property="og:url" content="https://ai-declaration.md">
+  <meta property="og:url" content="https://ai-declaration.md/en/0.1.1">
   <meta property="og:site_name" content="AI-DECLARATION.md">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
   <meta name="twitter:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
   <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
-  <link rel="icon" href="www/logo.svg">
+  <link rel="icon" href="../../www/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../style/main.css">
 </head>
 <body>
 
 <nav>
-  <a class="nav-mark" href="#">
+  <a class="nav-mark" href="/">
     <span class="hex">䷼</span> AI-DECLARATION.md
   </a>
   <div class="nav-right">
-    <span class="nav-version">v0.1.1</span>
+    <div class="dropdown">
+      <button class="dropdown-toggle">EN <span class="arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="/en/0.1.1/" class="dropdown-item active">EN</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-toggle">v0.1.1 <span class="arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="/en/0.1.1/" class="dropdown-item active">v0.1.1 <span class="badge">latest</span></a>
+        <a href="/en/0.1.0/" class="dropdown-item">v0.1.0</a>
+      </div>
+    </div>
     <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
   </div>
 </nav>
@@ -223,6 +235,21 @@ components:
         }, 1500);
       });
     });
+  });
+
+  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = toggle.parentElement;
+      document.querySelectorAll('.dropdown.open').forEach(d => {
+        if (d !== dropdown) d.classList.remove('open');
+      });
+      dropdown.classList.toggle('open');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
   });
 </script>
 

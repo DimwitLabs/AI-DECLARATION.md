@@ -1,0 +1,40 @@
+server {
+    server_name ai-declaration.md www.ai-declaration.md;
+    root /var/www/AI-DECLARATION.md/site;
+    index index.html;
+
+    location = / {
+        return 301 /en/0.1.1/;
+    }
+
+    location ~ ^/en/ {
+        try_files $uri $uri/ /errors/version.html;
+    }
+
+    location ~ "^/[a-z]{2}/" {
+        try_files $uri $uri/ /errors/translation.html;
+    }
+
+    location / {
+        try_files $uri $uri/ @fallback;
+    }
+
+    location @fallback {
+        return 301 /en/0.1.1/;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/ai-declaration.md/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/ai-declaration.md/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+    if ($host = ai-declaration.md) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+    listen 80;
+    server_name ai-declaration.md www.ai-declaration.md;
+    return 404; # managed by Certbot
+}
