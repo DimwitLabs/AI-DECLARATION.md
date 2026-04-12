@@ -5,8 +5,10 @@ processes:
   design: copilot
 components:
   spec: none
-  site: pair
+  site: copilot
 ---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
 
 ## Notes
 

@@ -4,7 +4,8 @@ server {
     index index.html;
 
     location = / {
-        return 301 /en/0.1.1/;
+        add_header Cache-Control "no-store, no-cache, must-revalidate";
+        return 302 /en/0.1.1/;
     }
 
     location ~ ^/en/ {
@@ -20,7 +21,8 @@ server {
     }
 
     location @fallback {
-        return 301 /en/0.1.1/;
+        add_header Cache-Control "no-store, no-cache, must-revalidate";
+        return 302 /en/0.1.1/;
     }
 
     listen 443 ssl; # managed by Certbot

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-version="0.1.1" data-latest="true">
+<html lang="en" data-version="0.1.2-rc" data-latest="false">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
   <meta property="og:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
   <meta property="og:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
   <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
-  <meta property="og:url" content="https://ai-declaration.md/en/0.1.1">
+  <meta property="og:url" content="https://ai-declaration.md/en/0.1.2">
   <meta property="og:site_name" content="AI-DECLARATION.md">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
@@ -31,14 +31,14 @@
     <div class="dropdown">
       <button class="dropdown-toggle">EN <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
-        <a href="/en/0.1.1/" class="dropdown-item active">EN</a>
+        <a href="/en/0.1.2/" class="dropdown-item active">EN</a>
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropdown-toggle">v0.1.1 <span class="arrow">▾</span></button>
+      <button class="dropdown-toggle">v0.1.2-rc <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
-        <a href="/en/0.1.2/" class="dropdown-item">v0.1.2-rc</a>
-        <a href="/en/0.1.1/" class="dropdown-item active">v0.1.1 <span class="badge">latest</span></a>
+        <a href="/en/0.1.2/" class="dropdown-item active">v0.1.2-rc</a>
+        <a href="/en/0.1.1/" class="dropdown-item">v0.1.1 <span class="badge">latest</span></a>
         <a href="/en/0.1.0/" class="dropdown-item">v0.1.0</a>
       </div>
     </div>
@@ -105,17 +105,21 @@
       <p class="example-hed">Simple</p>
       <p>The simplest <code>AI-DECLARATION.md</code> requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
       <pre>---
-version: "0.1.1"
+version: "0.1.2"
 level: none
 ---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.2).
 
 ## Notes
 
 - No AI tools were used.</pre>
       <pre>---
-version: "0.1.1"
+version: "0.1.2"
 level: auto
 ---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.2).
 
 ## Notes
 
@@ -126,12 +130,14 @@ level: auto
       <p class="example-hed">With Processes</p>
       <p>Use <code>processes</code> to granularly declare AI involvement per development phase. The global <code>level</code> must be the highest level present. Any process not listed is assumed to be <code>none</code> implicitly.</p>
       <pre>---
-version: "0.1.1"
+version: "0.1.2"
 level: auto
 processes:
   design: auto
   testing: copilot
 ---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.2).
 
 ## Notes
 
@@ -142,11 +148,13 @@ processes:
       <p class="example-hed">With Components</p>
       <p>Use <code>components</code> to declare AI involvement for specific files or directories.</p>
       <pre>---
-version: "0.1.1"
+version: "0.1.2"
 level: auto
 components:
   src/helpers: auto
 ---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.2).
 
 ## Notes
 
