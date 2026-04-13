@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Add `This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.2)` attribution line in examples above the `## Notes` section. ([#11](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/11))
 - Site improvements: dropdowns, missing translation page, missing version page, mobile site tweaks. ([#9](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/9))
 - YAML schema for tooling and validation. ([#12](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/12))
+- Korean translation. ([#13](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/13))
 
 ## [0.1.1] - 2026-04-06
 
