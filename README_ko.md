@@ -78,7 +78,7 @@ version: "0.1.1"
 level: none
 ---
 
-이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1) 명세를 바탕으로 작성되었습니다.
+이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/ko/0.1.1) 명세를 바탕으로 작성되었습니다.
 
 ## Notes
 
@@ -91,7 +91,7 @@ version: "0.1.1"
 level: auto
 ---
 
-이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1) 명세를 바탕으로 작성되었습니다.
+이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/ko/0.1.1) 명세를 바탕으로 작성되었습니다.
 
 ## Notes
 
@@ -111,7 +111,7 @@ processes:
   testing: copilot
 ---
 
-이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1) 명세를 바탕으로 작성되었습니다.
+이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/ko/0.1.1) 명세를 바탕으로 작성되었습니다.
 
 ## Notes
 
@@ -130,7 +130,7 @@ components:
   src/helpers: auto
 ---
 
-이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1) 명세를 바탕으로 작성되었습니다.
+이 파일은 [AI-DECLARATION.md](https://ai-declaration.md/ko/0.1.1) 명세를 바탕으로 작성되었습니다.
 
 ## Notes
 
