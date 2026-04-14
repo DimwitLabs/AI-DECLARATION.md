@@ -17,12 +17,14 @@ The specification formally defines `version`, `level`, `processes`, and `compone
 
 #### Levels
 
-- `none`: No AI tools were used at any point.
-- `hint`: AI autocomplete or inline suggestions only. The human writes all code. AI occasionally completes a line or block.
-- `assist`: Human-led. AI is used on demand for specific tasks (generating a function, explaining code, drafting a test) but does not drive the work.
-- `pair`: Active human-AI collaboration throughout. Contribution is roughly equal.
-- `copilot`: AI implements while the human plans and reviews. The human defines what to build and validates the output, but the AI does most of the writing.
-- `auto`: AI acts autonomously with minimal human direction. The human may steer at a high level or approve outcomes, but does not write or closely direct the code.
+The levels aim to encompass not just code generation but related activities like code review. They are defined as a combination of the verbs `act` and `prompt` along with entities such as `Human`, `AI` and `task`.
+
+- `none`: Human acts on the task alone with no AI involvement.
+- `hint`: Human acts on the task and the AI surfaces suggestions passively.
+- `assist`: Human prompts and the AI acts on a part of the task.
+- `pair`: Human prompts as both human and AI both act on the task equally; Human understands internals clearly.
+- `copilot`: Human prompts and AI acts on the whole task, prompting the Human for permission or clarification.
+- `auto`: Human prompts and AI acts autonomously bringing the task to completion.
 
 #### Processes
 

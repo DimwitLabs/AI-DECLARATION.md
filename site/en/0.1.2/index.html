@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-version="0.1.2-rc" data-latest="false">
+<html lang="en" data-version="0.1.2" data-latest="false">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,9 +36,9 @@
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropdown-toggle">v0.1.2-rc <span class="arrow">▾</span></button>
+      <button class="dropdown-toggle">v0.1.2 <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
-        <a href="/en/0.1.2/" class="dropdown-item active">v0.1.2-rc</a>
+        <a href="/en/0.1.2/" class="dropdown-item active">v0.1.2</a>
         <a href="/en/0.1.1/" class="dropdown-item">v0.1.1 <span class="badge">latest</span></a>
         <a href="/en/0.1.0/" class="dropdown-item">v0.1.0</a>
       </div>
@@ -80,13 +80,14 @@
     <p>The specification formally defines <code>version</code>, <code>level</code>, <code>processes</code>, and <code>components</code>.</p>
 
     <p class="example-hed">Levels</p>
+    <p>The levels aim to encompass not just code generation but related activities like code review. They are defined as a combination of the verbs <code>act</code> and <code>prompt</code> along with entities such as <code>Human</code>, <code>AI</code> and <code>task</code>.</p>
     <ul class="level-list">
-      <li><span class="ltag ltag-none">none</span><span class="level-desc">No AI tools were used at any point.</span></li>
-      <li><span class="ltag ltag-hint">hint</span><span class="level-desc">AI autocomplete or inline suggestions only. The human writes all code. AI occasionally completes a line or block.</span></li>
-      <li><span class="ltag ltag-assist">assist</span><span class="level-desc">Human-led. AI is used on demand for specific tasks (generating a function, explaining code, drafting a test) but does not drive the work.</span></li>
-      <li><span class="ltag ltag-pair">pair</span><span class="level-desc">Active human-AI collaboration throughout. Contribution is roughly equal.</span></li>
-      <li><span class="ltag ltag-copilot">copilot</span><span class="level-desc">AI implements while the human plans and reviews. The human defines what to build and validates the output, but the AI does most of the writing.</span></li>
-      <li><span class="ltag ltag-auto">auto</span><span class="level-desc">AI acts autonomously with minimal human direction. The human may steer at a high level or approve outcomes, but does not write or closely direct the code.</span></li>
+      <li><span class="ltag ltag-none">none</span><span class="level-desc">Human acts on the task alone with no AI involvement.</span></li>
+      <li><span class="ltag ltag-hint">hint</span><span class="level-desc">Human acts on the task and the AI surfaces suggestions passively.</span></li>
+      <li><span class="ltag ltag-assist">assist</span><span class="level-desc">Human prompts and the AI acts on a part of the task.</span></li>
+      <li><span class="ltag ltag-pair">pair</span><span class="level-desc">Human prompts as both human and AI both act on the task equally; Human understands internals clearly.</span></li>
+      <li><span class="ltag ltag-copilot">copilot</span><span class="level-desc">Human prompts and AI acts on the whole task, prompting the Human for permission or clarification.</span></li>
+      <li><span class="ltag ltag-auto">auto</span><span class="level-desc">Human prompts and AI acts autonomously bringing the task to completion.</span></li>
     </ul>
 
     <p class="example-hed">Processes</p>
