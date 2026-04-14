@@ -12,7 +12,7 @@ Fixes #
 
 
 **AI-DECLARATION.md:**
-- [ ] I have reviewed the project's AI-DECLARATION.md
-- [ ] I have updated AI-DECLARATION.md to reflect AI usage in this contribution (or confirmed no update is needed)
+- [ ] I have reviewed the project's `AI-DECLARATION.md`
+- [ ] I have updated `AI-DECLARATION.md` to reflect AI usage in this contribution (or confirmed no update is needed)
 
 **Additional Notes:**  
