@@ -5,7 +5,7 @@ server {
 
     location = / {
         add_header Cache-Control "no-store, no-cache, must-revalidate";
-        return 302 /en/0.1.1/;
+        return 302 /en/0.1.2/;
     }
 
     location ~ ^/en/ {
@@ -22,7 +22,7 @@ server {
 
     location @fallback {
         add_header Cache-Control "no-store, no-cache, must-revalidate";
-        return 302 /en/0.1.1/;
+        return 302 /en/0.1.2/;
     }
 
     listen 443 ssl; # managed by Certbot
