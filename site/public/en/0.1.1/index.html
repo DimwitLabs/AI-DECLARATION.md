@@ -4,22 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI-DECLARATION.md | Open Standard for AI Usage Transparency</title>
-  <meta name="description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
+  <meta name="description" content="An open standard for declaring AI usage in software projects.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
-  <meta property="og:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="An open standard for declaring AI usage in software projects.">
   <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
   <meta property="og:url" content="https://ai-declaration.md/en/0.1.1">
   <meta property="og:site_name" content="AI-DECLARATION.md">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
-  <meta name="twitter:description" content="An open standard for declaring AI usage in software projects. Like a LICENSE or README, AI-DECLARATION.md makes AI involvement transparent and consistent.">
+  <meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:description" content="An open standard for declaring AI usage in software projects.">
   <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
-  <link rel="icon" href="../../www/logo.svg">
+  <link rel="icon" href="/www/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../style/main.css">
+  <link rel="stylesheet" href="/style/main.css">
 </head>
 <body>
 
@@ -28,14 +28,14 @@
     <span class="hex">䷼</span> AI-DECLARATION.md
   </a>
   <div class="nav-right">
-    <div class="dropdown">
+        <div class="dropdown">
       <button class="dropdown-toggle">EN <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
         <a href="/en/0.1.1/" class="dropdown-item active">EN</a>
         <a href="/ko/0.1.1/" class="dropdown-item">KO</a>
       </div>
     </div>
-    <div class="dropdown">
+        <div class="dropdown">
       <button class="dropdown-toggle">v0.1.1 <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
         <a href="/en/0.1.2/" class="dropdown-item">v0.1.2 <span class="badge">latest</span></a>
@@ -80,8 +80,7 @@
     <p>An <code>AI-DECLARATION.md</code> file uses YAML frontmatter for structured fields, followed by a required <code>## Notes</code> section in the markdown body for human context. At minimum, it requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
     <p>Optionally, you can declare <code>processes</code>, each with their own level. The global <code>level</code> must be the highest level present. Any process not listed is assumed to be <code>none</code> implicitly. You can also list <code>components</code> (file paths or directories) with individual levels.</p>
     <p>The specification formally defines <code>version</code>, <code>level</code>, <code>processes</code>, and <code>components</code>.</p>
-
-    <h4>Levels</h4>
+      <p class="example-hed">Levels</p>
     <ul class="level-list">
       <li><span class="ltag ltag-none">none</span><span class="level-desc">No AI tools were used at any point.</span></li>
       <li><span class="ltag ltag-hint">hint</span><span class="level-desc">AI autocomplete or inline suggestions only. The human writes all code. AI occasionally completes a line or block.</span></li>
@@ -90,8 +89,7 @@
       <li><span class="ltag ltag-copilot">copilot</span><span class="level-desc">AI implements while the human plans and reviews. The human defines what to build and validates the output, but the AI does most of the writing.</span></li>
       <li><span class="ltag ltag-auto">auto</span><span class="level-desc">AI acts autonomously with minimal human direction. The human may steer at a high level or approve outcomes, but does not write or closely direct the code.</span></li>
     </ul>
-
-    <h4>Processes</h4>
+      <p class="example-hed">Processes</p>
     <ul class="proc-list">
       <li><span class="ptag">design</span><span class="proc-desc">Architecture, system design, and decision-making.</span></li>
       <li><span class="ptag">implementation</span><span class="proc-desc">Writing production code.</span></li>
@@ -105,20 +103,19 @@
   <section class="doc-section" id="examples">
     <h2>Examples</h2>
     <p>Below, you will find some examples of different scenarios.</p>
-
     <div class="example-group">
       <p class="example-hed">Simple</p>
-      <p>The simplest <code>AI-DECLARATION.md</code> requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
-      <pre>---
-version: "0.1.1"
+    <p>The simplest <code>AI-DECLARATION.md</code> requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
+    <pre>---
+version: "0.1.0"
 level: none
 ---
 
 ## Notes
 
 - No AI tools were used.</pre>
-      <pre>---
-version: "0.1.1"
+    <pre>---
+version: "0.1.0"
 level: auto
 ---
 
@@ -126,12 +123,11 @@ level: auto
 
 - Claude Code was used to create the whole application.</pre>
     </div>
-
     <div class="example-group">
       <p class="example-hed">With Processes</p>
-      <p>Use <code>processes</code> to granularly declare AI involvement per development phase. The global <code>level</code> must be the highest level present. Any process not listed is assumed to be <code>none</code> implicitly.</p>
-      <pre>---
-version: "0.1.1"
+    <p>Use <code>processes</code> to granularly declare AI involvement per development phase. The global <code>level</code> must be the highest level present. Any process not listed is assumed to be <code>none</code> implicitly.</p>
+    <pre>---
+version: "0.1.0"
 level: auto
 processes:
   design: auto
@@ -142,12 +138,11 @@ processes:
 
 - AI drove architecture decisions and test generation. All output was reviewed by a human.</pre>
     </div>
-
     <div class="example-group">
       <p class="example-hed">With Components</p>
-      <p>Use <code>components</code> to declare AI involvement for specific files or directories.</p>
-      <pre>---
-version: "0.1.1"
+    <p>Use <code>components</code> to declare AI involvement for specific files or directories.</p>
+    <pre>---
+version: "0.1.0"
 level: auto
 components:
   src/helpers: auto
@@ -195,7 +190,7 @@ components:
     <div class="faq-list">
       <details open>
         <summary>What if I lie?</summary>
-        <div class="faq-answer">Well, that defeats the purpose entirely, doesn't it? The idea is for all of us to have a social contract that we can trust. If you see a repo with an <code>AI-DECLARATION.md</code> in it, you can use it as a single source of truth.</div>
+        <div class="faq-answer">Well, that defeats the purpose entirely, doesn&#39;t it? The idea is for all of us to have a social contract that we can trust. If you see a repo with an <code>AI-DECLARATION.md</code> in it, you can use it as a single source of truth.</div>
       </details>
       <details open>
         <summary>Can I build tooling to generate this automatically?</summary>
@@ -203,7 +198,7 @@ components:
       </details>
       <details open>
         <summary>Can I contribute a translation?</summary>
-        <div class="faq-answer">Absolutely! Please. Just fork the repository and add a <code>README_&lt;locale&gt;.md</code> e.g. <code>README_es.md</code>. Then, raise a PR. I'll take it from there.</div>
+        <div class="faq-answer">Absolutely! Please. Just fork the repository and add a <code>README_&lt;locale&gt;.md</code> e.g. <code>README_es.md</code>. Then, raise a PR. I&#39;ll take it from there.</div>
       </details>
       <details open>
         <summary>I want to suggest a change to the specification?</summary>

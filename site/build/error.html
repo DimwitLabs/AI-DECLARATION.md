@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | AI-DECLARATION.md</title>
+  <link rel="icon" href="/www/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style/errors.css">
+</head>
+<body>
+  <div class="error-container">
+    <span class="hex">䷼</span>
+    <h1 id="error-title">Page Not Found</h1>
+    <p class="path"></p>
+    <p id="error-message"></p>
+    <a id="error-action" href="/en/{{LATEST_VERSION}}/" class="btn">View Latest (v{{LATEST_VERSION}})</a>
+    <div class="back-link">
+      <a id="error-secondary" href="https://github.com/DimwitLabs/AI-DECLARATION.md">View on GitHub</a>
+    </div>
+  </div>
+  <script>
+    var KNOWN_LANGUAGES = {{KNOWN_LANGUAGES}};
+    var LATEST_VERSION = '{{LATEST_VERSION}}';
+    var parts = window.location.pathname.replace(/^\/|\/$/g, '').split('/');
+    var lang = parts[0];
+    document.querySelector('.path').textContent = window.location.pathname;
+    if (lang && KNOWN_LANGUAGES.indexOf(lang) !== -1) {
+      document.getElementById('error-title').textContent = 'Version Not Found';
+      document.getElementById('error-message').textContent = "This version of the specification doesn't exist. You can view the latest version below.";
+      document.getElementById('error-action').href = '/' + lang + '/' + LATEST_VERSION + '/';
+      document.getElementById('error-action').textContent = 'View Latest (v' + LATEST_VERSION + ')';
+      document.getElementById('error-secondary').href = 'https://github.com/DimwitLabs/AI-DECLARATION.md';
+      document.getElementById('error-secondary').textContent = 'View on GitHub';
+    } else {
+      document.getElementById('error-title').textContent = 'Translation Not Available';
+      document.getElementById('error-message').textContent = "This language isn't available yet. Want to help translate AI-DECLARATION.md?";
+      document.getElementById('error-action').href = 'https://github.com/DimwitLabs/AI-DECLARATION.md/pulls';
+      document.getElementById('error-action').textContent = 'Contribute a Translation';
+      document.getElementById('error-secondary').href = '/en/' + LATEST_VERSION + '/';
+      document.getElementById('error-secondary').textContent = 'View in English';
+    }
+  </script>
+</body>
+</html>

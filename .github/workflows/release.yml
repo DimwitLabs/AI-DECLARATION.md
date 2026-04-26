@@ -1,0 +1,59 @@
+name: Release New Version
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd site/build && npm install
+
+      - name: Archive version to database
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: cd site/build && npm run archive -- ${{ github.ref_name }}
+
+      - name: Generate site
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: cd site/build && npm run build
+
+      - name: Commit generated files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add site/public/
+          git commit -m "build: site generated for ${{ github.ref_name }}" || echo "No changes to commit"
+          git push origin main
+
+      - name: Deploy to server
+        env:
+          SSH_KEY: ${{ secrets.DO_SSH_KEY }}
+          DO_HOST: ${{ secrets.DO_HOST }}
+          DO_USER: ${{ secrets.DO_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" | base64 -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$DO_HOST" >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key "$DO_USER@$DO_HOST" "cd /var/www/AI-DECLARATION.md && git pull --rebase origin main"

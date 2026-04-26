@@ -1,0 +1,21 @@
+{
+  "name": "ai-declaration-build",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx generate.ts",
+    "archive": "tsx archive-version.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "marked": "^12.0.0",
+    "pg": "^8.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "@types/pg": "^8.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0"
+  }
+}
