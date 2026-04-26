@@ -3,6 +3,10 @@ server {
     root /var/www/AI-DECLARATION.md/site/public;
     index index.html;
 
+    location /.well-known/ {
+        try_files $uri =404;
+    }
+
     location = / {
         add_header Cache-Control "no-store, no-cache, must-revalidate";
         return 302 /en/0.1.2/;

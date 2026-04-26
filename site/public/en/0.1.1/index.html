@@ -6,13 +6,13 @@
   <title>AI-DECLARATION.md | Open Standard for AI Usage Transparency</title>
   <meta name="description" content="An open standard for declaring AI usage in software projects.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
   <meta property="og:description" content="An open standard for declaring AI usage in software projects.">
   <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
   <meta property="og:url" content="https://ai-declaration.md/en/0.1.1">
   <meta property="og:site_name" content="AI-DECLARATION.md">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
   <meta name="twitter:description" content="An open standard for declaring AI usage in software projects.">
   <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
   <link rel="icon" href="/www/logo.svg">
@@ -44,8 +44,15 @@
       </div>
     </div>
     <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+    <a class="nav-directory" href="/directory/">Directory</a>
+    <a class="nav-validate" href="/validate/">Validate</a>
   </div>
 </nav>
+
+<div class="subnav">
+  <a href="/directory/">Directory</a>
+  <a href="/validate/">Validate</a>
+</div>
 
 <div class="old-version-banner">
   <span class="stale-version">v0.1.1</span> is outdated; the latest specification is at <a href="/en/0.1.2/">v0.1.2</a>
@@ -252,6 +259,8 @@ components:
   document.addEventListener('click', () => {
     document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
   });
+
+  localStorage.setItem('aidecl_last', '/' + document.documentElement.lang + '/' + document.documentElement.dataset.version + '/');
 </script>
 
 </body>

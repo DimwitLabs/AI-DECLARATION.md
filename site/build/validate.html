@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validate | AI-DECLARATION.md</title>
+  <meta name="description" content="Validate your AI-DECLARATION.md file against the specification.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Validate | AI-DECLARATION.md">
+  <meta property="og:description" content="Validate your AI-DECLARATION.md file against the specification.">
+  <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
+  <meta property="og:url" content="https://ai-declaration.md/validate/">
+  <meta property="og:site_name" content="AI-DECLARATION.md">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Validate | AI-DECLARATION.md">
+  <meta name="twitter:description" content="Validate your AI-DECLARATION.md file against the specification.">
+  <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
+  <link rel="icon" href="/www/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-mark" href="/">
+    <span class="hex">䷼</span> AI-DECLARATION.md
+  </a>
+  <div class="nav-right">
+    <a id="nav-back" class="nav-back" href="/" hidden></a>
+    <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+    <a class="nav-directory" href="/directory/">Directory</a>
+    <a href="/validate/" class="nav-current nav-validate">Validate</a>
+  </div>
+</nav>
+
+<div class="subnav">
+  <a href="/directory/">Directory</a>
+  <a href="/validate/" class="subnav-current">Validate</a>
+</div>
+
+<div class="wrap">
+
+  <section class="doc-section" id="validate">
+    <h2>Validate</h2>
+    <p>Paste your <code>AI-DECLARATION.md</code> content below to check it against the specification.</p>
+    <textarea id="validate-input" class="validate-textarea" rows="14" spellcheck="false" placeholder="---&#10;version: &quot;0.1.2&quot;&#10;level: copilot&#10;---&#10;&#10;## Notes&#10;&#10;- ..."></textarea>
+    <div class="validate-actions">
+      <button id="validate-btn" class="validate-btn">Validate</button>
+    </div>
+  </section>
+
+  <section class="doc-section" id="validate-results" hidden>
+    <div id="result-summary"></div>
+    <div id="result-list"></div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><span>䷼ AI-DECLARATION.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a></span></p>
+  </div>
+</footer>
+
+<script>
+  const VALID_LEVELS = ['none', 'hint', 'assist', 'pair', 'copilot', 'auto'];
+  const VALID_PROCESSES = ['design', 'implementation', 'testing', 'documentation', 'review', 'deployment'];
+  const VALID_TOP_KEYS = ['version', 'level', 'processes', 'components'];
+  const LEVEL_ORDER = { none: 0, hint: 1, assist: 2, pair: 3, copilot: 4, auto: 5 };
+
+  function parseYaml(text) {
+    const lines = text.split(/\r?\n/);
+    const result = {};
+    let currentKey = null;
+    for (const line of lines) {
+      if (!line.trim() || line.trim().startsWith('#')) continue;
+      if (/^ +/.test(line) && currentKey) {
+        const m = line.match(/^ +([^:]+):\s*(.*)$/);
+        if (m) {
+          const k = m[1].trim();
+          const v = m[2].trim().replace(/^["']|["']$/g, '').replace(/\s+#.*$/, '');
+          if (typeof result[currentKey] !== 'object' || result[currentKey] === null) result[currentKey] = {};
+          result[currentKey][k] = v || null;
+        }
+      } else {
+        const m = line.match(/^([^:]+):\s*(.*)$/);
+        if (m) {
+          currentKey = m[1].trim();
+          const v = m[2].trim().replace(/^["']|["']$/g, '').replace(/\s+#.*$/, '');
+          result[currentKey] = v || null;
+        }
+      }
+    }
+    return result;
+  }
+
+  function parseFrontmatter(text) {
+    const m = text.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
+    if (!m) return { ok: false, error: 'No valid YAML frontmatter found. The file must begin with ---.' };
+    try {
+      return { ok: true, data: parseYaml(m[1]), body: text.slice(m[0].length) };
+    } catch (e) {
+      return { ok: false, error: 'Frontmatter could not be parsed: ' + e.message };
+    }
+  }
+
+  function validate(text) {
+    const errors = [], warnings = [], notes = [];
+
+    const fm = parseFrontmatter(text.trim());
+    if (!fm.ok) {
+      errors.push(fm.error);
+      return { errors, warnings, notes };
+    }
+
+    const data = fm.data;
+
+    for (const k of Object.keys(data)) {
+      if (!VALID_TOP_KEYS.includes(k)) {
+        errors.push(`Unknown field "${k}" — allowed fields are: ${VALID_TOP_KEYS.join(', ')}.`);
+      }
+    }
+
+    if (!data.version) {
+      errors.push('"version" is required.');
+    } else if (!/^[0-9]+\.[0-9]+\.[0-9]+$/.test(data.version)) {
+      errors.push(`"version" must match the pattern X.Y.Z (e.g. "0.1.2"). Got: "${data.version}".`);
+    }
+
+    if (!data.level) {
+      errors.push('"level" is required.');
+    } else if (!VALID_LEVELS.includes(data.level)) {
+      errors.push(`"level" must be one of: ${VALID_LEVELS.join(', ')}. Got: "${data.level}".`);
+    }
+
+    if (data.processes != null) {
+      if (typeof data.processes !== 'object') {
+        errors.push('"processes" must be an object mapping process names to levels, not a plain value.');
+      } else {
+        let maxProcLevel = -1;
+        for (const [k, v] of Object.entries(data.processes)) {
+          if (!VALID_PROCESSES.includes(k)) {
+            errors.push(`Unknown process "${k}" — allowed processes are: ${VALID_PROCESSES.join(', ')}.`);
+          }
+          if (!VALID_LEVELS.includes(v)) {
+            errors.push(`Invalid level "${v}" for process "${k}".`);
+          } else {
+            maxProcLevel = Math.max(maxProcLevel, LEVEL_ORDER[v]);
+          }
+        }
+        if (data.level && VALID_LEVELS.includes(data.level) && maxProcLevel > LEVEL_ORDER[data.level]) {
+          warnings.push(`Global "level" is "${data.level}" but a process has level "${VALID_LEVELS[maxProcLevel]}". The global level must be the highest level present.`);
+        }
+      }
+    }
+
+    if (data.components != null) {
+      if (typeof data.components !== 'object') {
+        errors.push('"components" must be an object mapping paths to levels, not a plain value.');
+      } else {
+        for (const [k, v] of Object.entries(data.components)) {
+          if (!VALID_LEVELS.includes(v)) {
+            errors.push(`Invalid level "${v}" for component "${k}".`);
+          }
+        }
+      }
+    }
+
+    const headings = [];
+    for (const line of fm.body.split(/\r?\n/)) {
+      const m = line.match(/^(#{1,6})\s+(.+)$/);
+      if (m) headings.push({ level: m[1].length, text: m[2].trim() });
+    }
+
+    const notesH = headings.find(h => h.text.toLowerCase() === 'notes');
+    if (!notesH) {
+      errors.push('A "## Notes" section is required in the body of the file.');
+    } else if (notesH.level !== 2) {
+      errors.push(`"Notes" must be an h2 heading (##). Found at level ${notesH.level} (${'#'.repeat(notesH.level)}).`);
+    }
+
+    for (const h of headings) {
+      if (h.text.toLowerCase() !== 'notes') {
+        notes.push(`Extra heading "${'#'.repeat(h.level)} ${h.text}" found.`);
+      }
+    }
+
+    return { errors, warnings, notes };
+  }
+
+  function esc(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function makeItem(cls, label, msg) {
+    const el = document.createElement('div');
+    el.className = 'result-item result-' + cls;
+    el.innerHTML = '<span class="result-label">' + label + '</span><span class="result-msg">' + esc(msg) + '</span>';
+    return el;
+  }
+
+  const last = localStorage.getItem('aidecl_last');
+  if (last) {
+    document.querySelector('.nav-mark').href = last;
+    const parts = last.replace(/^\/|\/$/g, '').split('/');
+    const back = document.getElementById('nav-back');
+    back.href = last;
+    back.textContent = parts[0].toUpperCase() + ' · v' + parts[1];
+    back.hidden = false;
+  }
+
+  document.getElementById('validate-btn').addEventListener('click', () => {
+    const text = document.getElementById('validate-input').value;
+    const resultsEl = document.getElementById('validate-results');
+    const summaryEl = document.getElementById('result-summary');
+    const listEl = document.getElementById('result-list');
+
+    if (!text.trim()) {
+      resultsEl.hidden = true;
+      return;
+    }
+
+    const { errors, warnings, notes } = validate(text);
+    listEl.innerHTML = '';
+    resultsEl.hidden = false;
+
+    const ok = errors.length === 0 && warnings.length === 0;
+    const notesSuffix = notes.length ? ` · ${notes.length} note${notes.length !== 1 ? 's' : ''}` : '';
+    summaryEl.innerHTML = ok
+      ? `<div class="validate-summary validate-ok">Valid${notesSuffix}</div>`
+      : `<div class="validate-summary validate-fail">${errors.length} error${errors.length !== 1 ? 's' : ''} · ${warnings.length} warning${warnings.length !== 1 ? 's' : ''}${notesSuffix}</div>`;
+
+    for (const msg of errors) listEl.appendChild(makeItem('error', 'ERROR', msg));
+    for (const msg of warnings) listEl.appendChild(makeItem('warning', 'WARNING', msg));
+    for (const msg of notes) listEl.appendChild(makeItem('note', 'NOTE', msg));
+
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+</body>
+</html>

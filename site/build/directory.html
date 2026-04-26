@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directory | AI-DECLARATION.md</title>
+  <meta name="description" content="Projects using the AI-DECLARATION.md open standard for AI usage transparency.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Directory | AI-DECLARATION.md">
+  <meta property="og:description" content="Projects using the AI-DECLARATION.md open standard for AI usage transparency.">
+  <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
+  <meta property="og:url" content="https://ai-declaration.md/directory/">
+  <meta property="og:site_name" content="AI-DECLARATION.md">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Directory | AI-DECLARATION.md">
+  <meta name="twitter:description" content="Projects using the AI-DECLARATION.md open standard for AI usage transparency.">
+  <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
+  <link rel="icon" href="/www/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-mark" href="/">
+    <span class="hex">䷼</span> AI-DECLARATION.md
+  </a>
+  <div class="nav-right">
+    <a id="nav-back" class="nav-back" href="/" hidden></a>
+    <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+    <a class="nav-current nav-directory" href="/directory/">Directory</a>
+    <a class="nav-validate" href="/validate/">Validate</a>
+  </div>
+</nav>
+
+<div class="subnav">
+  <a href="/directory/" class="subnav-current">Directory</a>
+  <a href="/validate/">Validate</a>
+</div>
+
+<div class="wrap">
+
+  <section class="doc-section" id="directory">
+    <h2>Directory</h2>
+    <p>{{COUNT}} projects using <code>AI-DECLARATION.md</code>.</p>
+    <input type="search" id="dir-search" class="dir-search" placeholder="Search projects...">
+    <p class="dir-count" id="dir-count"></p>
+    <ul class="dir-list">
+{{ITEMS}}
+    </ul>
+    <p class="dir-submit">Don't see your project? Submit to <a href="mailto:chief@dimwit.me">chief@dimwit.me</a></p>
+    <p class="dir-update">Updated every Sunday at 12:00 PM IST.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><span>䷼ AI-DECLARATION.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a></span></p>
+  </div>
+</footer>
+
+<script>
+  const last = localStorage.getItem('aidecl_last');
+  if (last) {
+    document.querySelector('.nav-mark').href = last;
+    const parts = last.replace(/^\/|\/$/g, '').split('/');
+    const back = document.getElementById('nav-back');
+    back.href = last;
+    back.textContent = parts[0].toUpperCase() + ' · v' + parts[1];
+    back.hidden = false;
+  }
+
+  const search = document.getElementById('dir-search');
+  const count = document.getElementById('dir-count');
+  const items = document.querySelectorAll('.dir-item');
+
+  search.addEventListener('input', function () {
+    const q = this.value.toLowerCase().trim();
+    let visible = 0;
+    items.forEach(function (item) {
+      const name = item.querySelector('.dir-repo').textContent.toLowerCase();
+      const tags = (item.dataset.tags || '').toLowerCase();
+      const show = !q || name.includes(q) || tags.includes(q);
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    count.textContent = q ? visible + ' result' + (visible !== 1 ? 's' : '') : '';
+  });
+</script>
+
+</body>
+</html>

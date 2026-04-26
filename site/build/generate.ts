@@ -6,6 +6,7 @@ import { parseMarkdown } from './parser.js';
 import { getVersions, generateVersionDropdown, generateLanguageDropdown } from './dropdowns.js';
 import { generateErrorPages } from './errors.js';
 import { generateSitemap } from './sitemap.js';
+import { generateDirectory } from './directory.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildDir = __dirname;
@@ -62,7 +63,7 @@ async function generateSite(): Promise<void> {
       .replace('{{LANGUAGE}}', row.language)
       .replace('{{VERSION}}', row.version)
       .replace('{{IS_LATEST}}', String(row.is_latest))
-      .replace('{{TITLE}}', title)
+      .replace(/\{\{TITLE\}\}/g, title)
       .replace(/\{\{DESCRIPTION\}\}/g, description)
       .replace('{{OG_URL}}', ogUrl)
       .replace('{{LANGUAGES_DROPDOWN}}', languagesDropdown)
@@ -76,6 +77,24 @@ async function generateSite(): Promise<void> {
 
   const knownLanguages = [...new Set(rows.map((r) => r.language))];
   generateErrorPages(latestVersion, knownLanguages);
+
+  const validateDir = path.join(siteDir, 'validate');
+  fs.mkdirSync(validateDir, { recursive: true });
+  fs.copyFileSync(path.join(buildDir, 'validate.html'), path.join(validateDir, 'index.html'));
+  console.log('  ✓ validate/index.html');
+
+  const rootDir = path.join(__dirname, '..', '..');
+  const wellKnownSrc = path.join(rootDir, '.well-known');
+  const wellKnownDest = path.join(siteDir, '.well-known');
+  if (fs.existsSync(wellKnownSrc)) {
+    fs.mkdirSync(wellKnownDest, { recursive: true });
+    for (const file of fs.readdirSync(wellKnownSrc)) {
+      fs.copyFileSync(path.join(wellKnownSrc, file), path.join(wellKnownDest, file));
+      console.log(`  ✓ .well-known/${file}`);
+    }
+  }
+
+  await generateDirectory(siteDir);
   await generateSitemap();
 }
 
@@ -90,6 +109,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Generate failed:', err);
+  console.error('Generate failed:', err instanceof Error ? err.message : 'unknown error');
   process.exit(1);
 });

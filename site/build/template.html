@@ -31,8 +31,15 @@
     {{LANGUAGES_DROPDOWN}}
     {{VERSIONS_DROPDOWN}}
     <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+    <a class="nav-directory" href="/directory/">Directory</a>
+    <a class="nav-validate" href="/validate/">Validate</a>
   </div>
 </nav>
+
+<div class="subnav">
+  <a href="/directory/">Directory</a>
+  <a href="/validate/">Validate</a>
+</div>
 
 {{OLD_VERSION_BANNER}}
 
@@ -76,6 +83,8 @@
   document.addEventListener('click', () => {
     document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
   });
+
+  localStorage.setItem('aidecl_last', '/' + document.documentElement.lang + '/' + document.documentElement.dataset.version + '/');
 </script>
 
 </body>

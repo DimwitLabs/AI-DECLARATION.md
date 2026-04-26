@@ -93,7 +93,7 @@ async function archive() {
 
 archive()
   .catch((err) => {
-    console.error('Archive failed:', err);
+    console.error('Archive failed:', err instanceof Error ? err.message : 'unknown error');
     process.exit(1);
   })
   .finally(() => pool.end());
