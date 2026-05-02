@@ -40,9 +40,19 @@ export async function generateDirectory(siteDir: string): Promise<void> {
     return `      <li class="dir-item" data-tags="${tags.join(' ')}"><a href="${esc(row.repo_url)}" class="dir-repo">${esc(row.repo_full_name)}</a>${tagHtml}${starsHtml}${versionHtml}</li>`;
   }).join('\n');
 
+  const now = new Date();
+  const lastUpdated = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  
+  const tomorrow = new Date(now);
+  tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+  tomorrow.setUTCHours(23, 59, 0, 0);
+  const nextUpdate = tomorrow.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' at 11:59 PM UTC';
+
   const html = template
     .replace('{{COUNT}}', String(rows.length))
-    .replace('{{ITEMS}}', items || '      <li class="dir-empty">No entries yet.</li>');
+    .replace('{{ITEMS}}', items || '      <li class="dir-empty">No entries yet.</li>')
+    .replace('{{LAST_UPDATED}}', lastUpdated)
+    .replace('{{NEXT_UPDATE}}', nextUpdate);
 
   const outDir = path.join(siteDir, 'directory');
   fs.mkdirSync(outDir, { recursive: true });

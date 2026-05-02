@@ -2,16 +2,20 @@ name: Scan Adopters
 
 on:
   schedule:
-    - cron: '30 6 * * 0'
+    - cron: '59 23 * * *'  # Every day at 11:59 PM UTC
   workflow_dispatch:
 
 jobs:
   scan:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -24,5 +28,18 @@ jobs:
       - name: Scan adopters
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
         run: cd site/build && npm run scan
+
+      - name: Generate site
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: cd site/build && npm run build
+
+      - name: Commit generated files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add site/public/
+          git commit -m "build: update directory after scan" || echo "No changes to commit"
+          git push origin main
