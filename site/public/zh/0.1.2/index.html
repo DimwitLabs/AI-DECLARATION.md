@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh" data-version="0.1.2" data-latest="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-DECLARATION.md | Open Standard for AI Usage Transparency</title>
+  <meta name="description" content="An open standard for declaring AI usage in software projects.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
+  <meta property="og:description" content="An open standard for declaring AI usage in software projects.">
+  <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
+  <meta property="og:url" content="https://ai-declaration.md/zh/0.1.2">
+  <meta property="og:site_name" content="AI-DECLARATION.md">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
+  <meta name="twitter:description" content="An open standard for declaring AI usage in software projects.">
+  <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
+  <link rel="icon" href="/www/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-mark" href="/">
+    <span class="hex">䷼</span> AI-DECLARATION.md
+  </a>
+  <div class="nav-right">
+        <div class="dropdown">
+      <button class="dropdown-toggle">ZH <span class="arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="/en/0.1.2/" class="dropdown-item">EN</a>
+        <a href="/ko/0.1.2/" class="dropdown-item">KO</a>
+        <a href="/zh/0.1.2/" class="dropdown-item active">ZH</a>
+      </div>
+    </div>
+        <div class="dropdown">
+      <button class="dropdown-toggle">v0.1.2 <span class="arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="/zh/0.1.2/" class="dropdown-item active">v0.1.2 <span class="badge">latest</span></a>
+        <a href="/zh/0.1.1/" class="dropdown-item">v0.1.1</a>
+        <a href="/zh/0.1.0/" class="dropdown-item">v0.1.0</a>
+      </div>
+    </div>
+    <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+    <a class="nav-directory" href="/directory/">Directory</a>
+    <a class="nav-validate" href="/validate/">Validate</a>
+  </div>
+</nav>
+
+<div class="subnav">
+  <a href="/directory/">Directory</a>
+  <a href="/validate/">Validate</a>
+</div>
+
+
+
+<div class="wrap">
+
+  <section id="hero">
+    <div class="hero-title"><span class="hero-hex">䷼</span><h1>AI-DECLARATION.md</h1></div>
+    <div class="hero-nav">
+      <a href="#概述">概述</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#规范">规范</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#schema">Schema</a>
+      <span class="hero-nav-break"></span>
+      <span class="hero-nav-sep">·</span>
+      <a href="#示例">示例</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#徽章">徽章</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#常见问题">常见问题</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#如果在声明文件中撒谎会怎样？">如果在声明文件中撒谎会怎样？</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#我可以构建工具来自动生成该文件吗？">我可以构建工具来自动生成该文件吗？</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#我想贡献翻译，该怎么做？">我想贡献翻译，该怎么做？</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#我想对规范提出修改建议？">我想对规范提出修改建议？</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#如果已在-readme-中添加了徽章，还需要包含声明文件吗？">如果已在 README 中添加了徽章，还需要包含声明文件吗？</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#徽标有什么含义？">徽标有什么含义？</a>
+    </div>
+  </section>
+
+  <section class="doc-section" id="概述">
+    <h2>概述</h2>
+    <p>现实是我们已经无法避免AI生成代码。它既带来了巨大的便利，也带来了问题。问题不在于代码本身，而在于透明度和清晰度。至少，这份规范正是基于这一前提。我们的建议非常简单：正如你在项目仓库中包含其他文件一样，也请包含一份结构化的 <code>AI-DECLARATION.md</code> 文件。通过这种方式，你可以清晰透明地声明 AI 的使用情况，更重要的是，我们希望将这种实践推广为开发者社区的普遍共识。</p>
+    <p>这并非要阻止未来使用 LLM 或其他代码生成工具。恰恰相反，这是一项促进因素。当你声明了代码的哪些部分确实是由 AI 生成的，持怀疑态度的人就可以直接聚焦于这些部分，进行复核与交叉验证。同时，它也让创作者能够同时、清晰地展示自己的编码能力以及规划和其他软技能。</p>
+  </section>
+
+  <section class="doc-section" id="规范">
+    <h2>规范</h2>
+    <p><code>AI-DECLARATION.md</code> 文件使用 YAML Front Matter 定义结构化数据，随后在 Markdown 正文中必须包含 <code>## Notes</code>（备注）部分，以提供人类可读的上下文。至少需要包含 <code>version</code>、<code>level</code>和 <code>## Notes</code> 部分。</p>
+    <p>你也可以选择声明开发 <code>processes</code>，并为每个过程指定独立的级别。全局 <code>level</code> 必须是其中最高的级别。未列出的过程将隐式视为 <code>none</code>。你还可以按 <code>components</code>（文件路径或目录）列出级别。</p>
+    <p>本规范正式定义了 <code>version</code>、<code>level</code>、<code>processes</code> 和 <code>components</code>。</p>
+      <p class="example-hed">Level (AI辅助级别)</p>
+    <p>这些级别不仅涵盖代码生成，还包括代码审查等相关活动。它们由 <code>Human</code>（人类）、<code>AI</code>、<code>task</code>（任务）等实体，以及 <code>act</code>（执行）和 <code>prompt</code>（提示）等动词组合定义。</p>
+    <ul class="level-list">
+    </ul>
+      <p class="example-hed">Processes (开发阶段)</p>
+    <ul class="proc-list">
+    </ul>
+  </section>
+
+  <section class="doc-section" id="schema">
+    <h2>Schema</h2>
+    <p>以下 YAML Schema 正式定义了 <code>AI-DECLARATION.md</code> 文件的结构。请使用此 Schema 验证声明文件或构建相关工具。</p>
+    <pre>type: object
+required: [version, level]
+definitions:
+  level:
+    type: string
+    enum: [none, hint, assist, pair, copilot, auto]
+properties:
+  version:
+    type: string
+    pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+  level:
+    $ref: "#/definitions/level"
+  processes:
+    type: object
+    propertyNames:
+      enum: [design, implementation, testing, documentation, review, deployment]
+    additionalProperties:
+      $ref: "#/definitions/level"
+  components:
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/level"
+additionalProperties: false</pre>
+  </section>
+
+  <section class="doc-section" id="示例">
+    <h2>示例</h2>
+    <p>以下是不同场景的示例。</p>
+      <p class="example-hed">基础示例</p>
+    <p>最简单的 <code>AI-DECLARATION.md</code> 需要包含 <code>version</code>、<code>level</code> 和 <code>## Notes</code> 部分。</p>
+    <pre>---
+version: "0.1.1"
+level: none
+---
+
+本文件基于 [AI-DECLARATION.md](https://ai-declaration.md/zh/0.1.1) 规范编写。
+
+## Notes
+
+- 未使用任何 AI 工具。</pre>
+    <pre>---
+version: "0.1.1"
+level: auto
+---
+
+本文件基于 [AI-DECLARATION.md](https://ai-declaration.md/zh/0.1.1) 规范编写。
+
+## Notes
+
+- 使用 Claude Code 开发了整个应用。</pre>
+      <p class="example-hed">使用 <code>processes</code></p>
+    <p>使用 <code>processes</code> 为各开发阶段精细声明 AI 参与度。全局 <code>level</code> 必须是所列过程中最高的级别。未列出的过程将隐式视为 <code>none</code>。</p>
+    <pre>---
+version: "0.1.1"
+level: auto
+processes:
+  design: auto
+  testing: copilot
+---
+
+本文件基于 [AI-DECLARATION.md](https://ai-declaration.md/zh/0.1.1) 规范编写。
+
+## Notes
+
+- AI 主导了架构决策和测试代码生成。所有输出均经过人工审查。</pre>
+      <p class="example-hed">使用 <code>components</code></p>
+    <p>使用 <code>components</code> 为特定文件或目录声明 AI 参与度。</p>
+    <pre>---
+version: "0.1.1"
+level: auto
+components:
+  src/helpers: auto
+---
+
+本文件基于 [AI-DECLARATION.md](https://ai-declaration.md/zh/0.1.1) 规范编写。
+
+## Notes
+
+- helpers 目录下的代码完全由 AI 生成。其余代码均为人工编写。</pre>
+  </section>
+
+  <section class="doc-section" id="徽章">
+    <h2>徽章</h2>
+    <p>将徽章添加到项目的 <code>README</code> 中，可让人一目了然地了解 <code>AI-DECLARATION</code> 级别。请注意，徽章仅为便利的可视化工具，为符合规范，你<strong>必须</strong>在项目中包含 <code>AI-DECLARATION.md</code> 文件。</p>
+    <ul>
+      <li><a href="https://ai-declaration.md"><img src="https://img.shields.io/badge/%E4%B7%BC%20AI--DECLARATION-none-dcfce7?labelColor=dcfce7" alt="AI-DECLARATION: none"></a></li>
+      <li><a href="https://ai-declaration.md"><img src="https://img.shields.io/badge/%E4%B7%BC%20AI--DECLARATION-hint-ecfccb?labelColor=ecfccb" alt="AI-DECLARATION: hint"></a></li>
+      <li><a href="https://ai-declaration.md"><img src="https://img.shields.io/badge/%E4%B7%BC%20AI--DECLARATION-assist-fef9c3?labelColor=fef9c3" alt="AI-DECLARATION: assist"></a></li>
+      <li><a href="https://ai-declaration.md"><img src="https://img.shields.io/badge/%E4%B7%BC%20AI--DECLARATION-pair-ffedd5?labelColor=ffedd5" alt="AI-DECLARATION: pair"></a></li>
+      <li><a href="https://ai-declaration.md"><img src="https://img.shields.io/badge/%E4%B7%BC%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2" alt="AI-DECLARATION: copilot"></a></li>
+      <li><a href="https://ai-declaration.md"><img src="https://img.shields.io/badge/%E4%B7%BC%20AI--DECLARATION-auto-ede9fe?labelColor=ede9fe" alt="AI-DECLARATION: auto"></a></li>
+    </ul>
+  </section>
+
+  <section class="doc-section" id="常见问题">
+    <h2>常见问题</h2>
+  </section>
+
+  <section class="doc-section" id="如果在声明文件中撒谎会怎样？">
+    <h2>如果在声明文件中撒谎会怎样？</h2>
+    <p>那样的话，这项声明就毫无意义了，不是吗？这项倡议的核心在于我们所有人能够建立一种可信赖的社会契约。如果仓库中包含了 <code>AI-DECLARATION.md</code>，任何人都可以将其作为单一的真实来源来信赖。</p>
+  </section>
+
+  <section class="doc-section" id="我可以构建工具来自动生成该文件吗？">
+    <h2>我可以构建工具来自动生成该文件吗？</h2>
+    <p>请便。我预计会有人构建自动生成和解析的工具。虽然我迟早也会做，但对于任何和所有的贡献，我深表感激。</p>
+  </section>
+
+  <section class="doc-section" id="我想贡献翻译，该怎么做？">
+    <h2>我想贡献翻译，该怎么做？</h2>
+    <p>当然可以！请随时贡献。只需 Fork 本仓库，添加 <code>README_&lt;语言代码&gt;.md</code> 文件，例如 <code>README_es.md</code>，然后提交 PR，我会跟进处理。</p>
+  </section>
+
+  <section class="doc-section" id="我想对规范提出修改建议？">
+    <h2>我想对规范提出修改建议？</h2>
+    <p>很好，这就是它开源的原因。我认为规范会随着反馈和 PR 自然地演进。所以，让我们一起讨论吧。</p>
+  </section>
+
+  <section class="doc-section" id="如果已在-readme-中添加了徽章，还需要包含声明文件吗？">
+    <h2>如果已在 README 中添加了徽章，还需要包含声明文件吗？</h2>
+    <p>是的，建议将 <code>AI-DECLARATION.md</code> 文件作为首要的真实来源。README 中的徽章只是一种快速浏览的方式，让访问者确认 (A) 项目中有 <code>AI-DECLARATION.md</code>，以及 (B) 项目的 AI 使用级别。</p>
+  </section>
+
+  <section class="doc-section" id="徽标有什么含义？">
+    <h2>徽标有什么含义？</h2>
+    <p>䷼ 是第 61 卦——中孚卦（Unicode: <code>U+4DFC</code>），是《易经》六十四卦之一，每一爻为阴（断线）或阳（实线）。（<a href="https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61">来源</a>）</p>
+  </section>
+
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><span>䷼ AI-DECLARATION.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a></span></p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+    });
+  });
+
+  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = toggle.parentElement;
+      document.querySelectorAll('.dropdown.open').forEach(d => {
+        if (d !== dropdown) d.classList.remove('open');
+      });
+      dropdown.classList.toggle('open');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+  });
+
+  localStorage.setItem('aidecl_last', '/' + document.documentElement.lang + '/' + document.documentElement.dataset.version + '/');
+</script>
+
+</body>
+</html>

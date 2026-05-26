@@ -13,6 +13,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://ai-declaration.md/zh/0.1.2/</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://ai-declaration.md/en/0.1.1/</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>monthly</changefreq>
