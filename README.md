@@ -170,4 +170,4 @@ Yes, the recommendation is to include an `AI-DECLARATION.md` as the primary sour
 ䷼ Hexagram 61 or Hexagram For Inner Truth (Unicode: `U+4DFC`) is one of 64 hexagrams in the Yi (I) Ching to illustrate principles where each line is either Yin (broken) or Yang (solid). ([source](https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61))
 
 ## Resources
-- [ai-declare](https://github.com/yujqiao/ai-declare) agent skill to generate `AI-DECLARATION.md`
+- [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) agent skill to generate `AI-DECLARATION.md`
