@@ -169,3 +169,6 @@ components:
 
 ### 徽标有什么含义？
 ䷼ 是第 61 卦——中孚卦（Unicode: `U+4DFC`），是《易经》六十四卦之一，每一爻为阴（断线）或阳（实线）。（[来源](https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61)）
+
+## 资源
+- [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) 用于生成 `AI-DECLARATION.md` 的 agent skill

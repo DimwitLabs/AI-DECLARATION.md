@@ -169,3 +169,6 @@ components:
 
 ### 로고에는 어떤 의미가 담겨 있나요?
 ䷼은 61번째 괘인 ‘중부(中孚)’를 나타냅니다 (유니코드: `U+4DFC`). 이는 주역의 64괘 중 하나로, 각 효는 음(끊어진 선) 또는 양(이어진 선)으로 이루어져 있습니다. ([출처](https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61))
+
+## 리소스
+- [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) `AI-DECLARATION.md` 생성을 위한 agent 스킬
