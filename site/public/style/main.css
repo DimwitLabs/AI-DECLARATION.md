@@ -739,6 +739,7 @@ body.old-version nav {
 @media (max-width: 600px) {
   .nav-validate { display: none; }
   .nav-directory { display: none; }
+  .nav-api { display: none; }
   .subnav { display: flex; }
 }
 

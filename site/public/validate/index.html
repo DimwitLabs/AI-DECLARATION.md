@@ -119,7 +119,7 @@
 
     for (const k of Object.keys(data)) {
       if (!VALID_TOP_KEYS.includes(k)) {
-        errors.push(`Unknown field "${k}" — allowed fields are: ${VALID_TOP_KEYS.join(', ')}.`);
+        errors.push(`Unknown field "${k}"; allowed fields are: ${VALID_TOP_KEYS.join(', ')}.`);
       }
     }
 
@@ -142,7 +142,7 @@
         let maxProcLevel = -1;
         for (const [k, v] of Object.entries(data.processes)) {
           if (!VALID_PROCESSES.includes(k)) {
-            errors.push(`Unknown process "${k}" — allowed processes are: ${VALID_PROCESSES.join(', ')}.`);
+            errors.push(`Unknown process "${k}"; allowed processes are: ${VALID_PROCESSES.join(', ')}.`);
           }
           if (!VALID_LEVELS.includes(v)) {
             errors.push(`Invalid level "${v}" for process "${k}".`);

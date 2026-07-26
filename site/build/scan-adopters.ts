@@ -32,7 +32,7 @@ async function ghSearch(page: number, filename: string) {
   );
   if (res.status === 403 || res.status === 429) {
     const retry = Number(res.headers.get('retry-after') ?? 60);
-    console.log(`  Rate limited — waiting ${retry}s`);
+    console.log(`  Rate limited: waiting ${retry}s`);
     await sleep(retry * 1000);
     return ghSearch(page, filename);
   }
@@ -150,7 +150,7 @@ async function scan() {
     totalFound += found;
   }
 
-  console.log(`\nDone — ${totalFound} adopters found out of ${totalScanned} scanned.`);
+  console.log(`\nDone: ${totalFound} adopters found out of ${totalScanned} scanned.`);
 }
 
 scan()

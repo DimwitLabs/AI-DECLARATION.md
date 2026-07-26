@@ -53,7 +53,7 @@ async function archive() {
   }
 
   const langs = entries.map((e) => e.language).join(', ');
-  console.log(`Archiving v${version} — found ${entries.length} language(s): ${langs}`);
+  console.log(`Archiving v${version}; found ${entries.length} language(s): ${langs}`);
 
   const gitTag = `v${version}`;
   const gitCommit = process.env.GITHUB_SHA?.slice(0, 7) ?? '';

@@ -7,6 +7,30 @@ server {
         try_files $uri =404;
     }
 
+    location = /api/schema {
+        proxy_pass https://api.ai-declaration.md/api/schema;
+        proxy_set_header Host api.ai-declaration.md;
+        proxy_ssl_server_name on;
+    }
+
+    location = /api/validate {
+        proxy_pass https://api.ai-declaration.md/api/validate;
+        proxy_set_header Host api.ai-declaration.md;
+        proxy_ssl_server_name on;
+    }
+
+    location = /api/detect {
+        proxy_pass https://api.ai-declaration.md/api/detect;
+        proxy_set_header Host api.ai-declaration.md;
+        proxy_ssl_server_name on;
+    }
+
+    location = /api/openapi.json {
+        proxy_pass https://api.ai-declaration.md/api/openapi.json;
+        proxy_set_header Host api.ai-declaration.md;
+        proxy_ssl_server_name on;
+    }
+
     location = / {
         add_header Cache-Control "no-store, no-cache, must-revalidate";
         return 302 /en/0.1.2/;
