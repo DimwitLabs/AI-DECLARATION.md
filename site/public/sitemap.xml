@@ -37,6 +37,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ai-declaration.md/directory/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ai-declaration.md/validate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ai-declaration.md/api/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ai-declaration.md/errors/translation.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
