@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API | AI-DECLARATION.md</title>
+  <meta name="description" content="API reference for the AI-DECLARATION.md spec: schema, validation, and detection.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="API | AI-DECLARATION.md">
+  <meta property="og:description" content="API reference for the AI-DECLARATION.md spec: schema, validation, and detection.">
+  <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
+  <meta property="og:url" content="https://ai-declaration.md/api/">
+  <meta property="og:site_name" content="AI-DECLARATION.md">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="API | AI-DECLARATION.md">
+  <meta name="twitter:description" content="API reference for the AI-DECLARATION.md spec: schema, validation, and detection.">
+  <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
+  <link rel="icon" href="/www/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+  <link rel="stylesheet" href="/style/swagger-theme.css">
+  <style>
+    #swagger-ui { max-width: 760px; margin: 0 auto; padding: 0 2rem; text-align: left; hyphens: none; }
+    @media (max-width: 600px) { #swagger-ui { padding: 0 1.25rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-mark" href="/">
+    <span class="hex">䷼</span> AI-DECLARATION.md
+  </a>
+  <div class="nav-right">
+    <a id="nav-back" class="nav-back" href="/" hidden></a>
+    <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+    <a class="nav-directory" href="/directory/">Directory</a>
+    <a class="nav-validate" href="/validate/">Validate</a>
+    <a class="nav-current nav-api" href="/api/">API</a>
+  </div>
+</nav>
+
+<div class="subnav">
+  <a href="/directory/">Directory</a>
+  <a href="/validate/">Validate</a>
+  <a href="/api/" class="subnav-current">API</a>
+</div>
+
+<div id="swagger-ui"></div>
+
+<footer>
+  <div class="footer-inner">
+    <p><span>䷼ AI-DECLARATION.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a></span></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+<script>
+  const last = localStorage.getItem('aidecl_last');
+  if (last) {
+    document.querySelector('.nav-mark').href = last;
+    const parts = last.replace(/^\/|\/$/g, '').split('/');
+    const back = document.getElementById('nav-back');
+    back.href = last;
+    back.textContent = parts[0].toUpperCase() + ' · v' + parts[1];
+    back.hidden = false;
+  }
+
+  SwaggerUIBundle({
+    url: '/api/openapi.json',
+    dom_id: '#swagger-ui',
+    docExpansion: 'list',
+  });
+</script>
+
+</body>
+</html>
