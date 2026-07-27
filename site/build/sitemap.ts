@@ -34,6 +34,20 @@ export async function generateSitemap(): Promise<void> {
   </url>`);
   }
 
+  const staticPages: Array<{ path: string; changefreq: string; priority: string }> = [
+    { path: '/directory/', changefreq: 'daily', priority: '0.7' },
+    { path: '/validate/', changefreq: 'monthly', priority: '0.7' },
+    { path: '/api/', changefreq: 'monthly', priority: '0.7' },
+  ];
+
+  for (const page of staticPages) {
+    urls.push(`  <url>
+    <loc>${BASE_URL}${page.path}</loc>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`);
+  }
+
   urls.push(`  <url>
     <loc>${BASE_URL}/errors/translation.html</loc>
     <changefreq>monthly</changefreq>
