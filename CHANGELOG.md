@@ -12,12 +12,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Pull request templates in `templates/` directory to help contributors update AI-DECLARATION.md, shifting responsibility from maintainers to contributors. Includes general and detailed variants.
 - YAML schema for tooling and validation. ([#12](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/12))
 - Korean translation added by @123jimin. Thank you for the contribution! ([#13](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/13)).
+- Simplified Chinese translation added by @yujqiao. Thank you for the contribution! ([#23](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/23))
+- Brazilian Portuguese translation added by @lurymorais. Thank you for the contribution! ([#26](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/26))
+- A Resources section listing the [`ai-declare`](https://github.com/yujqiao/ai-declare) agent skill, added by @yujqiao. Thank you for the contribution! ([#22](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/22))
+- A public [API](https://ai-declaration.md/api/) for tooling, with `/api/versions`, `/api/levels`, `/api/processes`, `/api/schema`, `/api/validate`, and `/api/detect` endpoints.
 - A `templates/` directory with two Pull Request templates for reference and to increase easy adoption for repository owners. ([#14](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/14))
 
 ### Changed
 
 - Site improvements: dropdowns, missing translation page, missing version page, mobile site tweaks. ([#9](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/9))
 - An attribution sentence above the `## Notes` section to make sure anyone using the file has an easy link to get back to the right version of the specification. ([#11](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/11))
+- Language codes now follow [BCP 47](https://www.rfc-editor.org/rfc/rfc5646), so regional translations such as `pt-BR` are supported, and the language picker shows each language's own name.
+- The Directory marks entries whose declared version was never published, since some projects declare their own application version instead.
 
 ## [0.1.1] - 2026-04-06
 
