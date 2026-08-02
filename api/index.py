@@ -1,5 +1,7 @@
+import logging
 import os
 import re
+import sys
 from pathlib import Path
 from typing import Literal, Optional
 
@@ -11,9 +13,25 @@ from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from pydantic import BaseModel, Field
 
+_logger = logging.getLogger("ai-declaration")
+if not _logger.handlers:
+    _handler = logging.StreamHandler(sys.stdout)
+    _handler.setFormatter(logging.Formatter("%(message)s"))
+    _logger.addHandler(_handler)
+    _logger.setLevel(logging.INFO)
+    _logger.propagate = False
+
+
+def log(component: str, message: str, *, level: int = logging.INFO) -> None:
+    _logger.log(level, "[%s]: %s", component, message)
+
+
+PUBLISHED_VERSIONS = ["0.1.0", "0.1.1", "0.1.2"]
+SPEC_VERSION = PUBLISHED_VERSIONS[-1]
+
 app = FastAPI(
     title="AI-DECLARATION.md API",
-    version="0.1.2",
+    version=SPEC_VERSION,
     docs_url=None,
     openapi_url="/api/openapi.json",
     servers=[
@@ -21,6 +39,10 @@ app = FastAPI(
     ],
 )
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
+
+log("api", f"starting, spec version {SPEC_VERSION}")
+if not os.environ.get("GITHUB_TOKEN"):
+    log("api", "GITHUB_TOKEN is not set; /api/detect will use unauthenticated rate limits", level=logging.WARNING)
 
 CSS_PATH = Path(__file__).parent / "swagger-theme.css"
 NO_CACHE = {"Cache-Control": "no-store"}
@@ -48,8 +70,26 @@ def custom_docs():
 def swagger_theme():
     return Response(content=CSS_PATH.read_text(), media_type="text/css", headers=NO_CACHE)
 
-LEVELS = ["none", "hint", "assist", "pair", "copilot", "auto"]
-PROCESSES = ["design", "implementation", "testing", "documentation", "review", "deployment"]
+LEVEL_DESCRIPTIONS = {
+    "none": "Human acts on the task alone with no AI involvement.",
+    "hint": "Human acts on the task and the AI surfaces suggestions passively.",
+    "assist": "Human prompts and the AI acts on a part of the task.",
+    "pair": "Human prompts as both human and AI both act on the task equally; Human understands internals clearly.",
+    "copilot": "Human prompts and AI acts on the whole task, prompting the Human for permission or clarification.",
+    "auto": "Human prompts and AI acts autonomously bringing the task to completion.",
+}
+
+PROCESS_DESCRIPTIONS = {
+    "design": "Architecture, system design, and decision-making.",
+    "implementation": "Writing production code.",
+    "testing": "Writing tests, test plans, and quality assurance.",
+    "documentation": "Writing docs, comments, READMEs, and changelogs.",
+    "review": "Code review and pull request feedback.",
+    "deployment": "CI/CD configuration, infrastructure, and release scripts.",
+}
+
+LEVELS = list(LEVEL_DESCRIPTIONS)
+PROCESSES = list(PROCESS_DESCRIPTIONS)
 SOURCE_FILES = ["AI-DECLARATION.md", "CANDOR.md"]
 Level = Literal["none", "hint", "assist", "pair", "copilot", "auto"]
 
@@ -108,6 +148,18 @@ class DetectResult(BaseModel):
     found: bool
     sourceFile: Optional[str]
     result: Optional[ValidationResult]
+
+
+def _version_is_quoted(raw: str) -> Optional[bool]:
+    """Whether the frontmatter's version value is written as a quoted string.
+
+    YAML reads an unquoted `0.1.2` as a string anyway (two dots is not a number), so this
+    cannot be detected after parsing -- it has to be read off the raw text.
+    """
+    m = re.search(r"^\s*version\s*:\s*(.*)$", raw, re.MULTILINE)
+    if not m:
+        return None
+    return m.group(1).strip().startswith(('"', "'"))
 
 
 SAMPLE_DECLARATION = (
@@ -175,6 +227,15 @@ def validate(text: str) -> ValidationResult:
         if fm.level in order and max_proc > order[fm.level]:
             warnings.append(f'Global "level" is "{fm.level}" but a process has level "{LEVELS[max_proc]}". The global level must be the highest level present.')
 
+        if fm.version not in PUBLISHED_VERSIONS:
+            warnings.append(
+                f'"{fm.version}" is not a published version of the specification. '
+                f'The current version is "{SPEC_VERSION}".'
+            )
+
+        if _version_is_quoted(raw) is False:
+            warnings.append(f'"version" should be a quoted string, e.g. version: "{fm.version}".')
+
     headings = []
     for line in body.splitlines():
         hm = re.match(r"^(#{1,6})\s+(.+)$", line)
@@ -197,6 +258,87 @@ def validate(text: str) -> ValidationResult:
 @app.get("/", include_in_schema=False)
 def root():
     return RedirectResponse("/docs")
+
+
+class VersionsResult(BaseModel):
+    model_config = {"json_schema_extra": {"example": {"current": "0.1.2", "published": ["0.1.0", "0.1.1", "0.1.2"]}}}
+
+    current: str
+    published: list[str]
+
+
+class LevelInfo(BaseModel):
+    model_config = {
+        "json_schema_extra": {
+            "example": {"name": "copilot", "rank": 4, "description": LEVEL_DESCRIPTIONS["copilot"]}
+        }
+    }
+
+    name: str
+    rank: int
+    description: str
+
+
+class ProcessInfo(BaseModel):
+    model_config = {
+        "json_schema_extra": {
+            "example": {"name": "design", "description": PROCESS_DESCRIPTIONS["design"]}
+        }
+    }
+
+    name: str
+    description: str
+
+
+@app.get(
+    "/api/levels",
+    tags=["Endpoints"],
+    summary="Levels",
+    response_model=list[LevelInfo],
+    response_description="Every level, ordered from least to most AI involvement.",
+    description=(
+        "The levels of AI involvement, with their descriptions taken verbatim from the "
+        "specification. `rank` orders them from least (`0`) to most involvement, which is "
+        "what the rule \"the global level must be the highest level present\" refers to. "
+        "Present the descriptions as-is; do not rephrase them."
+    ),
+)
+def levels():
+    return [
+        {"name": name, "rank": rank, "description": description}
+        for rank, (name, description) in enumerate(LEVEL_DESCRIPTIONS.items())
+    ]
+
+
+@app.get(
+    "/api/processes",
+    tags=["Endpoints"],
+    summary="Processes",
+    response_model=list[ProcessInfo],
+    response_description="Every process that may be declared, with its description.",
+    description=(
+        "The processes that may be given their own level under `processes`, with their "
+        "descriptions taken verbatim from the specification. Any process not declared is "
+        "implicitly `none`."
+    ),
+)
+def processes():
+    return [{"name": name, "description": description} for name, description in PROCESS_DESCRIPTIONS.items()]
+
+
+@app.get(
+    "/api/versions",
+    tags=["Endpoints"],
+    summary="Versions",
+    response_model=VersionsResult,
+    response_description="The current specification version, and every published version.",
+    description=(
+        "Which versions of the specification exist. Use `current` when writing a new "
+        "`AI-DECLARATION.md`; `published` is every version ever released, oldest first."
+    ),
+)
+def versions():
+    return {"current": SPEC_VERSION, "published": PUBLISHED_VERSIONS}
 
 
 @app.get(
@@ -224,7 +366,7 @@ def root():
         }
     },
 )
-def schema(format: Literal["json", "yaml"] = "json"):
+def schema_endpoint(format: Literal["json", "yaml"] = "json"):
     data = Frontmatter.model_json_schema()
     if format == "yaml":
         return Response(content=yaml.dump(data, sort_keys=False), media_type="application/yaml")
@@ -245,7 +387,14 @@ def schema(format: Literal["json", "yaml"] = "json"):
 async def validate_endpoint(
     content: str = Body(..., media_type="text/plain", examples=[SAMPLE_DECLARATION]),
 ):
-    return validate(content)
+    result = validate(content)
+    log(
+        "validate",
+        f"{'valid' if result.valid else 'invalid'} "
+        f"(level={result.level}, version={result.version}, "
+        f"errors={len(result.errors)}, warnings={len(result.warnings)})",
+    )
+    return result
 
 
 @app.get(
@@ -261,14 +410,24 @@ async def validate_endpoint(
     responses={404: {"model": DetectResult, "description": "No declaration file found in the repository."}},
 )
 async def detect(owner: str, repo: str):
+    full_name = f"{owner}/{repo}"
     headers = {}
     if token := os.environ.get("GITHUB_TOKEN"):
         headers["Authorization"] = f"Bearer {token}"
 
+    log("detect", f"looking up {full_name}")
+
     async with httpx.AsyncClient(headers=headers) as client:
         for source_file in SOURCE_FILES:
-            res = await client.get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/{source_file}")
+            try:
+                res = await client.get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/{source_file}")
+            except httpx.HTTPError as e:
+                log("detect", f"{full_name}/{source_file} fetch failed: {e}", level=logging.ERROR)
+                continue
             if res.status_code == 200:
-                return {"repo": f"{owner}/{repo}", "found": True, "sourceFile": source_file, "result": validate(res.text)}
+                result = validate(res.text)
+                log("detect", f"{full_name} found {source_file} (valid={result.valid}, level={result.level})")
+                return {"repo": full_name, "found": True, "sourceFile": source_file, "result": result}
 
-    return JSONResponse(status_code=404, content={"repo": f"{owner}/{repo}", "found": False, "sourceFile": None, "result": None})
+    log("detect", f"{full_name} has no declaration file")
+    return JSONResponse(status_code=404, content={"repo": full_name, "found": False, "sourceFile": None, "result": None})
