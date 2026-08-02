@@ -253,6 +253,40 @@ pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
 
 .proc-list li:hover { background: var(--surface-mid); }
 
+/* Resource lists: a plain markdown list whose items lead with a link. Detected by content
+   in parser.ts, so it works regardless of what the section heading is translated to. */
+.resource-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.resource-list li {
+  padding: 0.9rem 1.15rem;
+  margin-bottom: 2px;
+  background: var(--surface-lowest);
+  font-size: 0.9rem;
+  color: var(--on-surface-muted);
+  text-align: left;
+  hyphens: none;
+  transition: background 0.1s ease;
+}
+
+.resource-list li:hover { background: var(--surface-mid); }
+
+.resource-list li a {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  border-bottom: none;
+  overflow-wrap: anywhere;
+}
+
+.resource-list li a:hover { opacity: 0.6; }
+
+.resource-list li code { font-size: 0.78rem; }
+
 .ptag {
   font-family: 'Space Grotesk', monospace;
   font-size: 0.85rem;
@@ -381,6 +415,7 @@ footer a:hover { color: var(--on-surface); opacity: 1; }
   .nav-mark { font-size: 0; }
   .nav-mark .hex { font-size: 1.1rem; }
   .level-list { grid-template-columns: 1fr; }
+  .resource-list li { padding: 0.85rem 1rem; }
   .proc-list { display: grid; grid-template-columns: 1fr; gap: 2px; background: rgba(148, 180, 226, 0.2); }
   .proc-list li { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; margin-bottom: 0; background: var(--surface-low); align-items: flex-start; }
   .hero-nav-break { display: block; flex-basis: 100%; height: 0; }

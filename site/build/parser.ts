@@ -37,6 +37,14 @@ function parseBadgeItem(raw: string): { src: string; alt: string; copyText: stri
   return null;
 }
 
+/** A list item's raw markdown, without its bullet marker. */
+function itemRaw(item: Tokens.ListItem | undefined): string {
+  return (item?.raw ?? '').trim().replace(/^[-*+]\s+/, '');
+}
+
+/** Leads with a markdown link, but not an image link (`[![…]…`), which would be a badge. */
+const RESOURCE_ITEM_RE = /^\[(?!!)[^\]]*\]\([^)]+\)/;
+
 function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -68,7 +76,6 @@ export function parseMarkdown(markdown: string): string {
   let currentSectionId = '';
   let inFaq = false;
   let inExamples = false;
-  let inBadges = false;
   let lastH4Lower = '';
   let inExampleGroup = false;
   let faqItems: Array<{ question: string; answer: string }> = [];
@@ -107,7 +114,6 @@ export function parseMarkdown(markdown: string): string {
     currentSectionId = id;
     inFaq = id === 'faq';
     inExamples = id === 'examples';
-    inBadges = id === 'badges';
     lastH4Lower = '';
     pendingFaqQuestion = '';
     sections.push({ id, label });
@@ -189,10 +195,16 @@ export function parseMarkdown(markdown: string): string {
     if (token.type === 'list') {
       const t = token as Tokens.List;
 
-      if (inBadges) {
+      const firstText = t.items[0]?.text ?? '';
+      const firstRaw = itemRaw(t.items[0]);
+
+      // Section ids come from the heading, which is translated, so lists are identified by
+      // their content -- the same way levels and processes already are. Keying off the id
+      // meant badge lists silently fell through to plain bullets in every non-English page.
+      if (parseBadgeItem(firstRaw) !== null) {
         sectionParts.push('    <ul class="badge-list">');
         for (const item of t.items) {
-          const badge = parseBadgeItem(item.raw.trim().replace(/^[-*+]\s+/, ''));
+          const badge = parseBadgeItem(itemRaw(item));
           if (badge) {
             sectionParts.push('      <li>');
             sectionParts.push(`        <img src="${badge.src}" alt="${badge.alt}">`);
@@ -204,7 +216,6 @@ export function parseMarkdown(markdown: string): string {
         continue;
       }
 
-      const firstText = t.items[0]?.text ?? '';
       const isLevelList = parseLevelItem(firstText) !== null
         || lastH4Lower.includes('level')
         || lastH4Lower.includes('단계');
@@ -231,6 +242,17 @@ export function parseMarkdown(markdown: string): string {
           if (parsed) {
             sectionParts.push(`      <li><span class="ptag">${parsed.process}</span><span class="proc-desc">${renderInline(parsed.desc)}</span></li>`);
           }
+        }
+        sectionParts.push('    </ul>');
+        continue;
+      }
+
+      // A list whose items lead with a link (but not an image -- those are badges, caught
+      // above) reads as a list of resources.
+      if (RESOURCE_ITEM_RE.test(firstRaw)) {
+        sectionParts.push('    <ul class="resource-list">');
+        for (const item of t.items) {
+          sectionParts.push(`      <li>${renderInline(item.text)}</li>`);
         }
         sectionParts.push('    </ul>');
         continue;
