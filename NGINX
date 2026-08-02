@@ -7,26 +7,12 @@ server {
         try_files $uri =404;
     }
 
-    location = /api/schema {
-        proxy_pass https://api.ai-declaration.md/api/schema;
-        proxy_set_header Host api.ai-declaration.md;
-        proxy_ssl_server_name on;
+    location = /api/ {
+        try_files /api/index.html =404;
     }
 
-    location = /api/validate {
-        proxy_pass https://api.ai-declaration.md/api/validate;
-        proxy_set_header Host api.ai-declaration.md;
-        proxy_ssl_server_name on;
-    }
-
-    location = /api/detect {
-        proxy_pass https://api.ai-declaration.md/api/detect;
-        proxy_set_header Host api.ai-declaration.md;
-        proxy_ssl_server_name on;
-    }
-
-    location = /api/openapi.json {
-        proxy_pass https://api.ai-declaration.md/api/openapi.json;
+    location /api/ {
+        proxy_pass https://api.ai-declaration.md;
         proxy_set_header Host api.ai-declaration.md;
         proxy_ssl_server_name on;
     }

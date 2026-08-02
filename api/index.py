@@ -431,3 +431,4 @@ async def detect(owner: str, repo: str):
 
     log("detect", f"{full_name} has no declaration file")
     return JSONResponse(status_code=404, content={"repo": full_name, "found": False, "sourceFile": None, "result": None})
+

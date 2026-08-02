@@ -15,7 +15,10 @@ Docs at `http://localhost:8787/docs`
 
 ## Endpoints
 
-- `GET /api/schema`: JSON Schema for valid frontmatter (levels, processes, required fields).
+- `GET /api/versions`: current spec version and every published version.
+- `GET /api/levels`: valid levels, ordered by `rank`, with verbatim descriptions.
+- `GET /api/processes`: valid processes with verbatim descriptions.
+- `GET /api/schema`: JSON Schema for valid frontmatter. `?format=yaml` for YAML.
 - `POST /api/validate`: body is raw file content, returns `{ valid, errors, warnings, notes, level, version }`.
 - `GET /api/detect?owner=&repo=`: checks a GitHub repo for `AI-DECLARATION.md`/`CANDOR.md` and validates it.
-- `GET /openapi.json`: the OpenAPI doc itself.
+- `GET /api/openapi.json`: the OpenAPI doc itself.
