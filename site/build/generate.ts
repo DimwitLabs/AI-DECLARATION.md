@@ -7,6 +7,7 @@ import { getVersions, generateVersionDropdown, generateLanguageDropdown } from '
 import { generateErrorPages } from './errors.js';
 import { generateSitemap } from './sitemap.js';
 import { generateDirectory } from './directory.js';
+import { canonicalTag, urlSegment } from './languages.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildDir = __dirname;
@@ -42,7 +43,7 @@ async function generateSite(): Promise<void> {
   }
 
   for (const row of rows) {
-    const outDir = path.join(siteDir, row.language, row.version);
+    const outDir = path.join(siteDir, urlSegment(row.language), row.version);
     fs.mkdirSync(outDir, { recursive: true });
 
     const content = parseMarkdown(row.content_markdown);
@@ -53,14 +54,14 @@ async function generateSite(): Promise<void> {
 
     const oldVersionBanner = row.is_latest
       ? ''
-      : `<div class="old-version-banner">\n  <span class="stale-version">v${row.version}</span> is outdated; the latest specification is at <a href="/${row.language}/${latestVersion}/">v${latestVersion}</a>\n</div>`;
+      : `<div class="old-version-banner">\n  <span class="stale-version">v${row.version}</span> is outdated; the latest specification is at <a href="/${urlSegment(row.language)}/${latestVersion}/">v${latestVersion}</a>\n</div>`;
 
     const title = row.metadata.title ?? 'AI-DECLARATION.md | Open Standard for AI Usage Transparency';
     const description = row.metadata.description ?? 'An open standard for declaring AI usage in software projects.';
-    const ogUrl = `${BASE_URL}/${row.language}/${row.version}`;
+    const ogUrl = `${BASE_URL}/${urlSegment(row.language)}/${row.version}`;
 
     const html = template
-      .replace('{{LANGUAGE}}', row.language)
+      .replace('{{LANGUAGE}}', canonicalTag(row.language))
       .replace('{{VERSION}}', row.version)
       .replace('{{IS_LATEST}}', String(row.is_latest))
       .replace(/\{\{TITLE\}\}/g, title)
@@ -72,10 +73,10 @@ async function generateSite(): Promise<void> {
       .replace('{{CONTENT}}', content);
 
     fs.writeFileSync(path.join(outDir, 'index.html'), html);
-    console.log(`  ✓ ${row.language}/${row.version}/index.html`);
+    console.log(`  ✓ ${urlSegment(row.language)}/${row.version}/index.html`);
   }
 
-  const knownLanguages = [...new Set(rows.map((r) => r.language))];
+  const knownLanguages = [...new Set(rows.map((r) => urlSegment(r.language)))];
   generateErrorPages(latestVersion, knownLanguages);
 
   const validateDir = path.join(siteDir, 'validate');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-version="0.1.2" data-latest="true">
+<html lang="pt-BR" data-version="0.1.2" data-latest="true">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
   <meta property="og:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
   <meta property="og:description" content="An open standard for declaring AI usage in software projects.">
   <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
-  <meta property="og:url" content="https://ai-declaration.md/en/0.1.2">
+  <meta property="og:url" content="https://ai-declaration.md/pt-br/0.1.2">
   <meta property="og:site_name" content="AI-DECLARATION.md">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI-DECLARATION.md | Open Standard for AI Usage Transparency">
@@ -29,20 +29,20 @@
   </a>
   <div class="nav-right">
         <div class="dropdown">
-      <button class="dropdown-toggle">English <span class="arrow">▾</span></button>
+      <button class="dropdown-toggle">Português (Brasil) <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
-        <a href="/en/0.1.2/" class="dropdown-item active" lang="en">English</a>
+        <a href="/en/0.1.2/" class="dropdown-item" lang="en">English</a>
         <a href="/ko/0.1.2/" class="dropdown-item" lang="ko">한국어</a>
-        <a href="/pt-br/0.1.2/" class="dropdown-item" lang="pt-BR">Português (Brasil)</a>
+        <a href="/pt-br/0.1.2/" class="dropdown-item active" lang="pt-BR">Português (Brasil)</a>
         <a href="/zh/0.1.2/" class="dropdown-item" lang="zh">中文</a>
       </div>
     </div>
         <div class="dropdown">
       <button class="dropdown-toggle">v0.1.2 <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
-        <a href="/en/0.1.2/" class="dropdown-item active">v0.1.2 <span class="badge">latest</span></a>
-        <a href="/en/0.1.1/" class="dropdown-item">v0.1.1</a>
-        <a href="/en/0.1.0/" class="dropdown-item">v0.1.0</a>
+        <a href="/pt-br/0.1.2/" class="dropdown-item active">v0.1.2 <span class="badge">latest</span></a>
+        <a href="/pt-br/0.1.1/" class="dropdown-item">v0.1.1</a>
+        <a href="/pt-br/0.1.0/" class="dropdown-item">v0.1.0</a>
       </div>
     </div>
     <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
@@ -65,58 +65,58 @@
   <section id="hero">
     <div class="hero-title"><span class="hero-hex">䷼</span><h1>AI-DECLARATION.md</h1></div>
     <div class="hero-nav">
-      <a href="#summary">Summary</a>
+      <a href="#resumo">Resumo</a>
       <span class="hero-nav-sep">·</span>
-      <a href="#specification">Specification</a>
+      <a href="#especificação">Especificação</a>
       <span class="hero-nav-sep">·</span>
-      <a href="#schema">Schema</a>
+      <a href="#esquema">Esquema</a>
       <span class="hero-nav-break"></span>
       <span class="hero-nav-sep">·</span>
-      <a href="#examples">Examples</a>
+      <a href="#exemplos">Exemplos</a>
       <span class="hero-nav-sep">·</span>
       <a href="#badges">Badges</a>
       <span class="hero-nav-sep">·</span>
       <a href="#faq">FAQ</a>
       <span class="hero-nav-sep">·</span>
-      <a href="#resources">Resources</a>
+      <a href="#recursos">Recursos</a>
     </div>
   </section>
 
-  <section class="doc-section" id="summary">
-    <h2>Summary</h2>
-    <p>AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured <code>AI-DECLARATION.md</code> file like they include other files in a repository to make the AI-usage crystal clear <em>and</em>, more importantly, to make it a widespread convention to do so.</p>
-    <p>This is not to discourage usage of LLM- and other code-generation in the future. On the contrary, it is an enabler. When you declare what parts of the code were, in fact, generated, a skeptic can immediately look into just those parts to satisfy their urge to re-verify and double-check. And, it lets the creator showcase their skillset with code and their skillset with planning and other soft skills simultaneously and with clarity.</p>
+  <section class="doc-section" id="resumo">
+    <h2>Resumo</h2>
+    <p>O código gerado por IA é uma realidade do nosso tempo e é tanto uma bênção quanto uma maldição. O problema não é o código em si, mas a transparência e a clareza. Pelo menos, essa é a teoria de trabalho desta especificação. A sugestão é simples: convidar todos a incluírem um arquivo <code>AI-DECLARATION.md</code> estruturado, assim como incluem outros arquivos em um repositório, para deixar claro o uso de IA <em>e</em>, o mais importante, para que isso se torne uma convenção amplamente adotada.</p>
+    <p>Isso não tem o objetivo de desencorajar o uso de LLMs e outras gerações de código no futuro. Pelo contrário, é um facilitador. Quando você declara quais partes do código foram, de fato, geradas, um cético pode imediatamente examinar apenas essas partes para satisfazer seu impulso de verificar e checar novamente. E, isso permite que o criador mostre suas habilidades com código, planejamento e outras habilidades interpessoais simultaneamente e com clareza.</p>
   </section>
 
-  <section class="doc-section" id="specification">
-    <h2>Specification</h2>
-    <p>An <code>AI-DECLARATION.md</code> file uses YAML frontmatter for structured fields, followed by a required <code>## Notes</code> section in the markdown body for human context. At minimum, it requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
-    <p>Optionally, you can declare <code>processes</code>, each with their own level. The global <code>level</code> must be the highest level present. Any process not listed is assumed to be <code>none</code> implicitly. You can also list <code>components</code> (file paths or directories) with individual levels.</p>
-    <p>The specification formally defines <code>version</code>, <code>level</code>, <code>processes</code>, and <code>components</code>.</p>
-      <p class="example-hed">Levels</p>
-    <p>The levels aim to encompass not just code generation but related activities like code review. They are defined as a combination of the verbs <code>act</code> and <code>prompt</code> along with entities such as <code>Human</code>, <code>AI</code> and <code>task</code>.</p>
+  <section class="doc-section" id="especificação">
+    <h2>Especificação</h2>
+    <p>Um arquivo <code>AI-DECLARATION.md</code> usa frontmatter YAML para campos estruturados, seguido por uma seção <code>## Notes</code> obrigatória no corpo do markdown para contexto humano. Os requisitos mínimos do arquivo são <code>version</code>, <code>level</code> e uma seção <code>## Notes</code>.</p>
+    <p>Opcionalmente, você pode declarar <code>processes</code>, cada um com seu próprio nível. O <code>level</code> global deve ser o nível mais alto presente. Qualquer processo não listado é implicitamente considerado como <code>none</code>. Você também pode listar <code>components</code> (caminhos de arquivos ou diretórios) com níveis individuais.</p>
+    <p>A especificação define formalmente <code>version</code>, <code>level</code>, <code>processes</code> e <code>components</code>.</p>
+      <p class="example-hed">Níveis</p>
+    <p>Os níveis visam abranger não apenas a geração de código, mas também atividades relacionadas, como revisão de código. Eles são definidos como uma combinação dos verbos <code>act</code> e <code>prompt</code> juntamente com entidades como <code>Human</code>, <code>AI</code> e <code>task</code>.</p>
     <ul class="level-list">
-      <li><span class="ltag ltag-none">none</span><span class="level-desc">Human acts on the task alone with no AI involvement.</span></li>
-      <li><span class="ltag ltag-hint">hint</span><span class="level-desc">Human acts on the task and the AI surfaces suggestions passively.</span></li>
-      <li><span class="ltag ltag-assist">assist</span><span class="level-desc">Human prompts and the AI acts on a part of the task.</span></li>
-      <li><span class="ltag ltag-pair">pair</span><span class="level-desc">Human prompts as both human and AI both act on the task equally; Human understands internals clearly.</span></li>
-      <li><span class="ltag ltag-copilot">copilot</span><span class="level-desc">Human prompts and AI acts on the whole task, prompting the Human for permission or clarification.</span></li>
-      <li><span class="ltag ltag-auto">auto</span><span class="level-desc">Human prompts and AI acts autonomously bringing the task to completion.</span></li>
+      <li><span class="ltag ltag-none">none</span><span class="level-desc">O humano age sozinho na tarefa, sem envolvimento de IA.</span></li>
+      <li><span class="ltag ltag-hint">hint</span><span class="level-desc">O humano age na tarefa e a IA oferece sugestões passivamente.</span></li>
+      <li><span class="ltag ltag-assist">assist</span><span class="level-desc">O humano faz o prompt e a IA age em uma parte da tarefa.</span></li>
+      <li><span class="ltag ltag-pair">pair</span><span class="level-desc">O humano faz o prompt e tanto o humano quanto a IA agem igualmente na tarefa; o humano entende claramente os detalhes internos.</span></li>
+      <li><span class="ltag ltag-copilot">copilot</span><span class="level-desc">O humano faz o prompt e a IA age em toda a tarefa, solicitando permissão ou esclarecimento ao Humano.</span></li>
+      <li><span class="ltag ltag-auto">auto</span><span class="level-desc">O humano faz o prompt e a IA age de forma autônoma, levando a tarefa à conclusão.</span></li>
     </ul>
-      <p class="example-hed">Processes</p>
+      <p class="example-hed">Processos</p>
     <ul class="proc-list">
-      <li><span class="ptag">design</span><span class="proc-desc">Architecture, system design, and decision-making.</span></li>
-      <li><span class="ptag">implementation</span><span class="proc-desc">Writing production code.</span></li>
-      <li><span class="ptag">testing</span><span class="proc-desc">Writing tests, test plans, and quality assurance.</span></li>
-      <li><span class="ptag">documentation</span><span class="proc-desc">Writing docs, comments, READMEs, and changelogs.</span></li>
-      <li><span class="ptag">review</span><span class="proc-desc">Code review and pull request feedback.</span></li>
-      <li><span class="ptag">deployment</span><span class="proc-desc">CI/CD configuration, infrastructure, and release scripts.</span></li>
+      <li><span class="ptag">design</span><span class="proc-desc">Arquitetura, design de sistema e tomada de decisão.</span></li>
+      <li><span class="ptag">implementation</span><span class="proc-desc">Escrita de código de produção.</span></li>
+      <li><span class="ptag">testing</span><span class="proc-desc">Escrita de testes, planos de teste e garantia de qualidade.</span></li>
+      <li><span class="ptag">documentation</span><span class="proc-desc">Escrita de documentação, comentários, READMEs e changelogs.</span></li>
+      <li><span class="ptag">review</span><span class="proc-desc">Revisão de código e feedback em pull requests.</span></li>
+      <li><span class="ptag">deployment</span><span class="proc-desc">Configuração de CI/CD, infraestrutura e scripts de release.</span></li>
     </ul>
   </section>
 
-  <section class="doc-section" id="schema">
-    <h2>Schema</h2>
-    <p>The following YAML schema formally defines the structure of an <code>AI-DECLARATION.md</code> file. Use this to validate declarations or build tooling.</p>
+  <section class="doc-section" id="esquema">
+    <h2>Esquema</h2>
+    <p>O seguinte esquema YAML define formalmente a estrutura de um arquivo <code>AI-DECLARATION.md</code>. Use-o para validar declarações ou construir ferramentas.</p>
     <pre>type: object
 required: [version, level]
 definitions:
@@ -142,12 +142,11 @@ properties:
 additionalProperties: false</pre>
   </section>
 
-  <section class="doc-section" id="examples">
-    <h2>Examples</h2>
-    <p>Below, you will find some examples of different scenarios.</p>
-    <div class="example-group">
-      <p class="example-hed">Simple</p>
-    <p>The simplest <code>AI-DECLARATION.md</code> requires <code>version</code>, <code>level</code>, and a <code>## Notes</code> section.</p>
+  <section class="doc-section" id="exemplos">
+    <h2>Exemplos</h2>
+    <p>Abaixo, você encontrará alguns exemplos de diferentes cenários.</p>
+      <p class="example-hed">Simples</p>
+    <p>O <code>AI-DECLARATION.md</code> mais simples requer <code>version</code>, <code>level</code> e uma seção <code>## Notes</code>.</p>
     <pre>---
 version: "0.1.1"
 level: none
@@ -155,9 +154,9 @@ level: none
 
 This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
 
-## Notes
+## Notas
 
-- No AI tools were used.</pre>
+- - No AI tools were used..</pre>
     <pre>---
 version: "0.1.1"
 level: auto
@@ -165,13 +164,11 @@ level: auto
 
 This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
 
-## Notes
+## Notas
 
 - Claude Code was used to create the whole application.</pre>
-    </div>
-    <div class="example-group">
-      <p class="example-hed">With Processes</p>
-    <p>Use <code>processes</code> to granularly declare AI involvement per development phase. The global <code>level</code> must be the highest level present. Any process not listed is assumed to be <code>none</code> implicitly.</p>
+      <p class="example-hed">Com Processos</p>
+    <p>Use <code>processes</code> para declarar granularmente o envolvimento de IA por fase de desenvolvimento. O <code>level</code> global deve ser o nível mais alto presente. Qualquer processo não listado é implicitamente considerado como <code>none</code>.</p>
     <pre>---
 version: "0.1.1"
 level: auto
@@ -182,13 +179,11 @@ processes:
 
 This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
 
-## Notes
+## Notas
 
 - AI drove architecture decisions and test generation. All output was reviewed by a human.</pre>
-    </div>
-    <div class="example-group">
-      <p class="example-hed">With Components</p>
-    <p>Use <code>components</code> to declare AI involvement for specific files or directories.</p>
+      <p class="example-hed">Com Componentes</p>
+    <p>Use <code>components</code> para declarar o envolvimento de IA para arquivos ou diretórios específicos.</p>
     <pre>---
 version: "0.1.1"
 level: auto
@@ -198,15 +193,14 @@ components:
 
 This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
 
-## Notes
+## Notas
 
 - The helpers directory was fully generated. All other code is human-written.</pre>
-    </div>
   </section>
 
   <section class="doc-section" id="badges">
     <h2>Badges</h2>
-    <p>Add a badge to your <code>README</code> to declare your <code>AI-DECLARATION</code> level at a glance. Please note, this is just for convenience and to comply with the specification, you <em>must</em> include an <code>AI-DECLARATION.md</code> file.</p>
+    <p>Adicione uma badge ao seu <code>README</code> para declarar o nível do seu <code>AI-DECLARATION</code> de relance. Observe que isso é apenas por conveniência, pois para estar em conformidade com a especificação, você <em>deve</em> incluir um arquivo <code>AI-DECLARATION.md</code>.</p>
     <ul class="badge-list">
       <li>
         <img src="https://img.shields.io/badge/䷼%20AI--DECLARATION-none-dcfce7?labelColor=dcfce7" alt="AI-DECLARATION: none">
@@ -239,34 +233,34 @@ This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.1).
     <h2>FAQ</h2>
     <div class="faq-list">
       <details open>
-        <summary>What if I lie?</summary>
-        <div class="faq-answer">Well, that defeats the purpose entirely, doesn&#39;t it? The idea is for all of us to have a social contract that we can trust. If you see a repo with an <code>AI-DECLARATION.md</code> in it, you can use it as a single source of truth.</div>
+        <summary>E se eu mentir?</summary>
+        <div class="faq-answer">Bem, isso anula completamente o propósito, não é? A ideia é que todos tenhamos um contrato social em que possamos confiar. Se você vir um repositório com um <code>AI-DECLARATION.md</code> nele, pode usá-lo como uma única fonte de verdade.</div>
       </details>
       <details open>
-        <summary>Can I build tooling to generate this automatically?</summary>
-        <div class="faq-answer">Be my guest. I envision tooling to build it automatically as well as parse it. While I will do it at some point, I appreciate any or all contributions.</div>
+        <summary>Posso construir ferramentas para gerar isso automaticamente?</summary>
+        <div class="faq-answer">Fique à vontade. Eu vislumbro ferramentas para construí-lo automaticamente, bem como para analisá-lo. Embora eu vá fazê-lo em algum momento, agradeço toda e qualquer contribuição.</div>
       </details>
       <details open>
-        <summary>Can I contribute a translation?</summary>
-        <div class="faq-answer">Absolutely! Please. Just fork the repository and add a <code>README_&lt;locale&gt;.md</code> e.g. <code>README_es.md</code>. Then, raise a PR. I&#39;ll take it from there.</div>
+        <summary>Posso contribuir com uma tradução?</summary>
+        <div class="faq-answer">Com certeza! Por favor. Basta fazer um fork do repositório e adicionar um <code>README_&lt;locale&gt;.md</code>, por exemplo, <code>README_es.md</code>. Em seguida, abra um PR. Eu cuidarei do resto.</div>
       </details>
       <details open>
-        <summary>I want to suggest a change to the specification?</summary>
-        <div class="faq-answer">Well, good thing it is open-source then. I see the specification evolving naturally with feedback and PRs. So, let us all discuss.</div>
+        <summary>Posso sugerir uma mudança na especificação?</summary>
+        <div class="faq-answer">Sim, a iniciativa open-source é para isso. Eu vejo a especificação evoluindo naturalmente com feedback e PRs. Então, vamos nos falando.</div>
       </details>
       <details open>
-        <summary>Do I need to include the file if I added a badge to my README?</summary>
-        <div class="faq-answer">Yes, the recommendation is to include an <code>AI-DECLARATION.md</code> as the primary source of truth. The badge in the <code>README</code> is just a glanceable way for someone to check that A, the <code>AI-DECLARATION.md</code> would be available and B, the level.</div>
+        <summary>Preciso incluir o arquivo se adicionei uma badge ao meu README?</summary>
+        <div class="faq-answer">Sim, a recomendação é incluir um <code>AI-DECLARATION.md</code> como a fonte primária de verdade. A badge no <code>README</code> é apenas uma forma rápida de alguém verificar que A, o <code>AI-DECLARATION.md</code> estaria disponível e B, o nível.</div>
       </details>
       <details open>
-        <summary>What is the logo?</summary>
-        <div class="faq-answer">䷼ Hexagram 61 or Hexagram For Inner Truth (Unicode: <code>U+4DFC</code>) is one of 64 hexagrams in the Yi (I) Ching to illustrate principles where each line is either Yin (broken) or Yang (solid). (<a href="https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61">source</a>)</div>
+        <summary>O que é este logotipo?</summary>
+        <div class="faq-answer">䷼ O Hexagrama 61 ou Hexagrama da Verdade Interior (Unicode: <code>U+4DFC</code>) é um dos 64 hexagramas do Yi (I) Ching para ilustrar princípios onde cada linha é Yin (quebrada) ou Yang (sólida). (<a href="https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61">source</a>)</div>
       </details>
     </div>
   </section>
 
-  <section class="doc-section" id="resources">
-    <h2>Resources</h2>
+  <section class="doc-section" id="recursos">
+    <h2>Recursos</h2>
     <ul>
       <li><a href="https://github.com/yujqiao/ai-declare">yujqiao/ai-declare</a> agent skill to generate <code>AI-DECLARATION.md</code></li>
     </ul>

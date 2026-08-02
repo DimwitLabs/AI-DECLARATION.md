@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { pool } from './db.js';
+import { urlSegment } from './languages.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const siteDir = path.join(__dirname, '..', 'public');
@@ -27,7 +28,7 @@ export async function generateSitemap(): Promise<void> {
     const priority = row.is_latest ? '1.0' : '0.8';
     const lastmod = new Date(row.created_at).toISOString().split('T')[0];
     urls.push(`  <url>
-    <loc>${BASE_URL}/${row.language}/${row.version}/</loc>
+    <loc>${BASE_URL}/${urlSegment(row.language)}/${row.version}/</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>${priority}</priority>

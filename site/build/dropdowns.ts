@@ -1,4 +1,5 @@
 import { pool } from './db.js';
+import { displayName, urlSegment } from './languages.js';
 
 export interface VersionRow {
   version: string;
@@ -23,7 +24,7 @@ export function generateVersionDropdown(
     .map((v) => {
       const active = v.version === currentVersion ? ' active' : '';
       const badge = v.is_latest ? ' <span class="badge">latest</span>' : '';
-      return `        <a href="/${currentLanguage}/${v.version}/" class="dropdown-item${active}">v${v.version}${badge}</a>`;
+      return `        <a href="/${urlSegment(currentLanguage)}/${v.version}/" class="dropdown-item${active}">v${v.version}${badge}</a>`;
     })
     .join('\n');
 
@@ -47,12 +48,12 @@ export function generateLanguageDropdown(
   const items = sorted
     .map((lang) => {
       const active = lang === currentLanguage ? ' active' : '';
-      return `        <a href="/${lang}/${currentVersion}/" class="dropdown-item${active}">${lang.toUpperCase()}</a>`;
+      return `        <a href="/${urlSegment(lang)}/${currentVersion}/" class="dropdown-item${active}" lang="${lang}">${displayName(lang)}</a>`;
     })
     .join('\n');
 
   return `    <div class="dropdown">
-      <button class="dropdown-toggle">${currentLanguage.toUpperCase()} <span class="arrow">▾</span></button>
+      <button class="dropdown-toggle">${displayName(currentLanguage)} <span class="arrow">▾</span></button>
       <div class="dropdown-menu">
 ${items}
       </div>

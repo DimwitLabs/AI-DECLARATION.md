@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { pool } from './db.js';
+import { canonicalTag } from './languages.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.join(__dirname, '..', '..');
@@ -31,10 +32,10 @@ function detectReadmeFiles(): ReadmeEntry[] {
     if (file === 'README.md') {
       entries.push({ language: 'en', filePath: path.join(rootDir, file) });
     } else {
-      const match = file.match(/^README_([a-z]{2,5})\.md$/i);
+      const match = file.match(/^README_([a-z]{2}(?:-[a-z]{2,4})?)\.md$/i);
       if (match) {
         entries.push({
-          language: match[1].toLowerCase(),
+          language: canonicalTag(match[1]),
           filePath: path.join(rootDir, file),
         });
       }

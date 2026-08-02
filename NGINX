@@ -36,7 +36,7 @@ server {
         return 302 /en/0.1.2/;
     }
 
-    location ~ "^/[a-z]{2}/" {
+    location ~ "^/[a-z]{2}(-[a-z]{2,4})?/" {
         try_files $uri $uri/ /errors/error.html;
     }
 
