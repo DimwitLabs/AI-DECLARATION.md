@@ -253,8 +253,6 @@ pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
 
 .proc-list li:hover { background: var(--surface-mid); }
 
-/* Resource lists: a plain markdown list whose items lead with a link. Detected by content
-   in parser.ts, so it works regardless of what the section heading is translated to. */
 .resource-list {
   list-style: none;
   margin: 1rem 0 0;
@@ -675,6 +673,46 @@ body.old-version nav {
   flex-shrink: 0;
 }
 
+.dir-version-unknown {
+  position: relative;
+  color: var(--outline-variant);
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: help;
+}
+
+.dir-version-unknown::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 20;
+  width: max-content;
+  max-width: 15rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--on-surface);
+  color: var(--primary-fixed);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease-in-out;
+  pointer-events: none;
+}
+
+.dir-version-unknown:hover::after,
+.dir-version-unknown:focus::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dir-version-unknown:focus { outline: 2px solid var(--outline); outline-offset: 2px; }
+
 .dir-empty {
   padding: 1rem 0;
   color: var(--on-surface-muted);
@@ -776,6 +814,12 @@ body.old-version nav {
   .nav-directory { display: none; }
   .nav-api { display: none; }
   .subnav { display: flex; }
+
+  .dir-item[data-tags~="featured"] {
+    border-left: 3px solid #fef9c3;
+    padding-left: calc(1rem - 3px);
+  }
+  .dir-item[data-tags~="featured"] .dtag-featured { display: none; }
 }
 
 @media (max-width: 600px) {

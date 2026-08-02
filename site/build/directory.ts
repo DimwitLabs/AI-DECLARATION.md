@@ -18,6 +18,8 @@ function esc(str: string): string {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+const UNKNOWN_VERSION_NOTE = 'Uses custom or invalid version tag';
+
 export async function generateDirectory(siteDir: string): Promise<void> {
   const result = await pool.query<AdopterRow>(
     `SELECT repo_full_name, repo_url, source_file, is_featured, COALESCE(stars, 0) AS stars, spec_version
@@ -26,6 +28,12 @@ export async function generateDirectory(siteDir: string): Promise<void> {
   );
 
   const rows = result.rows;
+
+  const knownVersions = new Set(
+    (await pool.query<{ version: string }>(
+      `SELECT DISTINCT version FROM aideclaration.site_versions`
+    )).rows.map((r) => r.version)
+  );
   const template = fs.readFileSync(path.join(__dirname, 'directory.html'), 'utf-8');
 
   const items = rows.map((row) => {
@@ -35,7 +43,11 @@ export async function generateDirectory(siteDir: string): Promise<void> {
 
     const tagHtml = tags.map((t) => `<span class="dtag dtag-${t}">${t}</span>`).join('');
     const starsHtml = row.stars > 0 ? `<span class="dir-stars">★ ${row.stars.toLocaleString()}</span>` : '';
-    const versionHtml = row.spec_version ? `<span class="dir-version">v${esc(row.spec_version)}</span>` : '';
+    const versionHtml = row.spec_version
+      ? knownVersions.has(row.spec_version)
+        ? `<span class="dir-version">v${esc(row.spec_version)}</span>`
+        : `<span class="dir-version dir-version-unknown" tabindex="0" data-tooltip="${UNKNOWN_VERSION_NOTE}" aria-label="v${esc(row.spec_version)} — ${UNKNOWN_VERSION_NOTE}">v${esc(row.spec_version)}</span>`
+      : '';
 
     return `      <li class="dir-item" data-tags="${tags.join(' ')}"><a href="${esc(row.repo_url)}" class="dir-repo">${esc(row.repo_full_name)}</a>${tagHtml}${starsHtml}${versionHtml}</li>`;
   }).join('\n');

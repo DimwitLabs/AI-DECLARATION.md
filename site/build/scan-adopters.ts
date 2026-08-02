@@ -112,7 +112,7 @@ async function scanFile(filename: string): Promise<{ scanned: number; found: num
 
       found++;
       const fm = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-      const specVersion = fm ? (fm[1].match(/^\s*version\s*:\s*["']?([0-9]+\.[0-9]+\.[0-9]+)["']?/m)?.[1] ?? null) : null;
+      const specVersion = fm ? (fm[1].match(/^\s*version\s*:\s*["']?([^"'\s#]+)["']?/m)?.[1] ?? null) : null;
 
       await sleep(500);
       const stars = await fetchStars(item.repository.full_name);
