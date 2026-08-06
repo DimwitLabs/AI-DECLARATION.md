@@ -172,3 +172,4 @@ Sim, a recomendação é incluir um `AI-DECLARATION.md` como a fonte primária d
 
 ## Recursos
 - [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) agent skill to generate `AI-DECLARATION.md`
+- [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare) fork of the above that reads the spec and validates through the [API](https://ai-declaration.md/api/)

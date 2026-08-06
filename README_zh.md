@@ -172,3 +172,4 @@ components:
 
 ## 资源
 - [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) 用于生成 `AI-DECLARATION.md` 的 agent skill
+- [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare) 通过 [API](https://ai-declaration.md/api/) 读取规范并进行校验的上述 skill 分支
