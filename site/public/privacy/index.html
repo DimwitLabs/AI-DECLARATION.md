@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | AI-DECLARATION.md</title>
+  <meta name="description" content="What the AI-DECLARATION.md website, Directory, and API do and do not collect.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Privacy Policy | AI-DECLARATION.md">
+  <meta property="og:description" content="What the AI-DECLARATION.md website, Directory, and API do and do not collect.">
+  <meta property="og:image" content="https://ai-declaration.md/www/og-image.png">
+  <meta property="og:url" content="https://ai-declaration.md/privacy/">
+  <meta property="og:site_name" content="AI-DECLARATION.md">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy | AI-DECLARATION.md">
+  <meta name="twitter:description" content="What the AI-DECLARATION.md website, Directory, and API do and do not collect.">
+  <meta name="twitter:image" content="https://ai-declaration.md/www/og-image.png">
+  <link rel="icon" href="/www/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-mark" href="/">
+    <span class="hex">䷼</span> AI-DECLARATION.md
+  </a>
+  <div class="nav-right">
+    <a id="nav-back" class="nav-back" href="/" hidden></a>
+    <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a>
+    <a class="nav-directory" href="/directory/">Directory</a>
+    <a class="nav-validate" href="/validate/">Validate</a>
+    <a class="nav-api" href="/api/">API</a>
+  </div>
+</nav>
+
+<div class="subnav">
+  <a href="/directory/">Directory</a>
+  <a href="/validate/">Validate</a>
+  <a href="/api/">API</a>
+</div>
+
+<div class="wrap">
+
+  <section id="hero">
+    <div class="hero-title"><span class="hero-hex">䷼</span><h1>Privacy Policy</h1></div>
+    <div class="hero-nav">
+      <a href="#summary">Summary</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#directory">The Directory</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#api">The API</a>
+      <span class="hero-nav-break"></span>
+      <span class="hero-nav-sep">·</span>
+      <a href="#logs">Server Logs</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#third-parties">Third Parties</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#reddit">The Reddit App</a>
+      <span class="hero-nav-sep">·</span>
+      <a href="#contact">Contact</a>
+    </div>
+  </section>
+
+  <section class="doc-section" id="summary">
+    <h2>Summary</h2>
+    <p>This policy covers everything at <code>ai-declaration.md</code>: the specification pages, the <a href="/directory/">Directory</a>, the <a href="/validate/">Validate</a> page, and the public <a href="/api/">API</a>. It was last updated on 6 August 2026.</p>
+    <p>There are no accounts, no cookies, no analytics, no advertising, and no trackers. We never ask you for personal information, because nothing here needs it. The one database this project keeps holds public GitHub repository facts and nothing else. Nothing is sold or shared.</p>
+  </section>
+
+  <section class="doc-section" id="directory">
+    <h2>The Directory</h2>
+    <p>The Directory is the only part of this project that stores anything, and everything in it is already public on GitHub. It is built by searching GitHub for repositories that publish a declaration file. For each one, the record holds:</p>
+    <ul>
+      <li>the repository's full name and URL</li>
+      <li>which declaration file it uses, <code>AI-DECLARATION.md</code> or <code>CANDOR.md</code></li>
+      <li>its star count, and whether that count makes it featured</li>
+      <li>the specification version the file declares</li>
+      <li>when it was last seen</li>
+    </ul>
+    <p>That is the entire record. No email addresses, no contributor names, no commit history, no file contents, and no private repositories. A repository owner's username appears only because it is half of a repository's name, exactly as GitHub publishes it.</p>
+    <p>To have a repository removed, <a href="https://github.com/DimwitLabs/AI-DECLARATION.md/issues">open an issue</a> and the row will be deleted. Removing the declaration file from the repository also drops it on the next scan.</p>
+  </section>
+
+  <section class="doc-section" id="api">
+    <h2>The API</h2>
+    <p>The API is stateless and separate. It has no connection to the Directory database, cannot read it, and cannot write to it. It holds no database of its own and writes nothing to disk. Every request is answered from the request itself and then discarded. The <a href="/validate/">Validate</a> page in your browser is a caller like any other, so everything here applies to whatever you paste into it.</p>
+    <h4>Validate</h4>
+    <p><code>POST /api/validate</code> takes file content in the request body, checks it in memory, and returns the result. <strong>The content is never written down.</strong> Only an anonymous summary is logged: whether it was valid, the declared level and version, and how many errors and warnings were found. Nothing inside your file is recorded, including the file itself, its notes, and any project details in it.</p>
+    <h4>Detect</h4>
+    <p><code>GET /api/detect</code> takes a public GitHub owner and repository name, fetches <code>AI-DECLARATION.md</code> or <code>CANDOR.md</code> from that public repository, and validates it. Only the repository name is logged. The result is not saved and never reaches the Directory.</p>
+    <h4>Specification Data</h4>
+    <p><code>GET /api/levels</code>, <code>/api/processes</code>, <code>/api/versions</code>, and <code>/api/schema</code> return fixed specification data and take no input at all.</p>
+  </section>
+
+  <section class="doc-section" id="logs">
+    <h2>Server Logs</h2>
+    <p>Like any web server, the hosts running this project keep ordinary operational logs containing IP address, timestamp, requested path, and user agent. They exist to keep the service up and to investigate abuse. They are held by the hosting providers under their own retention policies: the website runs on a virtual server, and the API runs on <a href="https://vercel.com/legal/privacy-policy">Vercel</a>. No profile is built from them, and they are not combined with anything else.</p>
+  </section>
+
+  <section class="doc-section" id="third-parties">
+    <h2>Third Parties</h2>
+    <p>Pages load fonts from Google Fonts, and the API documentation loads Swagger UI from jsDelivr. Both will see your IP address as a normal consequence of serving those files.</p>
+    <p>Outbound requests to GitHub, made when building the Directory or answering <code>/api/detect</code>, come from this service and not from you.</p>
+  </section>
+
+  <section class="doc-section" id="reddit">
+    <h2>The Reddit App</h2>
+    <p>The <a href="https://developers.reddit.com/apps/ai-declaration/">AI-DECLARATION.md Reddit app</a> calls <code>GET /api/detect</code> with a GitHub owner and repository name taken from a public Reddit post. It sends no Reddit usernames, no post text, and no other Reddit data to this API, and it writes nothing to the Directory. What the app does on Reddit itself is governed by Reddit's own policies.</p>
+  </section>
+
+  <section class="doc-section" id="contact">
+    <h2>Changes and Contact</h2>
+    <p>If this policy changes, the date in the summary changes with it, and the edit is visible in the <a href="https://github.com/DimwitLabs/AI-DECLARATION.md">specification repository's</a> history.</p>
+    <p>For questions, corrections, or removal requests, <a href="https://github.com/DimwitLabs/AI-DECLARATION.md/issues">open an issue</a>.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><span>䷼ AI-DECLARATION.md &nbsp;·&nbsp; MIT License</span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://dimwit.me">Dimwit Labs</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="https://github.com/DimwitLabs/AI-DECLARATION.md">GitHub</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="/terms/">Terms</a></span><span class="footer-sep"> &nbsp;·&nbsp; </span><span class="footer-item"><a href="/privacy/">Privacy</a></span></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -89,6 +89,13 @@ async function generateSite(): Promise<void> {
   fs.copyFileSync(path.join(buildDir, 'api.html'), path.join(apiDir, 'index.html'));
   console.log('  ✓ api/index.html');
 
+  for (const page of ['terms', 'privacy']) {
+    const pageDir = path.join(siteDir, page);
+    fs.mkdirSync(pageDir, { recursive: true });
+    fs.copyFileSync(path.join(buildDir, `${page}.html`), path.join(pageDir, 'index.html'));
+    console.log(`  ✓ ${page}/index.html`);
+  }
+
   const swaggerThemeSrc = path.join(__dirname, '..', '..', 'api', 'swagger-theme.css');
   if (fs.existsSync(swaggerThemeSrc)) {
     fs.copyFileSync(swaggerThemeSrc, path.join(siteDir, 'style', 'swagger-theme.css'));

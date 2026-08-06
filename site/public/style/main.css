@@ -167,6 +167,12 @@ h4 {
 p { margin-bottom: 0.8rem; font-size: 1rem; }
 p:last-child { margin-bottom: 0; }
 
+/* Plain prose lists. Every other list on the site carries a class and styles
+   itself, so this only reaches unclassed ones such as the policy pages. */
+ul:not([class]) { margin: 0 0 1.25rem 1.25rem; }
+ul:not([class]) li { margin-bottom: 0.4rem; }
+ul:not([class]) li:last-child { margin-bottom: 0; }
+
 blockquote {
   border-left: 2px solid var(--primary-fixed);
   padding: 0.75rem 1.25rem;

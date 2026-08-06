@@ -39,6 +39,8 @@ export async function generateSitemap(): Promise<void> {
     { path: '/directory/', changefreq: 'daily', priority: '0.7' },
     { path: '/validate/', changefreq: 'monthly', priority: '0.7' },
     { path: '/api/', changefreq: 'monthly', priority: '0.7' },
+    { path: '/terms/', changefreq: 'yearly', priority: '0.3' },
+    { path: '/privacy/', changefreq: 'yearly', priority: '0.3' },
   ];
 
   for (const page of staticPages) {
