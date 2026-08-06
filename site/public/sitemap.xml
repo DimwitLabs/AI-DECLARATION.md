@@ -58,6 +58,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ai-declaration.md/terms/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://ai-declaration.md/privacy/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://ai-declaration.md/errors/translation.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
