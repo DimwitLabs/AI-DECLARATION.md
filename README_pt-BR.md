@@ -171,5 +171,5 @@ Sim, a recomendação é incluir um `AI-DECLARATION.md` como a fonte primária d
 ䷼ O Hexagrama 61 ou Hexagrama da Verdade Interior (Unicode: `U+4DFC`) é um dos 64 hexagramas do Yi (I) Ching para ilustrar princípios onde cada linha é Yin (quebrada) ou Yang (sólida). ([source](https://en.wikipedia.org/wiki/List_of_hexagrams_of_the_I_Ching#Hexagram_61))
 
 ## Recursos
-- [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) agent skill to generate `AI-DECLARATION.md`
-- [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare) fork of the above that reads the spec and validates through the [API](https://ai-declaration.md/api/)
+- [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) agent skill para gerar `AI-DECLARATION.md`
+- [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare) fork do anterior que lê a especificação e valida pela [API](https://ai-declaration.md/api/)
