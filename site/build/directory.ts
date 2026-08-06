@@ -49,7 +49,7 @@ export async function generateDirectory(siteDir: string): Promise<void> {
         : `<span class="dir-version dir-version-unknown" tabindex="0" data-tooltip="${UNKNOWN_VERSION_NOTE}" aria-label="v${esc(row.spec_version)} — ${UNKNOWN_VERSION_NOTE}">v${esc(row.spec_version)}</span>`
       : '';
 
-    return `      <li class="dir-item" data-tags="${tags.join(' ')}"><a href="${esc(row.repo_url)}" class="dir-repo">${esc(row.repo_full_name)}</a>${tagHtml}${starsHtml}${versionHtml}</li>`;
+    return `      <li class="dir-item" data-tags="${tags.join(' ')}"><a href="${esc(row.repo_url)}" class="dir-repo">${esc(row.repo_full_name)}</a><span class="dir-meta">${tagHtml}${starsHtml}${versionHtml}</span></li>`;
   }).join('\n');
 
   const now = new Date();

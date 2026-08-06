@@ -667,6 +667,11 @@ body.old-version nav {
 
 .dir-repo:hover { opacity: 0.6; }
 
+/* On desktop the meta wrapper is transparent to layout, so the tag, stars, and
+   version stay direct flex children of the row exactly as before. Mobile turns
+   it into a right-hand column. */
+.dir-meta { display: contents; }
+
 .dir-stars {
   font-family: 'Space Grotesk', monospace;
   font-size: 0.72rem;
@@ -825,6 +830,27 @@ body.old-version nav {
   .nav-directory { display: none; }
   .nav-api { display: none; }
   .subnav { display: flex; }
+
+  /* Long repo names were being squeezed by the star count and version, neither
+     of which shrinks. Two columns instead: the name takes what is left and
+     wraps freely, and the meta stacks against the right edge. */
+  .dir-item { align-items: flex-start; gap: 0.75rem; }
+
+  .dir-repo {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+  }
+
+  .dir-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+  .dir-version { margin-left: 0; }
 
   .dir-item[data-tags~="featured"] {
     border-left: 3px solid #fef9c3;
