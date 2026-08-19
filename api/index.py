@@ -397,6 +397,25 @@ async def validate_endpoint(
     return result
 
 
+# raw.githubusercontent.com answers with `cache-control: max-age=300`, keyed on
+# the URL, and a `HEAD` URL does not change when the file behind it does. For
+# five minutes after a commit the CDN therefore keeps serving the previous
+# file, including a 200 for one that has just been deleted. Pinning to the
+# commit makes every URL immutable, so a new commit is a new URL and there is
+# no stale entry to serve. The ref lookup is cached for a minute, and that
+# minute is the whole remaining window.
+async def head_sha(client: httpx.AsyncClient, owner: str, repo: str) -> Optional[str]:
+    try:
+        res = await client.get(f"https://api.github.com/repos/{owner}/{repo}/commits/HEAD")
+    except httpx.HTTPError as e:
+        log("detect", f"{owner}/{repo} ref lookup failed: {e}", level=logging.ERROR)
+        return None
+    if res.status_code != 200:
+        log("detect", f"{owner}/{repo} ref lookup returned {res.status_code}")
+        return None
+    return res.json().get("sha")
+
+
 @app.get(
     "/api/detect",
     tags=["Endpoints"],
@@ -418,9 +437,13 @@ async def detect(owner: str, repo: str):
     log("detect", f"looking up {full_name}")
 
     async with httpx.AsyncClient(headers=headers) as client:
+        # Falling back to HEAD keeps a repo readable when the ref lookup fails,
+        # at the cost of the staleness the lookup is there to avoid.
+        ref = await head_sha(client, owner, repo) or "HEAD"
+
         for source_file in SOURCE_FILES:
             try:
-                res = await client.get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/{source_file}")
+                res = await client.get(f"https://raw.githubusercontent.com/{owner}/{repo}/{ref}/{source_file}")
             except httpx.HTTPError as e:
                 log("detect", f"{full_name}/{source_file} fetch failed: {e}", level=logging.ERROR)
                 continue
