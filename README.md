@@ -172,3 +172,4 @@ Yes, the recommendation is to include an `AI-DECLARATION.md` as the primary sour
 ## Resources
 - [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) agent skill to generate `AI-DECLARATION.md`
 - [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare) fork of the above that reads the spec and validates through the [API](https://ai-declaration.md/api/)
+- [ai-declaration Reddit bot](https://developers.reddit.com/apps/ai-declaration/) official bot that detects a linked GitHub repository and comments what it declares, through the [API](https://ai-declaration.md/api/)

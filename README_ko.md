@@ -173,3 +173,4 @@ components:
 ## 리소스
 - [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) `AI-DECLARATION.md` 생성을 위한 agent 스킬
 - [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare) [API](https://ai-declaration.md/api/)를 통해 명세를 읽고 검증하는 위 스킬의 포크
+- [ai-declaration Reddit bot](https://developers.reddit.com/apps/ai-declaration/) 링크된 GitHub 저장소를 감지해 [API](https://ai-declaration.md/api/)를 통해 그 선언 내용을 댓글로 남기는 공식 봇

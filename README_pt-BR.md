@@ -173,3 +173,4 @@ Sim, a recomendação é incluir um `AI-DECLARATION.md` como a fonte primária d
 ## Recursos
 - [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare) agent skill para gerar `AI-DECLARATION.md`
 - [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare) fork do anterior que lê a especificação e valida pela [API](https://ai-declaration.md/api/)
+- [ai-declaration Reddit bot](https://developers.reddit.com/apps/ai-declaration/) bot oficial que detecta um repositório GitHub vinculado e comenta o que ele declara, pela [API](https://ai-declaration.md/api/)
