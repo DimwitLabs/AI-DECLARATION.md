@@ -1,6 +1,7 @@
 # AI-DECLARATION.md
 
 [![AI-DECLARATION: copilot](https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2)](https://ai-declaration.md)
+[![Dimwit Pledge](https://dimwit.me/pledge.svg)](https://dimwit.me/pledge)
 
 ## Summary
 AI-generated code is a reality of our time and it is both a blessing and a curse. The problem is not the code in itself but transparency and clarity. At least, that is the working theory of this specification. The suggestion is simple: to invite everyone to include a structured `AI-DECLARATION.md` file like they include other files in a repository to make the AI-usage crystal clear _and_, more importantly, to make it a widespread convention to do so.

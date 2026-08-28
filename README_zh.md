@@ -1,6 +1,7 @@
 # AI-DECLARATION.md
 
 [![AI-DECLARATION: copilot](https://img.shields.io/badge/䷼%20AI--DECLARATION-copilot-fee2e2?labelColor=fee2e2)](https://ai-declaration.md)
+[![Dimwit Pledge](https://dimwit.me/pledge.svg)](https://dimwit.me/pledge)
 
 ## 概述
 
