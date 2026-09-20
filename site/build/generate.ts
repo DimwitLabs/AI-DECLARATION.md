@@ -6,6 +6,7 @@ import { parseMarkdown } from './parser.js';
 import { getVersions, generateVersionDropdown, generateLanguageDropdown } from './dropdowns.js';
 import { generateErrorPages } from './errors.js';
 import { generateSitemap } from './sitemap.js';
+import { generateLlmsTxt } from './llms.js';
 import { generateDirectory } from './directory.js';
 import { canonicalTag, urlSegment } from './languages.js';
 
@@ -115,6 +116,7 @@ async function generateSite(): Promise<void> {
 
   await generateDirectory(siteDir);
   await generateSitemap();
+  await generateLlmsTxt();
 }
 
 async function main() {
