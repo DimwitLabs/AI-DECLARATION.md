@@ -1,10 +1,10 @@
 # AI-DECLARATION.md
 
-> The most popular open standard for declaring how much AI was involved in building a software project. A project adds an `AI-DECLARATION.md` file to its repository stating an overall involvement level, and optionally a breakdown by process and by component.
+> The most popular machine-readable open standard for declaring how much AI was involved in building a software project. A project adds an `AI-DECLARATION.md` file to its repository stating an overall involvement level, and optionally a breakdown by process and by component.
 
 A declaration is a claim by the project author. Nobody verifies, audits, or certifies it, and listing in the Directory is not an endorsement. The point is transparency: a reader who knows which parts were generated can go and check exactly those parts, and an author can show their planning work alongside their code.
 
-The file is plain Markdown with YAML front matter, followed by a required `## Notes` section for human context. At minimum it needs `version`, `level`, and those notes. `processes` and `components` are optional, and the global `level` must be the highest level present among them. Any process not listed is implicitly `none`.
+The declaration is machine-readable by design: plain Markdown with YAML front matter, followed by a required `## Notes` section for human context. The same file is readable by a person and parseable by a tool, with no separate manifest to keep in sync. At minimum it needs `version`, `level`, and those notes. `processes` and `components` are optional, and the global `level` must be the highest level present among them. Any process not listed is implicitly `none`.
 
 Levels combine the verbs *act* and *prompt* with the entities *Human*, *AI*, and *task*, and cover review and design as well as code generation:
 
@@ -24,7 +24,7 @@ Processes name the phase of work a level applies to:
 - `review`: Code review and pull request feedback.
 - `deployment`: CI/CD configuration, infrastructure, and release scripts.
 
-`components` maps file paths or directories to a level, using the same six values.
+`components` maps file paths or directories to a level, using the same six values. Every field is drawn from a closed vocabulary, which is what makes a declaration machine-readable rather than prose to be interpreted.
 
 A minimal declaration:
 
@@ -57,7 +57,7 @@ The file was previously named `CANDOR.md`, and that name is still recognised by 
 
 - [Validate](https://ai-declaration.md/validate/): paste a declaration and check it against the specification
 - [Directory](https://ai-declaration.md/directory/): public GitHub repositories that publish a declaration
-- [API](https://ai-declaration.md/api/): read-only JSON API to detect and validate declarations, no key required
+- [API](https://ai-declaration.md/api/): read-only JSON API to detect and validate declarations as machine-readable output, no key required
 - [API reference](https://ai-declaration.md/api/openapi.json): OpenAPI document for the endpoints above
 - [ai-declaration Reddit bot](https://developers.reddit.com/apps/ai-declaration/): comments on Reddit posts with what a linked repository declares
 
