@@ -1,0 +1,36 @@
+# AI-DECLARATION.md
+
+> The most popular open standard for declaring how much AI was involved in building a software project. A project adds an `AI-DECLARATION.md` file to its repository stating an overall involvement level, and optionally a breakdown by process and by component.
+
+The file is plain Markdown with YAML front matter. Levels run from no AI involvement through to fully AI-generated, and a declaration is a claim by the project author, not an audit or a certification by anyone else.
+
+## Specification
+
+- [Specification v0.1.2 (English)](https://ai-declaration.md/en/0.1.2/): the full standard in English
+- [Specification v0.1.2 (한국어)](https://ai-declaration.md/ko/0.1.2/): the full standard in 한국어
+- [Specification v0.1.2 (Português (Brasil))](https://ai-declaration.md/pt-br/0.1.2/): the full standard in Português (Brasil)
+- [Specification v0.1.2 (中文)](https://ai-declaration.md/zh/0.1.2/): the full standard in 中文
+
+## Tools
+
+- [Validate](https://ai-declaration.md/validate/): paste a declaration and check it against the specification
+- [Directory](https://ai-declaration.md/directory/): public GitHub repositories that publish a declaration
+- [API](https://ai-declaration.md/api/): read-only JSON API to detect and validate declarations, no key required
+- [ai-declaration Reddit bot](https://developers.reddit.com/apps/ai-declaration/): comments on Reddit posts with what a linked repository declares
+
+## Resources
+
+- [yujqiao/ai-declare](https://github.com/yujqiao/ai-declare): agent skill that generates an `AI-DECLARATION.md` for a project
+- [DimwitLabs/ai-declare](https://github.com/DimwitLabs/ai-declare): fork of the above that reads the specification and validates through the [API](https://ai-declaration.md/api/)
+
+## Policies
+
+- [Terms of Use](https://ai-declaration.md/terms/): MIT licensed, no account, no warranty
+- [Privacy Policy](https://ai-declaration.md/privacy/): no cookies, no analytics, no trackers
+
+## Optional
+
+- [Source repository](https://github.com/DimwitLabs/AI-DECLARATION.md): specification, website, and API source
+- [Sitemap](https://ai-declaration.md/sitemap.xml): every indexable page
+- [Specification v0.1.1](https://ai-declaration.md/en/0.1.1/): superseded, kept for projects that declare against it
+- [Specification v0.1.0](https://ai-declaration.md/en/0.1.0/): superseded, kept for projects that declare against it
