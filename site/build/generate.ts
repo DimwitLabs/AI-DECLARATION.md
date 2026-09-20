@@ -57,8 +57,8 @@ async function generateSite(): Promise<void> {
       ? ''
       : `<div class="old-version-banner">\n  <span class="stale-version">v${row.version}</span> is outdated; the latest specification is at <a href="/${urlSegment(row.language)}/${latestVersion}/">v${latestVersion}</a>\n</div>`;
 
-    const title = row.metadata.title ?? 'AI-DECLARATION.md | Open Standard for AI Usage Transparency';
-    const description = row.metadata.description ?? 'An open standard for declaring AI usage in software projects.';
+    const title = row.metadata.title ?? 'AI-DECLARATION.md | Machine-Readable Standard for AI Usage Transparency';
+    const description = row.metadata.description ?? 'A machine-readable open standard for declaring AI usage in software projects.';
     const ogUrl = `${BASE_URL}/${urlSegment(row.language)}/${row.version}`;
 
     const html = template

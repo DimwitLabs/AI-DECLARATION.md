@@ -67,8 +67,8 @@ async function archive() {
   for (const { language, filePath } of entries) {
     const content = fs.readFileSync(filePath, 'utf-8');
     const metadata = {
-      title: 'AI-DECLARATION.md | Open Standard for AI Usage Transparency',
-      description: 'An open standard for declaring AI usage in software projects.',
+      title: 'AI-DECLARATION.md | Machine-Readable Standard for AI Usage Transparency',
+      description: 'A machine-readable open standard for declaring AI usage in software projects.',
       release_date: releaseDate,
       git_tag: gitTag,
       git_commit: gitCommit,
