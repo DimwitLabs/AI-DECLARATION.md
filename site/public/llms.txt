@@ -2,20 +2,63 @@
 
 > The most popular open standard for declaring how much AI was involved in building a software project. A project adds an `AI-DECLARATION.md` file to its repository stating an overall involvement level, and optionally a breakdown by process and by component.
 
-The file is plain Markdown with YAML front matter. Levels run from no AI involvement through to fully AI-generated, and a declaration is a claim by the project author, not an audit or a certification by anyone else.
+A declaration is a claim by the project author. Nobody verifies, audits, or certifies it, and listing in the Directory is not an endorsement. The point is transparency: a reader who knows which parts were generated can go and check exactly those parts, and an author can show their planning work alongside their code.
+
+The file is plain Markdown with YAML front matter, followed by a required `## Notes` section for human context. At minimum it needs `version`, `level`, and those notes. `processes` and `components` are optional, and the global `level` must be the highest level present among them. Any process not listed is implicitly `none`.
+
+Levels combine the verbs *act* and *prompt* with the entities *Human*, *AI*, and *task*, and cover review and design as well as code generation:
+
+- `none`: Human acts on the task alone with no AI involvement.
+- `hint`: Human acts on the task and the AI surfaces suggestions passively.
+- `assist`: Human prompts and the AI acts on a part of the task.
+- `pair`: Human prompts as both human and AI act on the task equally; the human understands internals clearly.
+- `copilot`: Human prompts and AI acts on the whole task, prompting the human for permission or clarification.
+- `auto`: Human prompts and AI acts autonomously, bringing the task to completion.
+
+Processes name the phase of work a level applies to:
+
+- `design`: Architecture, system design, and decision-making.
+- `implementation`: Writing production code.
+- `testing`: Writing tests, test plans, and quality assurance.
+- `documentation`: Writing docs, comments, READMEs, and changelogs.
+- `review`: Code review and pull request feedback.
+- `deployment`: CI/CD configuration, infrastructure, and release scripts.
+
+`components` maps file paths or directories to a level, using the same six values.
+
+A minimal declaration:
+
+```markdown
+---
+version: "0.1.2"
+level: copilot
+processes:
+  implementation: copilot
+  testing: assist
+---
+
+This format is based on [AI-DECLARATION.md](https://ai-declaration.md/en/0.1.2).
+
+## Notes
+
+- Architecture and review were human. Implementation was AI-driven and reviewed.
+```
+
+The file was previously named `CANDOR.md`, and that name is still recognised by the tooling.
 
 ## Specification
 
 - [Specification v0.1.2 (English)](https://ai-declaration.md/en/0.1.2/): the full standard in English
-- [Specification v0.1.2 (한국어)](https://ai-declaration.md/ko/0.1.2/): the full standard in 한국어
-- [Specification v0.1.2 (Português (Brasil))](https://ai-declaration.md/pt-br/0.1.2/): the full standard in Português (Brasil)
-- [Specification v0.1.2 (中文)](https://ai-declaration.md/zh/0.1.2/): the full standard in 中文
+- [Specification v0.1.2 (Korean)](https://ai-declaration.md/ko/0.1.2/): the full standard in Korean
+- [Specification v0.1.2 (Brazilian Portuguese)](https://ai-declaration.md/pt-br/0.1.2/): the full standard in Brazilian Portuguese
+- [Specification v0.1.2 (Chinese)](https://ai-declaration.md/zh/0.1.2/): the full standard in Chinese
 
 ## Tools
 
 - [Validate](https://ai-declaration.md/validate/): paste a declaration and check it against the specification
 - [Directory](https://ai-declaration.md/directory/): public GitHub repositories that publish a declaration
 - [API](https://ai-declaration.md/api/): read-only JSON API to detect and validate declarations, no key required
+- [API reference](https://ai-declaration.md/api/openapi.json): OpenAPI document for the endpoints above
 - [ai-declaration Reddit bot](https://developers.reddit.com/apps/ai-declaration/): comments on Reddit posts with what a linked repository declares
 
 ## Resources
