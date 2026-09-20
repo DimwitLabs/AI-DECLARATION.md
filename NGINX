@@ -3,6 +3,8 @@ server {
     root /var/www/AI-DECLARATION.md/site/public;
     index index.html;
 
+    charset utf-8;
+
     location /.well-known/ {
         try_files $uri =404;
     }
