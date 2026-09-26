@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { pool } from './db.js';
+import { FEATURED_MIN_STARS, NEW_FOR_DAYS, ensureAdoptersSchema } from './adopters.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -12,6 +13,8 @@ interface AdopterRow {
   is_featured: boolean;
   stars: number;
   spec_version: string | null;
+  conformance: string | null;
+  is_new: boolean;
 }
 
 function esc(str: string): string {
@@ -21,10 +24,14 @@ function esc(str: string): string {
 const UNKNOWN_VERSION_NOTE = 'Uses custom or invalid version tag';
 
 export async function generateDirectory(siteDir: string): Promise<void> {
+  await ensureAdoptersSchema(pool);
+
   const result = await pool.query<AdopterRow>(
-    `SELECT repo_full_name, repo_url, source_file, is_featured, COALESCE(stars, 0) AS stars, spec_version
+    `SELECT repo_full_name, repo_url, source_file, is_featured, COALESCE(stars, 0) AS stars, spec_version,
+            conformance, first_seen_at > NOW() - make_interval(days => $1) AS is_new
      FROM aideclaration.adopters
-     ORDER BY is_featured DESC, stars DESC, spec_version DESC NULLS LAST, repo_full_name ASC`
+     ORDER BY is_featured DESC, stars DESC, spec_version DESC NULLS LAST, repo_full_name ASC`,
+    [NEW_FOR_DAYS]
   );
 
   const rows = result.rows;
@@ -39,7 +46,8 @@ export async function generateDirectory(siteDir: string): Promise<void> {
   const items = rows.map((row) => {
     const tags: string[] = [];
     if (row.is_featured) tags.push('featured');
-    if (row.source_file === 'CUSTOM') tags.push('adapted');
+    if (row.is_new) tags.push('new');
+    if (row.conformance === 'adapted') tags.push('adapted');
 
     const tagHtml = tags.map((t) => `<span class="dtag dtag-${t}">${t}</span>`).join('');
     const starsHtml = row.stars > 0 ? `<span class="dir-stars">★ ${row.stars.toLocaleString()}</span>` : '';
@@ -64,7 +72,9 @@ export async function generateDirectory(siteDir: string): Promise<void> {
     .replace('{{COUNT}}', String(rows.length))
     .replace('{{ITEMS}}', items || '      <li class="dir-empty">No entries yet.</li>')
     .replace('{{LAST_UPDATED}}', lastUpdated)
-    .replace('{{NEXT_UPDATE}}', nextUpdate);
+    .replace('{{NEXT_UPDATE}}', nextUpdate)
+    .replace('{{FEATURED_MIN_STARS}}', String(FEATURED_MIN_STARS))
+    .replace('{{NEW_FOR_DAYS}}', String(NEW_FOR_DAYS));
 
   const outDir = path.join(siteDir, 'directory');
   fs.mkdirSync(outDir, { recursive: true });
