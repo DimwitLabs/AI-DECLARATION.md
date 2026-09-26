@@ -20,6 +20,7 @@ interface AdopterRow {
   error_count: number;
   warning_count: number;
   is_new: boolean;
+  is_off_spec: boolean;
 }
 
 function esc(str: string): string {
@@ -53,32 +54,37 @@ function detailPanel(row: AdopterRow): string {
 export async function generateDirectory(siteDir: string): Promise<void> {
   await ensureAdoptersSchema(pool);
 
-  const result = await pool.query<AdopterRow>(
-    `SELECT repo_full_name, repo_url, source_file,
-            (COALESCE(stars, 0) >= $2 AND conformance IS DISTINCT FROM 'off-spec') AS is_featured,
-            COALESCE(stars, 0) AS stars, spec_version, conformance, lineage, file_path, level,
-            COALESCE(error_count, 0) AS error_count, COALESCE(warning_count, 0) AS warning_count,
-            first_seen_at > NOW() - make_interval(days => $1) AS is_new
-     FROM aideclaration.adopters
-     ORDER BY is_featured DESC, conformance IS NOT DISTINCT FROM 'conforming' DESC, stars DESC, spec_version DESC NULLS LAST, repo_full_name ASC`,
-    [NEW_FOR_DAYS, FEATURED_MIN_STARS]
-  );
-
-  const rows = result.rows;
-
   const knownVersions = new Set(
     (await pool.query<{ version: string }>(
       `SELECT DISTINCT version FROM aideclaration.site_versions`
     )).rows.map((r) => r.version)
   );
+
+  const result = await pool.query<AdopterRow>(
+    `WITH adopters AS (
+       SELECT *, COALESCE(stars, 0) AS star_count,
+              (conformance IS NOT DISTINCT FROM 'off-spec' OR (spec_version IS NOT NULL AND spec_version <> ALL($3::text[]))) AS is_off_spec
+       FROM aideclaration.adopters
+     )
+     SELECT repo_full_name, repo_url, source_file,
+            (star_count >= $2 AND NOT is_off_spec) AS is_featured, is_off_spec,
+            star_count AS stars, spec_version, conformance, lineage, file_path, level,
+            COALESCE(error_count, 0) AS error_count, COALESCE(warning_count, 0) AS warning_count,
+            first_seen_at > NOW() - make_interval(days => $1) AS is_new
+     FROM adopters
+     ORDER BY is_featured DESC, stars DESC, spec_version DESC NULLS LAST, repo_full_name ASC`,
+    [NEW_FOR_DAYS, FEATURED_MIN_STARS, [...knownVersions]]
+  );
+
+  const rows = result.rows;
   const template = fs.readFileSync(path.join(__dirname, 'directory.html'), 'utf-8');
 
   const items = rows.map((row) => {
     const tags: string[] = [];
     if (row.is_featured) tags.push('featured');
     if (row.is_new) tags.push('new');
-    if (row.conformance === 'adapted') tags.push('adapted');
-    if (row.conformance === 'off-spec') tags.push('off-spec');
+    if (row.is_off_spec) tags.push('off-spec');
+    else if (row.conformance === 'adapted') tags.push('adapted');
 
     const tagHtml = tags.map((t) => `<span class="dtag dtag-${t}">${t}</span>`).join('');
     const dotHtml = tags.map((t) => `<i class="dir-dot dtag-${t}"></i>`).join('');
