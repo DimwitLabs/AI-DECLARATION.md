@@ -211,21 +211,23 @@ def validate(text: str) -> ValidationResult:
 
     if fm:
         order = {l: i for i, l in enumerate(LEVELS)}
-        max_proc = -1
+        exceeding: list[str] = []
         for name, lvl in (fm.processes or {}).items():
             if name not in PROCESSES:
                 errors.append(f'Unknown process "{name}"; allowed processes are: {", ".join(PROCESSES)}.')
             elif lvl not in LEVELS:
                 errors.append(f'Invalid level "{lvl}" for process "{name}".')
-            else:
-                max_proc = max(max_proc, order[lvl])
+            elif fm.level in order and order[lvl] > order[fm.level]:
+                exceeding.append(f'process "{name}" is "{lvl}"')
 
         for path, lvl in (fm.components or {}).items():
             if lvl not in LEVELS:
                 errors.append(f'Invalid level "{lvl}" for component "{path}".')
+            elif fm.level in order and order[lvl] > order[fm.level]:
+                exceeding.append(f'component "{path}" is "{lvl}"')
 
-        if fm.level in order and max_proc > order[fm.level]:
-            warnings.append(f'Global "level" is "{fm.level}" but a process has level "{LEVELS[max_proc]}". The global level must be the highest level present.')
+        if exceeding:
+            errors.append(f'Global "level" is "{fm.level}" but {", ".join(exceeding)}. The global level must be the highest level present.')
 
         if fm.version not in PUBLISHED_VERSIONS:
             warnings.append(
