@@ -625,23 +625,38 @@ body.old-version nav {
 .dtag-adapted  { background: #ede9fe; color: #7c3aed; }
 .dtag-new      { background: #dcfce7; color: #15803d; }
 .dtag-invalid  { background: #fee2e2; color: #b91c1c; }
+.dtag-error    { color: #b91c1c; box-shadow: inset 0 0 0 1px #b91c1c; }
+.dtag-warning  { color: #a16207; box-shadow: inset 0 0 0 1px #a16207; }
+
+.dir-legend-wrap { margin: 1rem 0; padding: 0 0.9rem; }
+.dir-legend-wrap[open] { padding-bottom: 0.4rem; }
+
+.dir-legend-wrap summary {
+  padding: 0.5rem 0;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  color: var(--on-surface-muted);
+}
+
+.dir-legend-wrap summary::after { font-size: 0.85rem; }
 
 .dir-legend {
   display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 0.6rem 1rem;
-  margin: 1.25rem 0 1.5rem;
-  font-size: 0.85rem;
+  gap: 0.45rem 0.9rem;
+  margin: 0.1rem 0 0.8rem;
+  font-size: 0.75rem;
   color: var(--on-surface-muted);
 }
 
 .dir-legend > div { display: contents; }
-.dir-legend dt { display: flex; align-items: flex-start; padding-top: 0.1rem; }
+.dir-legend dt { display: flex; align-items: flex-start; padding-top: 0.15rem; }
 .dir-legend dd { margin: 0; text-align: left; line-height: 1.5; }
+.dir-legend .dtag { font-size: 0.6rem; padding: 0.1rem 0.4rem; }
 
 .dir-legend-version {
   font-family: 'Space Grotesk', monospace;
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   color: var(--outline-variant);
   text-decoration: underline dotted;
   text-underline-offset: 3px;
@@ -670,38 +685,85 @@ body.old-version nav {
   min-height: 1.2em;
 }
 
+.dir-count:empty { display: none; }
+
 .dir-list { list-style: none; margin: 0; }
 
 .dir-item {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
   padding: 0.75rem 1rem;
   background: var(--surface-lowest);
   margin-bottom: 2px;
+  cursor: pointer;
 }
+
+.dir-name { display: contents; }
+.dir-dots { display: none; }
 
 .dir-repo {
   font-family: 'Space Grotesk', monospace;
   font-size: 0.875rem;
   color: var(--on-surface);
   border-bottom: none;
+  text-decoration: none;
 }
 
+.dir-repo::after { content: "\00a0\2197"; font-size: 0.75em; color: var(--outline); }
 .dir-repo:hover { opacity: 0.6; }
+.dir-repo-name { display: inline-block; }
 
-/* On desktop the meta wrapper is transparent to layout, so the tag, stars, and
-   version stay direct flex children of the row exactly as before. Mobile turns
-   it into a right-hand column. */
-.dir-meta { display: contents; }
-
-.dir-stars {
-  font-family: 'Space Grotesk', monospace;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--on-surface-muted);
-  flex-shrink: 0;
+.dir-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--outline-variant);
+  padding: 0 0 0 0.5rem;
 }
+
+.dir-item:not(:has(.dir-version)) .dir-toggle { margin-left: auto; }
+
+.dir-detail {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--surface-low);
+  cursor: auto;
+}
+
+.dir-detail[hidden] { display: none; }
+.doc-section .dir-detail p { margin: 0; text-align: left; hyphens: manual; }
+
+.doc-section .dir-detail .dir-detail-meta {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.64rem;
+  color: var(--on-surface-muted);
+}
+
+.doc-section .dir-detail .dir-detail-note, .dir-detail-note {
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--on-surface-muted);
+  hyphens: manual;
+}
+
+.dir-detail-flags { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; }
+.dir-detail .dtag { font-size: 0.6rem; padding: 0.1rem 0.4rem; }
+.dir-detail-meta .ltag { font-size: 0.6rem; padding: 0.1rem 0.4rem; margin-right: 0.5rem; vertical-align: 1px; }
+.dir-seg { white-space: nowrap; }
+
+/* On desktop the meta wrapper is transparent to layout, so the tags and
+   version stay direct flex children of the row. Mobile turns it into a
+   right-hand column. */
+.dir-meta { display: contents; }
 
 .dir-version {
   margin-left: auto;
@@ -854,17 +916,22 @@ body.old-version nav {
   .nav-api { display: none; }
   .subnav { display: flex; }
 
-  /* Long repo names were being squeezed by the star count and version, neither
-     of which shrinks. Two columns instead: the name takes what is left and
-     wraps freely, and the meta stacks against the right edge. */
-  .dir-item { align-items: flex-start; gap: 0.75rem; }
+  /* Long repo names were being squeezed by the version, which does not
+     shrink. Two columns instead: the name takes what is left and wraps at the
+     slash, and the version sits against the right edge. Tags become squares
+     under the name. */
+  .dir-item { gap: 0.75rem; }
 
-  .dir-repo {
+  .dir-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
     flex: 1;
     min-width: 0;
-    overflow-wrap: anywhere;
-    line-height: 1.4;
   }
+
+  .dir-repo { overflow-wrap: break-word; line-height: 1.4; }
 
   .dir-meta {
     display: flex;
@@ -874,23 +941,20 @@ body.old-version nav {
     flex-shrink: 0;
   }
   .dir-version { margin-left: 0; }
+  .dir-meta .dtag { display: none; }
 
-  .dir-item {
-    --bar-featured: 0;
-    --bar-new: 0;
-    --bar-adapted: 0;
-    --bar-invalid: 0;
-    box-shadow:
-      inset calc(3px * var(--bar-featured)) 0 0 #fef9c3,
-      inset calc(3px * (var(--bar-featured) + var(--bar-new))) 0 0 #dcfce7,
-      inset calc(3px * (var(--bar-featured) + var(--bar-new) + var(--bar-adapted))) 0 0 #ede9fe,
-      inset calc(3px * (var(--bar-featured) + var(--bar-new) + var(--bar-adapted) + var(--bar-invalid))) 0 0 #fee2e2;
-  }
-  .dir-item[data-tags~="featured"] { --bar-featured: 1; }
-  .dir-item[data-tags~="new"] { --bar-new: 1; }
-  .dir-item[data-tags~="adapted"] { --bar-adapted: 1; }
-  .dir-item[data-tags~="invalid"] { --bar-invalid: 1; }
-  .dir-item .dtag { display: none; }
+  .dir-dots { display: flex; gap: 0.25rem; }
+
+  .dir-dot,
+  .dir-legend .dtag { width: 8px; height: 8px; padding: 0; font-size: 0; border-radius: 1px; }
+
+  .dir-legend { grid-template-columns: 1.1rem 1fr; }
+  .dir-legend dt { padding-top: 0.45rem; }
+
+  .dir-dot.dtag-featured, .dir-legend .dtag-featured { background: #facc15; }
+  .dir-dot.dtag-new, .dir-legend .dtag-new { background: #4ade80; }
+  .dir-dot.dtag-adapted, .dir-legend .dtag-adapted { background: #a78bfa; }
+  .dir-dot.dtag-invalid, .dir-legend .dtag-invalid { background: #f87171; }
 }
 
 @media (max-width: 600px) {

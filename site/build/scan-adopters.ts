@@ -2,7 +2,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { config as loadEnv } from 'dotenv';
 import { pool } from './db.js';
-import { classifyConformance, ensureAdoptersSchema, findLineage, findSpecVersion, isFeatured } from './adopters.js';
+import { classifyConformance, ensureAdoptersSchema, findLevel, findLineage, findSpecVersion, isFeatured } from './adopters.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 loadEnv({ path: path.join(__dirname, '..', '..', '.env') });
@@ -42,15 +42,20 @@ async function fetchContent(fullName: string, filePath: string): Promise<string 
   return res.text();
 }
 
-async function conforms(content: string): Promise<boolean> {
+interface Validation {
+  valid: boolean;
+  errors: string[];
+  warnings: string[];
+}
+
+async function validate(content: string): Promise<Validation> {
   const res = await fetch('https://ai-declaration.md/api/validate', {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain' },
     body: content,
   });
   if (!res.ok) throw new Error(`Validate API ${res.status}`);
-  const data = (await res.json()) as { valid: boolean };
-  return data.valid;
+  return (await res.json()) as Validation;
 }
 
 async function fetchStars(fullName: string): Promise<number> {
@@ -107,22 +112,31 @@ async function scanFile(filename: string): Promise<{ scanned: number; found: num
 
       found++;
       const specVersion = findSpecVersion(content);
-      const conformance = classifyConformance(await conforms(content), content);
+      const validation = await validate(content);
+      const conformance = classifyConformance(validation.valid, content);
 
       await sleep(500);
       const stars = await fetchStars(item.repository.full_name);
       await pool.query(
-        `INSERT INTO aideclaration.adopters (repo_full_name, source_file, repo_url, stars, is_featured, spec_version, conformance, lineage, last_seen_at)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
+        `INSERT INTO aideclaration.adopters (repo_full_name, source_file, repo_url, stars, is_featured, spec_version, conformance, lineage, file_path, level, error_count, warning_count, last_seen_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW())
          ON CONFLICT (repo_full_name, source_file) DO UPDATE SET
-           repo_url     = EXCLUDED.repo_url,
-           stars        = EXCLUDED.stars,
-           is_featured  = EXCLUDED.is_featured,
-           spec_version = EXCLUDED.spec_version,
-           conformance  = EXCLUDED.conformance,
-           lineage      = EXCLUDED.lineage,
-           last_seen_at = NOW()`,
-        [item.repository.full_name, filename, item.repository.html_url, stars, isFeatured(stars, conformance), specVersion, conformance, lineage]
+           repo_url      = EXCLUDED.repo_url,
+           stars         = EXCLUDED.stars,
+           is_featured   = EXCLUDED.is_featured,
+           spec_version  = EXCLUDED.spec_version,
+           conformance   = EXCLUDED.conformance,
+           lineage       = EXCLUDED.lineage,
+           file_path     = EXCLUDED.file_path,
+           level         = EXCLUDED.level,
+           error_count   = EXCLUDED.error_count,
+           warning_count = EXCLUDED.warning_count,
+           last_seen_at  = NOW()`,
+        [
+          item.repository.full_name, filename, item.repository.html_url, stars, isFeatured(stars, conformance),
+          specVersion, conformance, lineage, item.path, findLevel(content),
+          validation.errors.length, validation.warnings.length,
+        ]
       );
       console.log(`added (${conformance}, ${lineage}, ★ ${stars})`);
     }

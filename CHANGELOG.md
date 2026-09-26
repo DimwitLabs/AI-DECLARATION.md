@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - A Resources section listing the [`ai-declare`](https://github.com/yujqiao/ai-declare) agent skill, added by @yujqiao. Thank you for the contribution! ([#22](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/22))
 - A public [API](https://ai-declaration.md/api/) for tooling, with `/api/versions`, `/api/levels`, `/api/processes`, `/api/schema`, `/api/validate`, and `/api/detect` endpoints.
 - A `templates/` directory with two Pull Request templates for reference and to increase easy adoption for repository owners. ([#14](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/14))
+- A [Directory](https://ai-declaration.md/directory/) of public GitHub repositories that publish a declaration, tagged as featured, new, adapted, or invalid, with a details panel for each entry showing its level, file path, and error and warning counts.
+- A [Validate](https://ai-declaration.md/validate/) page to check a declaration against the specification in the browser.
+- An [`llms.txt`](https://ai-declaration.md/llms.txt) describing the specification, tools, and resources for language models.
 
 ### Changed
 
@@ -24,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - An attribution sentence above the `## Notes` section to make sure anyone using the file has an easy link to get back to the right version of the specification. ([#11](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/11))
 - Language codes now follow [BCP 47](https://www.rfc-editor.org/rfc/rfc5646), so regional translations such as `pt-BR` are supported, and the language picker shows each language's own name.
 - The Directory marks entries whose declared version was never published, since some projects declare their own application version instead.
+- Validation now reports an error, not a warning, when the global `level` is below any process or component level.
 
 ## [0.1.1] - 2026-04-06
 

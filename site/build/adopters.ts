@@ -5,9 +5,27 @@ export const NEW_FOR_DAYS = 3;
 
 const SPEC_LINK = /https?:\/\/(?:www\.)?ai-declaration\.md\b/i;
 
-const DERIVATIVES: { id: string; link: RegExp }[] = [
-  { id: 'lemmy-selfhosted', link: /lemmy\.world\/post\/49151085\b/ },
+export interface Derivative {
+  id: string;
+  name: string;
+  url: string;
+  version: string;
+  link: RegExp;
+}
+
+export const DERIVATIVES: Derivative[] = [
+  {
+    id: 'lemmy-selfhosted',
+    name: 'lemmy.world selfhosted',
+    url: 'https://lemmy.world/post/49151085',
+    version: '0.1.2',
+    link: /lemmy\.world\/post\/49151085\b/,
+  },
 ];
+
+export function findDerivative(id: string | null): Derivative | null {
+  return DERIVATIVES.find((d) => d.id === id) ?? null;
+}
 
 const FRONT_MATTER_WITHIN_LINES = 10;
 
@@ -24,6 +42,11 @@ export function findFrontMatter(content: string): string | null {
 export function findSpecVersion(content: string): string | null {
   const block = findFrontMatter(content);
   return block?.match(/^\s*version\s*:\s*["']?([^"'\s#]+)["']?/m)?.[1] ?? null;
+}
+
+export function findLevel(content: string): string | null {
+  const block = findFrontMatter(content);
+  return block?.match(/^\s*level\s*:\s*["']?([a-z]+)["']?/im)?.[1].toLowerCase() ?? null;
 }
 
 export type Conformance = 'conforming' | 'adapted' | 'invalid';
@@ -67,6 +90,10 @@ export async function ensureAdoptersSchema(pool: pg.Pool): Promise<void> {
     `ALTER TABLE aideclaration.adopters ADD CONSTRAINT adopters_conformance_check CHECK (conformance IN ('conforming', 'adapted', 'invalid'))`
   );
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS lineage TEXT`);
+  await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS file_path TEXT`);
+  await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS level TEXT`);
+  await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS error_count INTEGER DEFAULT 0`);
+  await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS warning_count INTEGER DEFAULT 0`);
 
   await pool.query(
     `UPDATE aideclaration.adopters
