@@ -111,8 +111,8 @@ export async function generateDirectory(siteDir: string): Promise<void> {
     : featured.length === 0
       ? list(others)
       : [
-          `    <div class="dir-group">\n    <p class="dir-group-label">Featured</p>\n${list(featured)}\n    </div>`,
-          ...(others.length ? [`    <div class="dir-group">\n    <p class="dir-group-label">Everyone else</p>\n${list(others)}\n    </div>`] : []),
+          `    <div class="dir-group">\n${list(featured)}\n    </div>`,
+          ...(others.length ? [`    <div class="dir-group">\n${list(others)}\n    </div>`] : []),
         ].join('\n');
 
   const now = new Date();
