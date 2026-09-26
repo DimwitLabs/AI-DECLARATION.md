@@ -27,8 +27,10 @@ export async function generateDirectory(siteDir: string): Promise<void> {
   await ensureAdoptersSchema(pool);
 
   const result = await pool.query<AdopterRow>(
-    `SELECT repo_full_name, repo_url, source_file, is_featured, COALESCE(stars, 0) AS stars, spec_version,
-            conformance, first_seen_at > NOW() - make_interval(days => $1) AS is_new
+    `SELECT repo_full_name, repo_url, source_file,
+            (is_featured AND conformance IS DISTINCT FROM 'invalid') AS is_featured,
+            COALESCE(stars, 0) AS stars, spec_version, conformance,
+            first_seen_at > NOW() - make_interval(days => $1) AS is_new
      FROM aideclaration.adopters
      ORDER BY is_featured DESC, stars DESC, spec_version DESC NULLS LAST, repo_full_name ASC`,
     [NEW_FOR_DAYS]
@@ -48,6 +50,7 @@ export async function generateDirectory(siteDir: string): Promise<void> {
     if (row.is_featured) tags.push('featured');
     if (row.is_new) tags.push('new');
     if (row.conformance === 'adapted') tags.push('adapted');
+    if (row.conformance === 'invalid') tags.push('invalid');
 
     const tagHtml = tags.map((t) => `<span class="dtag dtag-${t}">${t}</span>`).join('');
     const starsHtml = row.stars > 0 ? `<span class="dir-stars">★ ${row.stars.toLocaleString()}</span>` : '';

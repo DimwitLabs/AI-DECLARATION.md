@@ -26,6 +26,21 @@ export function findSpecVersion(content: string): string | null {
   return block?.match(/^\s*version\s*:\s*["']?([^"'\s#]+)["']?/m)?.[1] ?? null;
 }
 
+export type Conformance = 'conforming' | 'adapted' | 'invalid';
+
+export function frontMatterAtTop(content: string): boolean {
+  return /^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/.test(content.trim());
+}
+
+export function classifyConformance(valid: boolean, content: string): Conformance {
+  if (valid) return 'conforming';
+  return frontMatterAtTop(content) ? 'invalid' : 'adapted';
+}
+
+export function isFeatured(stars: number, conformance: Conformance): boolean {
+  return stars >= FEATURED_MIN_STARS && conformance !== 'invalid';
+}
+
 export function findLineage(content: string): string | null {
   if (findFrontMatter(content) || SPEC_LINK.test(content)) return 'direct';
   return DERIVATIVES.find((d) => d.link.test(content))?.id ?? null;
@@ -46,8 +61,10 @@ export async function ensureAdoptersSchema(pool: pg.Pool): Promise<void> {
   `);
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS stars INTEGER DEFAULT 0`);
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS spec_version TEXT`);
+  await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS conformance TEXT`);
+  await pool.query(`ALTER TABLE aideclaration.adopters DROP CONSTRAINT IF EXISTS adopters_conformance_check`);
   await pool.query(
-    `ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS conformance TEXT CHECK (conformance IN ('conforming', 'adapted'))`
+    `ALTER TABLE aideclaration.adopters ADD CONSTRAINT adopters_conformance_check CHECK (conformance IN ('conforming', 'adapted', 'invalid'))`
   );
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS lineage TEXT`);
 

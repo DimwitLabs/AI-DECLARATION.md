@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsx generate.ts",
     "archive": "tsx archive-version.ts",
-    "scan": "tsx scan-adopters.ts"
+    "scan": "tsx scan-adopters.ts",
+    "migrate": "tsx migrate.ts"
   },
   "dependencies": {
     "dotenv": "^16.4.0",

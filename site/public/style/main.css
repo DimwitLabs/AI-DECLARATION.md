@@ -624,6 +624,7 @@ body.old-version nav {
 .dtag-featured { background: #fef9c3; color: #a16207; }
 .dtag-adapted  { background: #ede9fe; color: #7c3aed; }
 .dtag-new      { background: #dcfce7; color: #15803d; }
+.dtag-invalid  { background: #fee2e2; color: #b91c1c; }
 
 .dir-legend {
   display: grid;
@@ -878,14 +879,17 @@ body.old-version nav {
     --bar-featured: 0;
     --bar-new: 0;
     --bar-adapted: 0;
+    --bar-invalid: 0;
     box-shadow:
       inset calc(3px * var(--bar-featured)) 0 0 #fef9c3,
       inset calc(3px * (var(--bar-featured) + var(--bar-new))) 0 0 #dcfce7,
-      inset calc(3px * (var(--bar-featured) + var(--bar-new) + var(--bar-adapted))) 0 0 #ede9fe;
+      inset calc(3px * (var(--bar-featured) + var(--bar-new) + var(--bar-adapted))) 0 0 #ede9fe,
+      inset calc(3px * (var(--bar-featured) + var(--bar-new) + var(--bar-adapted) + var(--bar-invalid))) 0 0 #fee2e2;
   }
   .dir-item[data-tags~="featured"] { --bar-featured: 1; }
   .dir-item[data-tags~="new"] { --bar-new: 1; }
   .dir-item[data-tags~="adapted"] { --bar-adapted: 1; }
+  .dir-item[data-tags~="invalid"] { --bar-invalid: 1; }
   .dir-item .dtag { display: none; }
 }
 

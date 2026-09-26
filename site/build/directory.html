@@ -48,9 +48,10 @@
     <h2>Directory</h2>
     <p>{{COUNT}} projects using <code>AI-DECLARATION.md</code>. A project is listed when its declaration links back to this specification, directly or through a format derived from it.</p>
     <dl class="dir-legend">
-      <div><dt><span class="dtag dtag-featured">featured</span></dt><dd>{{FEATURED_MIN_STARS}} or more stars on GitHub.</dd></div>
+      <div><dt><span class="dtag dtag-featured">featured</span></dt><dd>{{FEATURED_MIN_STARS}} or more stars on GitHub. An invalid declaration is never featured.</dd></div>
       <div><dt><span class="dtag dtag-new">new</span></dt><dd>First listed in the last {{NEW_FOR_DAYS}} days.</dd></div>
-      <div><dt><span class="dtag dtag-adapted">adapted</span></dt><dd>Follows this specification or a derivative of it, but does not fully conform.</dd></div>
+      <div><dt><span class="dtag dtag-adapted">adapted</span></dt><dd>Follows a format derived from this specification, or this one arranged differently, such as front matter below a heading.</dd></div>
+      <div><dt><span class="dtag dtag-invalid">invalid</span></dt><dd>Uses this specification's format but breaks one of its rules. <a href="/validate/">Validate</a> shows which.</dd></div>
       <div><dt><span class="dir-legend-version">v1.0</span></dt><dd>Declares a version that is not a published version of the specification.</dd></div>
     </dl>
     <input type="search" id="dir-search" class="dir-search" placeholder="Search projects...">

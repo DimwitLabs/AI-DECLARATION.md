@@ -2,7 +2,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { config as loadEnv } from 'dotenv';
 import { pool } from './db.js';
-import { FEATURED_MIN_STARS, ensureAdoptersSchema, findLineage, findSpecVersion } from './adopters.js';
+import { classifyConformance, ensureAdoptersSchema, findLineage, findSpecVersion, isFeatured } from './adopters.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 loadEnv({ path: path.join(__dirname, '..', '..', '.env') });
@@ -107,7 +107,7 @@ async function scanFile(filename: string): Promise<{ scanned: number; found: num
 
       found++;
       const specVersion = findSpecVersion(content);
-      const conformance = (await conforms(content)) ? 'conforming' : 'adapted';
+      const conformance = classifyConformance(await conforms(content), content);
 
       await sleep(500);
       const stars = await fetchStars(item.repository.full_name);
@@ -122,7 +122,7 @@ async function scanFile(filename: string): Promise<{ scanned: number; found: num
            conformance  = EXCLUDED.conformance,
            lineage      = EXCLUDED.lineage,
            last_seen_at = NOW()`,
-        [item.repository.full_name, filename, item.repository.html_url, stars, stars >= FEATURED_MIN_STARS, specVersion, conformance, lineage]
+        [item.repository.full_name, filename, item.repository.html_url, stars, isFeatured(stars, conformance), specVersion, conformance, lineage]
       );
       console.log(`added (${conformance}, ${lineage}, ★ ${stars})`);
     }
