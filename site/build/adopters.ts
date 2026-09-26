@@ -49,7 +49,7 @@ export function findLevel(content: string): string | null {
   return block?.match(/^\s*level\s*:\s*["']?([a-z]+)["']?/im)?.[1].toLowerCase() ?? null;
 }
 
-export type Conformance = 'conforming' | 'adapted' | 'invalid';
+export type Conformance = 'conforming' | 'adapted' | 'off-spec';
 
 export function frontMatterAtTop(content: string): boolean {
   return /^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/.test(content.trim());
@@ -57,11 +57,11 @@ export function frontMatterAtTop(content: string): boolean {
 
 export function classifyConformance(valid: boolean, content: string): Conformance {
   if (valid) return 'conforming';
-  return frontMatterAtTop(content) ? 'invalid' : 'adapted';
+  return frontMatterAtTop(content) ? 'off-spec' : 'adapted';
 }
 
 export function isFeatured(stars: number, conformance: Conformance): boolean {
-  return stars >= FEATURED_MIN_STARS && conformance !== 'invalid';
+  return stars >= FEATURED_MIN_STARS && conformance !== 'off-spec';
 }
 
 export function findLineage(content: string): string | null {
@@ -86,8 +86,9 @@ export async function ensureAdoptersSchema(pool: pg.Pool): Promise<void> {
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS spec_version TEXT`);
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS conformance TEXT`);
   await pool.query(`ALTER TABLE aideclaration.adopters DROP CONSTRAINT IF EXISTS adopters_conformance_check`);
+  await pool.query(`UPDATE aideclaration.adopters SET conformance = 'off-spec' WHERE conformance = 'invalid'`);
   await pool.query(
-    `ALTER TABLE aideclaration.adopters ADD CONSTRAINT adopters_conformance_check CHECK (conformance IN ('conforming', 'adapted', 'invalid'))`
+    `ALTER TABLE aideclaration.adopters ADD CONSTRAINT adopters_conformance_check CHECK (conformance IN ('conforming', 'adapted', 'off-spec'))`
   );
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS lineage TEXT`);
   await pool.query(`ALTER TABLE aideclaration.adopters ADD COLUMN IF NOT EXISTS file_path TEXT`);

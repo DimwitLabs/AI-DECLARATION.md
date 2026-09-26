@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - A Resources section listing the [`ai-declare`](https://github.com/yujqiao/ai-declare) agent skill, added by @yujqiao. Thank you for the contribution! ([#22](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/22))
 - A public [API](https://ai-declaration.md/api/) for tooling, with `/api/versions`, `/api/levels`, `/api/processes`, `/api/schema`, `/api/validate`, and `/api/detect` endpoints.
 - A `templates/` directory with two Pull Request templates for reference and to increase easy adoption for repository owners. ([#14](https://github.com/DimwitLabs/AI-DECLARATION.md/pull/14))
-- A [Directory](https://ai-declaration.md/directory/) of public GitHub repositories that publish a declaration, tagged as featured, new, adapted, or invalid, with a details panel for each entry showing its level, file path, and error and warning counts.
+- A [Directory](https://ai-declaration.md/directory/) of public GitHub repositories that publish a declaration, tagged as featured, new, adapted, or off-spec, with a details panel for each entry showing its level, file path, and error and warning counts.
 - A [Validate](https://ai-declaration.md/validate/) page to check a declaration against the specification in the browser.
 - An [`llms.txt`](https://ai-declaration.md/llms.txt) describing the specification, tools, and resources for language models.
 

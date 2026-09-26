@@ -55,12 +55,12 @@ export async function generateDirectory(siteDir: string): Promise<void> {
 
   const result = await pool.query<AdopterRow>(
     `SELECT repo_full_name, repo_url, source_file,
-            (COALESCE(stars, 0) >= $2 AND conformance IS DISTINCT FROM 'invalid') AS is_featured,
+            (COALESCE(stars, 0) >= $2 AND conformance IS DISTINCT FROM 'off-spec') AS is_featured,
             COALESCE(stars, 0) AS stars, spec_version, conformance, lineage, file_path, level,
             COALESCE(error_count, 0) AS error_count, COALESCE(warning_count, 0) AS warning_count,
             first_seen_at > NOW() - make_interval(days => $1) AS is_new
      FROM aideclaration.adopters
-     ORDER BY is_featured DESC, stars DESC, spec_version DESC NULLS LAST, repo_full_name ASC`,
+     ORDER BY is_featured DESC, conformance IS NOT DISTINCT FROM 'conforming' DESC, stars DESC, spec_version DESC NULLS LAST, repo_full_name ASC`,
     [NEW_FOR_DAYS, FEATURED_MIN_STARS]
   );
 
@@ -78,7 +78,7 @@ export async function generateDirectory(siteDir: string): Promise<void> {
     if (row.is_featured) tags.push('featured');
     if (row.is_new) tags.push('new');
     if (row.conformance === 'adapted') tags.push('adapted');
-    if (row.conformance === 'invalid') tags.push('invalid');
+    if (row.conformance === 'off-spec') tags.push('off-spec');
 
     const tagHtml = tags.map((t) => `<span class="dtag dtag-${t}">${t}</span>`).join('');
     const dotHtml = tags.map((t) => `<i class="dir-dot dtag-${t}"></i>`).join('');
