@@ -689,6 +689,18 @@ body.old-version nav {
 
 .dir-list { list-style: none; margin: 0; }
 
+.dir-group + .dir-group { margin-top: 1.75rem; }
+
+.doc-section .dir-group-label {
+  margin: 0 0 0.5rem;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-surface-muted);
+}
+
 .dir-item {
   display: flex;
   flex-wrap: wrap;

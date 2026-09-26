@@ -59,9 +59,7 @@
       </dl>
     </details>
     <p class="dir-count" id="dir-count"></p>
-    <ul class="dir-list">
 {{ITEMS}}
-    </ul>
     <p class="dir-submit">Don't see your project? <a href="mailto:chief@dimwit.me?subject=Submit%20Project%20to%20AI-DECLARATION.md%20Directory">Reach out</a></p>
     <p class="dir-update">Last updated: {{LAST_UPDATED}} | Next update: {{NEXT_UPDATE}}</p>
   </section>
@@ -98,6 +96,9 @@
       const show = !q || name.includes(q) || tags.includes(q);
       item.style.display = show ? '' : 'none';
       if (show) visible++;
+    });
+    document.querySelectorAll('.dir-group').forEach(function (group) {
+      group.hidden = !Array.from(group.querySelectorAll('.dir-item')).some(function (item) { return item.style.display !== 'none'; });
     });
     count.textContent = q ? visible + ' result' + (visible !== 1 ? 's' : '') : '';
   });

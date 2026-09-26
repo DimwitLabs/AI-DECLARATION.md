@@ -79,7 +79,7 @@ export async function generateDirectory(siteDir: string): Promise<void> {
   const rows = result.rows;
   const template = fs.readFileSync(path.join(__dirname, 'directory.html'), 'utf-8');
 
-  const items = rows.map((row) => {
+  const renderRow = (row: AdopterRow) => {
     const tags: string[] = [];
     if (row.is_featured) tags.push('featured');
     if (row.is_new) tags.push('new');
@@ -100,7 +100,20 @@ export async function generateDirectory(siteDir: string): Promise<void> {
     const toggle = `<button class="dir-toggle" aria-expanded="false" aria-label="Details for ${esc(row.repo_full_name)}">+</button>`;
 
     return `      <li class="dir-item" id="${esc(row.repo_full_name)}" data-tags="${tags.join(' ')}">${name}<span class="dir-meta">${tagHtml}${versionHtml}</span>${toggle}${detailPanel(row)}</li>`;
-  }).join('\n');
+  };
+
+  const featured = rows.filter((r) => r.is_featured);
+  const others = rows.filter((r) => !r.is_featured);
+  const list = (group: AdopterRow[]) =>
+    `    <ul class="dir-list">\n${group.map(renderRow).join('\n')}\n    </ul>`;
+  const items = rows.length === 0
+    ? '    <ul class="dir-list">\n      <li class="dir-empty">No entries yet.</li>\n    </ul>'
+    : featured.length === 0
+      ? list(others)
+      : [
+          `    <div class="dir-group">\n    <p class="dir-group-label">Featured</p>\n${list(featured)}\n    </div>`,
+          ...(others.length ? [`    <div class="dir-group">\n    <p class="dir-group-label">Everyone else</p>\n${list(others)}\n    </div>`] : []),
+        ].join('\n');
 
   const now = new Date();
   const lastUpdated = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -112,7 +125,7 @@ export async function generateDirectory(siteDir: string): Promise<void> {
 
   const html = template
     .replace('{{COUNT}}', String(rows.length))
-    .replace('{{ITEMS}}', items || '      <li class="dir-empty">No entries yet.</li>')
+    .replace('{{ITEMS}}', items)
     .replace('{{LAST_UPDATED}}', lastUpdated)
     .replace('{{NEXT_UPDATE}}', nextUpdate)
     .replace('{{FEATURED_MIN_STARS}}', String(FEATURED_MIN_STARS))
