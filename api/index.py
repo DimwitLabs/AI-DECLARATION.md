@@ -244,14 +244,15 @@ def validate(text: str) -> ValidationResult:
         if hm:
             headings.append((len(hm.group(1)), hm.group(2).strip()))
 
-    notes_h = next((h for h in headings if h[1].lower() == "notes"), None)
-    if not notes_h:
+    notes_headings = [h for h in headings if re.search(r"\bnotes\b", h[1], re.IGNORECASE)]
+    if not notes_headings:
         errors.append('A "## Notes" section is required in the body of the file.')
-    elif notes_h[0] != 2:
-        errors.append(f'"Notes" must be an h2 heading (##). Found at level {notes_h[0]} ({"#" * notes_h[0]}).')
+    elif not any(lvl == 2 for lvl, _ in notes_headings):
+        lvl, htext = notes_headings[0]
+        errors.append(f'"{htext}" must be an h2 heading (##). Found at level {lvl} ({"#" * lvl}).')
 
     for lvl, htext in headings:
-        if htext.lower() != "notes":
+        if (lvl, htext) not in notes_headings:
             notes.append(f'Extra heading "{"#" * lvl} {htext}" found.')
 
     return ValidationResult(valid=len(errors) == 0, errors=errors, warnings=warnings, notes=notes, level=level, version=version)
