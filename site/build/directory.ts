@@ -37,18 +37,22 @@ function countPill(kind: 'error' | 'warning', n: number): string {
   return n > 0 ? `<span class="dtag dtag-${kind}">${n} ${kind}${n === 1 ? '' : 's'}</span>` : '';
 }
 
+function panelShell(row: AdopterRow, body: string): string {
+  return `<div class="dir-detail" id="${esc(row.repo_full_name)}-detail" hidden="until-found"><div class="dir-detail-body">${body}</div></div>`;
+}
+
 function detailPanel(row: AdopterRow): string {
   const facts = segments([esc(row.file_path ?? row.source_file), ...(row.stars > 0 ? [`★ ${row.stars.toLocaleString()}`] : [])]);
   const derivative = findDerivative(row.lineage);
   if (derivative) {
-    return `<div class="dir-detail" hidden><p class="dir-detail-meta">${facts}</p><p class="dir-detail-note">Follows the <a href="${derivative.url}">${derivative.name}</a> format, derived from this specification.</p></div>`;
+    return panelShell(row, `<p class="dir-detail-meta">${facts}</p><p class="dir-detail-note">Follows the <a href="${derivative.url}">${derivative.name}</a> format, derived from this specification.</p>`);
   }
   const level = row.level ? `<span class="ltag ltag-${esc(row.level)}">${esc(row.level)}</span>` : '';
   const pills = countPill('error', row.error_count) + countPill('warning', row.warning_count);
   const flags = pills
     ? `<div class="dir-detail-flags">${pills}<span class="dir-detail-note">Own this repo? Check it in <a href="/validate/">Validate</a>.</span></div>`
     : '';
-  return `<div class="dir-detail" hidden><p class="dir-detail-meta">${level}${facts}</p>${flags}</div>`;
+  return panelShell(row, `<p class="dir-detail-meta">${level}${facts}</p>${flags}`);
 }
 
 export async function generateDirectory(siteDir: string): Promise<void> {
@@ -97,7 +101,7 @@ export async function generateDirectory(siteDir: string): Promise<void> {
 
     const [owner, repo] = row.repo_full_name.split('/', 2);
     const name = `<span class="dir-name"><a href="${esc(row.repo_url)}" class="dir-repo">${esc(owner)}/<span class="dir-repo-name">${esc(repo)}</span></a>${dotHtml ? `<span class="dir-dots" aria-hidden="true">${dotHtml}</span>` : ''}</span>`;
-    const toggle = `<button class="dir-toggle" aria-expanded="false" aria-label="Details for ${esc(row.repo_full_name)}">+</button>`;
+    const toggle = `<button class="dir-toggle" aria-expanded="false" aria-controls="${esc(row.repo_full_name)}-detail" aria-label="Details for ${esc(row.repo_full_name)}">+</button>`;
 
     return `      <li class="dir-item" id="${esc(row.repo_full_name)}" data-tags="${tags.join(' ')}">${name}<span class="dir-meta">${tagHtml}${versionHtml}</span>${toggle}${detailPanel(row)}</li>`;
   };

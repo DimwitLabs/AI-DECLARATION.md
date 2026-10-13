@@ -106,7 +106,7 @@
   function setOpen(item, open) {
     const panel = item.querySelector('.dir-detail');
     const button = item.querySelector('.dir-toggle');
-    panel.hidden = !open;
+    panel.hidden = open ? false : 'until-found';
     button.setAttribute('aria-expanded', String(open));
     button.textContent = open ? '−' : '+';
   }
@@ -114,7 +114,10 @@
   items.forEach(function (item) {
     item.addEventListener('click', function (event) {
       if (event.target.closest('a, .dir-detail')) return;
-      setOpen(item, item.querySelector('.dir-detail').hidden);
+      setOpen(item, Boolean(item.querySelector('.dir-detail').hidden));
+    });
+    item.querySelector('.dir-detail').addEventListener('beforematch', function () {
+      setOpen(item, true);
     });
   });
 
