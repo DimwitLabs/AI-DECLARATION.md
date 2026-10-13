@@ -73,6 +73,51 @@ async function fetchStars(fullName: string): Promise<number> {
 
 const SCAN_TARGETS = ['AI-DECLARATION.md', 'CANDOR.md'];
 
+type Recheck = 'declared' | 'gone' | 'unknown';
+
+async function recheck(fullName: string, filePath: string): Promise<Recheck> {
+  const res = await fetch(`https://raw.githubusercontent.com/${fullName}/HEAD/${filePath}`, {
+    headers: { Authorization: `Bearer ${GITHUB_TOKEN}` },
+  });
+  if (res.status === 404) return 'gone';
+  if (!res.ok) return 'unknown';
+  return findLineage(await res.text()) ? 'declared' : 'gone';
+}
+
+async function pruneUnseen(scanStartedAt: Date): Promise<number> {
+  const { rows } = await pool.query<{ repo_full_name: string; source_file: string; file_path: string | null }>(
+    `SELECT repo_full_name, source_file, file_path
+     FROM aideclaration.adopters
+     WHERE source_file <> 'CUSTOM' AND last_seen_at < $1`,
+    [scanStartedAt]
+  );
+  console.log(`\n[prune] ${rows.length} listings not seen in this scan`);
+
+  let removed = 0;
+  for (const row of rows) {
+    process.stdout.write(`  ${row.repo_full_name} ... `);
+    await sleep(500);
+    const result = await recheck(row.repo_full_name, row.file_path ?? row.source_file);
+    if (result === 'gone') {
+      await pool.query(
+        `DELETE FROM aideclaration.adopters WHERE repo_full_name = $1 AND source_file = $2`,
+        [row.repo_full_name, row.source_file]
+      );
+      removed++;
+      console.log('removed (declaration gone)');
+    } else if (result === 'declared') {
+      await pool.query(
+        `UPDATE aideclaration.adopters SET last_seen_at = NOW() WHERE repo_full_name = $1 AND source_file = $2`,
+        [row.repo_full_name, row.source_file]
+      );
+      console.log('kept (still declared)');
+    } else {
+      console.log('kept (could not check)');
+    }
+  }
+  return removed;
+}
+
 async function scanFile(filename: string): Promise<{ scanned: number; found: number }> {
   let page = 1;
   let total = 0;
@@ -151,6 +196,7 @@ async function scanFile(filename: string): Promise<{ scanned: number; found: num
 
 async function scan() {
   await ensureAdoptersSchema(pool);
+  const scanStartedAt = (await pool.query<{ now: Date }>(`SELECT NOW() AS now`)).rows[0].now;
 
   let totalScanned = 0;
   let totalFound = 0;
@@ -161,7 +207,8 @@ async function scan() {
     totalFound += found;
   }
 
-  console.log(`\nDone: ${totalFound} adopters found out of ${totalScanned} scanned.`);
+  const removed = await pruneUnseen(scanStartedAt);
+  console.log(`\nDone: ${totalFound} adopters found out of ${totalScanned} scanned, ${removed} removed.`);
 }
 
 scan()
