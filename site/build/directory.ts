@@ -100,7 +100,7 @@ export async function generateDirectory(siteDir: string): Promise<void> {
       : '';
 
     const [owner, repo] = row.repo_full_name.split('/', 2);
-    const name = `<span class="dir-name"><a href="${esc(row.repo_url)}" class="dir-repo">${esc(owner)}/<span class="dir-repo-name">${esc(repo)}</span></a>${dotHtml ? `<span class="dir-dots" aria-hidden="true">${dotHtml}</span>` : ''}</span>`;
+    const name = `<span class="dir-name"><a href="${esc(row.repo_url)}" class="dir-repo" title="${esc(row.repo_full_name)}"><span class="dir-repo-owner">${esc(owner)}/</span><span class="dir-repo-name">${esc(repo)}</span></a><span class="dir-dots" aria-hidden="true">${dotHtml}</span></span>`;
     const toggle = `<button class="dir-toggle" aria-expanded="false" aria-controls="${esc(row.repo_full_name)}-detail" aria-label="Details for ${esc(row.repo_full_name)}">+</button>`;
 
     return `      <li class="dir-item" id="${esc(row.repo_full_name)}" data-tags="${tags.join(' ')}">${name}<span class="dir-meta">${tagHtml}${versionHtml}</span>${toggle}${detailPanel(row)}</li>`;

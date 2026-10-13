@@ -717,7 +717,7 @@ body.old-version nav {
   text-decoration: none;
 }
 
-.dir-repo::after { content: "\00a0\2197"; font-size: 0.75em; color: var(--outline); }
+.dir-repo-name::after { content: "\00a0\2197"; font-size: 0.75em; color: var(--outline); }
 .dir-repo:hover { opacity: 0.6; }
 .dir-repo-name { display: inline-block; }
 
@@ -770,6 +770,7 @@ body.old-version nav {
    version stay direct flex children of the row. Mobile turns it into a
    right-hand column. */
 .dir-meta { display: contents; }
+.dir-meta .dtag { line-height: 1.5; }
 
 .dir-version {
   margin-left: auto;
@@ -923,9 +924,10 @@ body.old-version nav {
   .subnav { display: flex; }
 
   /* Long repo names were being squeezed by the version, which does not
-     shrink. Two columns instead: the name takes what is left and wraps at the
-     slash, and the version sits against the right edge. Tags become squares
-     under the name. */
+     shrink. Two columns instead: the name takes what is left, the version sits
+     against the right edge. Owner and repo always take one line each, cut off
+     with an ellipsis, and the squares line is always there, so every row is
+     the same height. */
   .dir-item { gap: 0 0.75rem; }
 
   .dir-name {
@@ -937,7 +939,15 @@ body.old-version nav {
     min-width: 0;
   }
 
-  .dir-repo { overflow-wrap: break-word; line-height: 1.4; }
+  .dir-repo { align-self: stretch; min-width: 0; line-height: 1.4; }
+
+  .dir-repo-owner,
+  .dir-repo-name {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   .dir-meta {
     display: flex;
@@ -949,7 +959,7 @@ body.old-version nav {
   .dir-version { margin-left: 0; }
   .dir-meta .dtag { display: none; }
 
-  .dir-dots { display: flex; gap: 0.25rem; }
+  .dir-dots { display: flex; gap: 0.25rem; min-height: 8px; }
 
   .dir-dot,
   .dir-legend .dtag { width: 8px; height: 8px; padding: 0; font-size: 0; border-radius: 1px; }
